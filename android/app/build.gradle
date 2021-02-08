@@ -45,8 +45,8 @@ android {
         applicationId "com.kazibora.kamusi"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 19
-        versionName "1.3.5"
+        versionCode 20
+        versionName "1.3.6"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true

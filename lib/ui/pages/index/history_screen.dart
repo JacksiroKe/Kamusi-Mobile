@@ -72,7 +72,7 @@ class HistoryScreenState extends State<HistoryScreen> {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 stops: [ 0.1, 0.4, 0.6, 0.9 ],
-                colors: [ ColorUtils.black, Colors.blue[900],  Colors.blue, Colors.blue[200] ]),
+                colors: [ ColorUtils.black, ColorUtils.baseColor,  ColorUtils.primaryColor, ColorUtils.lightColor ]),
             ),
       child: Stack(
         children: <Widget>[

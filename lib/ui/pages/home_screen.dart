@@ -6,7 +6,7 @@ import '../../utils/colors.dart';
 import 'index/search_screen.dart';
 import 'index/favourite_screen.dart';
 import 'index/history_screen.dart';
-import 'trivia/trivia_screen.dart';
+import 'index/extra_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key key}) : super(key: key);
@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen>
     SearchScreen(),
     FavouriteScreen(),
     HistoryScreen(), 
-    TriviaScreen(),    
+    ExtraScreen(),    
   ];
 
   @override
@@ -69,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen>
         BottomNavigationBarItem( icon: Icon(Icons.home), label: 'Home' ),
         BottomNavigationBarItem( icon: Icon(Icons.star), label: 'Favourites' ),
         BottomNavigationBarItem( icon: Icon(Icons.history), label: 'Recent' ),
-        BottomNavigationBarItem( icon: Icon(Icons.help), label: 'Trivia' ),
+        BottomNavigationBarItem( icon: Icon(Icons.info), label: 'Extra' ),
       ],
     );
   }

@@ -117,6 +117,8 @@ class QuizScreenState extends State<QuizScreen> {
 
   Widget quizHeader()
   {
+    var questionStr = widget.questions[_currentIndex].question.split(":");
+    String question = questionStr[0];
     return Row(
       children: <Widget>[
         CircleAvatar(
@@ -126,7 +128,7 @@ class QuizScreenState extends State<QuizScreen> {
         SizedBox(width: 16.0),
         Expanded(
           child: Text(
-            HtmlUnescape().convert(widget.questions[_currentIndex].question),
+            HtmlUnescape().convert(question),
             softWrap: true,
             style: MediaQuery.of(context).size.width > 800 ? _questionStyle.copyWith(fontSize: 30.0) : _questionStyle,
           ),

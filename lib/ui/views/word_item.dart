@@ -19,7 +19,7 @@ class WordItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String strContent = "<b>" + word.title + "</b>";
+    String strTitle = word.title;
     String strMeaning = word.meaning;
 
     try {
@@ -31,41 +31,35 @@ class WordItem extends StatelessWidget {
         strMeaning = strMeaning.replaceAll(',', ', ');
         strMeaning = strMeaning.replaceAll('  ', ' ');
 
-        strContent = strContent + '<ul>';
+        String strClean = strMeaning.replaceAll('|', '');
+
         var strContents = strMeaning.split("|");
 
+        var strExtra = strContents[0].split(":");
+
+        strMeaning = " ~ " + strExtra[0].trim() + ".";
+
         if (strContents.length > 1) {
-          try {
-            for (int i = 0; i < strContents.length; i++) {
-              var strExtra = strContents[i].split(":");
-              strContent = strContent + "<li>" + strExtra[0] + "</li>";
-            }
-          } catch (Exception) {}
-        } else {
-          var strExtra = strContents[0].split(":");
-          strContent = strContent + "<li>" + strExtra[0] + "</li>";
+          var strExtra = strContents[1].split(":");
+          strMeaning = strMeaning + "\n" + " ~ " + strExtra[0].trim() + ".";
         }
-        strContent = strContent + '</ul>';
-        if (word.synonyms.length > 1)
-          strContent = strContent + '<br><p><b>Visawe:</b> <i>' + word.synonyms + '</i></p>';
 
         return Card(
           elevation: 2,
           child: GestureDetector(
-            child: Html(
-              data: strContent,
-              style: {
-                "html": Style(
-                  fontSize: FontSize(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+                  child: Text(strTitle, maxLines: 1, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
                 ),
-                "ul": Style(
-                  fontSize: FontSize(18.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Text(strMeaning, maxLines: 2, style: TextStyle(fontSize: 16)),
                 ),
-                "p": Style(
-                  fontSize: FontSize(18.0),
-                  margin: EdgeInsets.only(left: 25, top: 10),
-                ),
-              },
+                tagViewer(),
+              ]
             ),
             onTap: () {
               navigateToViewer(word);
@@ -78,10 +72,25 @@ class WordItem extends StatelessWidget {
     }
   }
   
-  void navigateToViewer(Word word) async {
-    await Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return WordView(word);
-    }));
+  Widget tagViewer()
+  {
+    var synonyms = word.synonyms.split(',');
+
+    if (word.synonyms.length == 0) {
+      return Container(padding: const EdgeInsets.only(bottom: 10));
+    } else {
+      return Container(
+        height: 45,
+        padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10, top: 5),
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: synonyms.length,
+          itemBuilder: (BuildContext context, int index) {
+            return tagView(synonyms[index]);
+          },
+        ),
+      );
+    }
   }
   
   Widget tagView(String tagText)
@@ -90,12 +99,12 @@ class WordItem extends StatelessWidget {
       if (tagText.isNotEmpty)
       {
         return Container(
-          padding: const EdgeInsets.all(5),
-          margin: EdgeInsets.only(top: 5, left: 5),
+          margin: EdgeInsets.only(left: 5),
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           decoration: new BoxDecoration( 
             color: Provider.of<AppSettings>(context).isDarkMode ? ColorUtils.black : ColorUtils.primaryColor,
             border: Border.all(color: Provider.of<AppSettings>(context).isDarkMode ? ColorUtils.white : ColorUtils.secondaryColor),
-            borderRadius: BorderRadius.only(topRight: Radius.circular(5), bottomLeft: Radius.circular(5)),
+            borderRadius: BorderRadius.circular(20),
           ),
           child: Text( tagText,style: TextStyle(color: ColorUtils.white, fontWeight: FontWeight.bold, fontSize: 15),
           ),
@@ -105,6 +114,12 @@ class WordItem extends StatelessWidget {
     } catch (Exception) {
       return Container(); 
     }    
+  }
+
+  void navigateToViewer(Word word) async {
+    await Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return WordView(word);
+    }));
   }
 
 }

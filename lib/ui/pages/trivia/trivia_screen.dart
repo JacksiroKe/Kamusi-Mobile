@@ -12,7 +12,6 @@ import '../../../utils/colors.dart';
 import '../../../utils/app_utils.dart';
 import '../../../utils/api_utils.dart';
 import '../../widgets/trivia_options.dart';
-import '../../widgets/trivia_list.dart';
 import '../info/about_screen.dart';
 import '../info/donate_screen.dart';
 import '../info/help_desk_screen.dart';
@@ -89,7 +88,7 @@ class TriviaScreenState extends State<TriviaScreen> {
     return Scaffold(
         appBar: AppBar(
           title: Text(AppStrings.triviaPage),
-          elevation: 0,
+          //elevation: 0,
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.refresh),
@@ -100,12 +99,7 @@ class TriviaScreenState extends State<TriviaScreen> {
             menuPopup()
           ],
         ),
-        body: Stack(
-          children: <Widget>[
-            mainBody(),
-            TriviaList(),
-          ],
-        ),
+        body: mainBody(),
       );
   }
 
@@ -274,26 +268,10 @@ class TriviaScreenState extends State<TriviaScreen> {
             );
           }),
         ),
-        PopupMenuItem(
-          value: 1,
-          child: Text(AppStrings.donateTabPage),
-        ),
-        PopupMenuItem(
-          value: 2,
-          child: Text(AppStrings.helpTabPage),
-        ),
-        PopupMenuItem(
-          value: 3,
-          child: Text(AppStrings.howToUse),
-        ),
-        PopupMenuItem(
-          value: 4,
-          child: Text(AppStrings.aboutApp),
-        ),
       ],
       onCanceled: () { },
       onSelected: (value) {
-        selectedMenu(value, context);
+        //selectedMenu(value, context);
       },
       icon: Icon(
         Theme.of(context).platform == TargetPlatform.iOS ? Icons.more_horiz : Icons.more_vert, color: ColorUtils.white

@@ -93,8 +93,18 @@ class AppStrings {
   static const String searchTab = "Tafuta";
   static const String triviaTab = "TriviaScreen";
 
-  static const String triviaPage = "Chemsha Bongo na Trivia";
-  static const String triviaList = "Trivia Zangu";
+  static const String triviaTitle = "Zaidi ya Kamusi: Trivia";
+
+  static const String triviaPage = "Makundi ya Trivia";
+  static const String triviaListPage = "Trivia za Awali";
+  static const String triviaPageDescription = "Chagua kundi la Trivia ili kuanza";
+  static const String triviaList = "Trivia Zangu za Awali";
+  static const String triviaListDescription = "Pitia au Rudia Trivia Zako za Awali";
+  static const String triviaLeaderboard = "Orodha ya Kuongoza";
+  static const String triviaLeaderboardDescription = "Orodha za wanao ongoza (leaderboard)";
+  static const String triviaSettings = "Mipangilio ya Trivia";
+  static const String triviaSettingsDescription = "Badili Mipangilio ya Trivia";
+
   static const String triviaPageInstruction = "Chagua kundi ili kuanza";
   static const String triviaQuizInstruction = "Chagua Idadi ya Maswali";
   static const String triviaLevelInstruction = "Chagua Kiwango cha Ugumu";
