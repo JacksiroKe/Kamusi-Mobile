@@ -39,7 +39,7 @@ class StartScreenState extends State<StartScreen> {
   }
 
   void _handleTapEvent() async {
-    bool kamusidbLoaded = await Preferences.isKamusidbLoaded();
+    bool kamusidbLoaded = await Preferences.isAppDatabaseLoaded();
     await appDB.additionalTables();
 
     if (this.mounted) {

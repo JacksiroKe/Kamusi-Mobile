@@ -21,14 +21,42 @@ class Preferences {
     return prefs.getString(prefKey);
   }
 
-  static Future<bool> isKamusidbLoaded() async {
+  static Future<void> setSharedPreferenceStr(String prefKey, String prefValue) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();    
+    prefs.setString(prefKey, prefValue);
+  }
+  
+  static Future<int> getSharedPreferenceInt(String prefKey) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(SharedPreferenceKeys.AppDb_loaded);
+    return prefs.getInt(prefKey);
   }
 
-  static Future<void> setKamusidbLoaded(bool isKamusidbLoaded) async {
+  static Future<void> setSharedPreferenceInt(String prefKey, int prefValue) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();    
+    prefs.setInt(prefKey, prefValue);
+  }
+  
+  static Future<bool> isAppDatabaseLoaded() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(SharedPreferenceKeys.appDatabaseLoaded);
+  }
+
+  static Future<void> setKamusidbLoaded(bool isAppDatabaseLoaded) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.setBool(
-        SharedPreferenceKeys.AppDb_loaded, isKamusidbLoaded);
+        SharedPreferenceKeys.appDatabaseLoaded, isAppDatabaseLoaded);
   }
+
+  
+  static Future<bool> isAppTriviaSubscribed() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(SharedPreferenceKeys.triviaSubscribed);
+  }
+
+  static Future<void> setAppTriviaSubscribed(bool isAppTriviaSubscribed) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.setBool(
+        SharedPreferenceKeys.triviaSubscribed, isAppTriviaSubscribed);
+  }
+  
 }

@@ -45,7 +45,7 @@ class AnswersScreen extends StatelessWidget {
       return RaisedButton(
         child: Text(
           AppStrings.done.toUpperCase(), 
-          style: TextStyle(color: ColorUtils.black, fontWeight: FontWeight.w500, fontSize: 30 )
+          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 30 )
         ),
         onPressed: (){
           Navigator.pop(context,true);
@@ -60,23 +60,31 @@ class AnswersScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(HtmlUnescape().convert(question.question), style: TextStyle(
+            Text(HtmlUnescape().convert("${index + 1}. ${question.question}"), style: TextStyle(
               color: ColorUtils.black,
               fontWeight: FontWeight.w500,
               fontSize: 16.0
             ),),
-            SizedBox(height: 5.0),
-            Text(HtmlUnescape().convert("${answers[index]}"), style: TextStyle(
-              color: correct ? Colors.green : Colors.red,
-              fontSize: 18.0,
-              fontWeight: FontWeight.bold
+            Divider(),
+            correct ? Container(): Text.rich(TextSpan(
+              children: [
+                TextSpan(text: AppStrings.yourAnswer),
+                TextSpan(text: HtmlUnescape().convert("${answers[index]}") , style: TextStyle(
+                  color: correct ? Colors.green : Colors.red,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 18.0,
+                ))
+              ]
+            ),style: TextStyle(
+              fontSize: 16.0
             ),),
             SizedBox(height: 5.0),
             correct ? Container(): Text.rich(TextSpan(
               children: [
                 TextSpan(text: AppStrings.correctAnswer),
                 TextSpan(text: HtmlUnescape().convert(question.answer) , style: TextStyle(
-                  fontWeight: FontWeight.w500
+                  fontWeight: FontWeight.w500,
+                  fontSize: 18.0,
                 ))
               ]
             ),style: TextStyle(

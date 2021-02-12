@@ -297,6 +297,7 @@ class AppDatabase {
 
       String defect = correctAnswer.substring(0, 2);
       List<Word> alternatives = await getWordSearch(defect, true);
+      alternatives.toSet().toList();
       alternatives.shuffle();
 
       TriviaQuiz quiz = new TriviaQuiz();

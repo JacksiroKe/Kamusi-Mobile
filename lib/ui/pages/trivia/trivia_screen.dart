@@ -9,13 +9,11 @@ import '../../../services/app_futures.dart';
 import '../../../data/base/event_object.dart';
 import '../../../data/models/trivia_cat.dart';
 import '../../../utils/colors.dart';
+import '../../../utils/core.dart';
 import '../../../utils/app_utils.dart';
 import '../../../utils/api_utils.dart';
+import '../../widgets/trivia_subscription.dart';
 import '../../widgets/trivia_options.dart';
-import '../info/about_screen.dart';
-import '../info/donate_screen.dart';
-import '../info/help_desk_screen.dart';
-import '../info/howto_use_screen.dart';
 
 class TriviaScreen extends StatefulWidget {
 
@@ -37,7 +35,17 @@ class TriviaScreenState extends State<TriviaScreen> {
 
   /// Method to run anything that needs to be run immediately after Widget build
   void initBuild(BuildContext context) async {
-    requestData();
+    bool isMet = await AppCore.isTriviaTrialDeadlineMet();
+
+    if (isMet != null) requestData(); 
+    else 
+      showModalBottomSheet(
+        context: context,            
+        builder: (sheetContext) => BottomSheet(
+          builder: (_) => TriviaSubscription(),
+          onClosing: () {},
+        ),
+      );   
   }
 
   /// Method to request data either from the db or server
@@ -93,7 +101,7 @@ class TriviaScreenState extends State<TriviaScreen> {
             IconButton(
               icon: Icon(Icons.refresh),
               onPressed: () {
-                requestData();
+                initBuild(context);
               },
             ),
             menuPopup()
@@ -227,8 +235,7 @@ class TriviaScreenState extends State<TriviaScreen> {
         Container(
           margin: EdgeInsets.all(5),
           child: FlatButton(
-            child:
-                Text(AppStrings.okayGotIt, style: TextStyle(fontSize: 20)),
+            child: Text(AppStrings.okayGotIt, style: TextStyle(fontSize: 20)),
             color: ColorUtils.primaryColor,
             textColor: ColorUtils.white,
             onPressed: () {
@@ -268,10 +275,14 @@ class TriviaScreenState extends State<TriviaScreen> {
             );
           }),
         ),
+        PopupMenuItem(
+          value: 2,
+          child: Text(AppStrings.subscribeNow),
+        ),
       ],
       onCanceled: () { },
       onSelected: (value) {
-        //selectedMenu(value, context);
+        selectedMenu(value, context);
       },
       icon: Icon(
         Theme.of(context).platform == TargetPlatform.iOS ? Icons.more_horiz : Icons.more_vert, color: ColorUtils.white
@@ -280,29 +291,13 @@ class TriviaScreenState extends State<TriviaScreen> {
 
   void selectedMenu(int menu, BuildContext context) {
     switch (menu) {
-      case 1:
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return DonateScreen();
-          })
-        );
-        break;
-
       case 2:
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return HelpDeskScreen();
-          })
-        );
-        break;
-      case 3:
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return HowtoUseScreen();
-          })
-        );
-        break;
-      case 4:
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return AboutScreen();
-          })
+        showModalBottomSheet(
+          context: context,            
+          builder: (sheetContext) => BottomSheet(
+            builder: (_) => TriviaSubscription(),
+            onClosing: () {},
+          ),
         );
         break;
     }

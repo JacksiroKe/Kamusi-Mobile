@@ -2,9 +2,12 @@
 
 /// Shared Preference Keys for this app
 class SharedPreferenceKeys {
-  static const String AppDb_loaded = "app_dbase_loaded";
-  static const String AppUser = "app_user";
-  static const String DarkMode = "app_dark_mode";
+  static const String appUser = "app_user";
+  static const String appDatabaseLoaded = "app_dbase_loaded";
+  static const String darkMode = "app_dark_mode";
+  static const String triviaSubscribed = "app_trivia_subscribed";
+  static const String triviaSubscriptionMode = "app_trivia_subscription_mode";
+  static const String triviaSubscriptionDeadline = "app_trivia_subscription_deadline";
 }
 
 /// General language strings that are used throught the application majoryly in Kiswahili language
@@ -20,6 +23,8 @@ class AppStrings {
   static const String idioms = 'nahau';
   static const String searches = 'matafuto';
   static const String trivia = 'trivia';
+
+  static const String revCatKey = 'danXhdPXSzsDcJgElNAexHaGnvsPMSqY';
 
   static const String campaign = "\n\n#KamusiYaKiswahili #KiswahiliKitukuzwe \n\nhttps://play.google.com/store/apps/details?id=com.kazibora.kamusi ";
   static const String synonyms_for = "\n\nVisawe (synonyms) vya neno ";
@@ -104,6 +109,9 @@ class AppStrings {
   static const String triviaLeaderboardDescription = "Orodha za wanao ongoza (leaderboard)";
   static const String triviaSettings = "Mipangilio ya Trivia";
   static const String triviaSettingsDescription = "Badili Mipangilio ya Trivia";
+  static const String triviaSubscription = "Usajili (Subscription)";
+  static const String triviaSubscriptionDescription = "Tazama Usajili (Manage Subscription)";
+  static const String triviaSubscribe = "Jisajili (Subscribe) kwa huduma hii";
 
   static const String triviaPageInstruction = "Chagua kundi ili kuanza";
   static const String triviaQuizInstruction = "Chagua Idadi ya Maswali";
@@ -133,5 +141,13 @@ class AppStrings {
   static const String gotoHomescreen = "Rejea kwa Trivia";
   static const String checkAnswers = "Angalia Majibu";
   static const String done = "Malizia";
-  static const String correctAnswer = "Jibu Sahihi: ";
+  static const String correctAnswer = "Jibu Sawa: ";
+  static const String yourAnswer = "Jibu Lako: ";
+
+  static const String subscriptionTrial = "Subscription ya Trial";
+  static const String subscription3months = "Subscription ya Miezi 3";
+  static const String subscription6months = "Subscription ya Miezi 6";
+  static const String subscription1year = "Subscription ya Mwaka 1";
+  static const String subscribe = "Jisajili";
+  static const String subscribeNow = "Jisajili (Subscribe)";
 }

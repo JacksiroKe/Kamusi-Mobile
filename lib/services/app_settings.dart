@@ -9,10 +9,10 @@ class AppSettings extends ChangeNotifier {
 
   AppSettings(this._pref);
 
-  bool get isDarkMode => _pref?.getBool(SharedPreferenceKeys.DarkMode) ?? false;
+  bool get isDarkMode => _pref?.getBool(SharedPreferenceKeys.darkMode) ?? false;
 
   void setDarkMode(bool val) {
-    _pref?.setBool(SharedPreferenceKeys.DarkMode, val);
+    _pref?.setBool(SharedPreferenceKeys.darkMode, val);
     notifyListeners();
   }
 

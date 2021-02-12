@@ -27,5 +27,6 @@ class ColorUtils {
   static const Color black5 = Colors.black54;
   static const Color black6 = Colors.black87;
   static const Color grey = Colors.grey;
+  static const Color red = Colors.red;
 
 }

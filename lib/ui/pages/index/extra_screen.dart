@@ -1,28 +1,61 @@
+import 'dart:io';
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:anisi_controls/anisi_controls.dart';
 
+import '../../../services/app_settings.dart';
+import '../../../utils/preferences.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/app_utils.dart';
 import '../../pages/trivia/trivia_screen.dart';
 import '../../pages/trivia/trivia_list.dart';
-import '../../../services/app_settings.dart';
+import '../../widgets/trivia_subscription.dart';
 
 class ExtraScreen extends StatefulWidget {
+  
   @override
   ExtraScreenState createState() => ExtraScreenState();
 }
 
 class ExtraScreenState extends State<ExtraScreen> {
+  AsTextView subsTitle = AsTextView.setUp(AppStrings.triviaSettings, 18, true, ColorUtils.white, Colors.transparent);
+  AsTextView subsSubtitle = AsTextView.setUp(AppStrings.gettingReady, 16, false, ColorUtils.white, Colors.transparent);
+  Color subsColor = Colors.white;
+
+  final TextStyle titleStyle = TextStyle(fontSize: 18, color: ColorUtils.white, fontWeight: FontWeight.w500 );
+  final TextStyle subtitleStyle = TextStyle(fontSize: 16, color: ColorUtils.white);
+  bool isSubscribed = false;
+  String subscriptionMode = ""; 
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => initBuild(context));
+    initBuild(context);
   }
 
   /// Run anything that needs to be run immediately after Widget build
-  void initBuild(BuildContext context) async {
-   
+  void initBuild(BuildContext context) async {   
+    isSubscribed = await Preferences.isAppTriviaSubscribed();
+    subscriptionMode = await Preferences.getSharedPreferenceStr(SharedPreferenceKeys.triviaSubscriptionMode); 
+
+    setState(() {
+      if (isSubscribed != null)
+      {
+        String mode = AppStrings.subscription3months;
+        if (subscriptionMode == "P6M") mode = AppStrings.subscription6months;
+        else if (subscriptionMode == "P1Y") mode = AppStrings.subscription1year;
+
+        subsTitle.setText(AppStrings.triviaSubscription);
+        subsSubtitle.setText(mode);
+      }
+      else {        
+        subsTitle.setText(AppStrings.triviaSubscription);
+        subsSubtitle.setText(AppStrings.triviaSubscribe);
+        subsColor = Colors.red;
+      }
+    });
   }
   
   @override
@@ -37,14 +70,6 @@ class ExtraScreenState extends State<ExtraScreen> {
 
   Widget mainBody()
   {
-    final TextStyle titleStyle = TextStyle(
-      fontSize: 18, color: ColorUtils.white, 
-      fontWeight: FontWeight.w500
-    );
-    final TextStyle subtitleStyle = TextStyle(
-      fontSize: 16, color: ColorUtils.white, 
-    );
-
     return Container(
       decoration: Provider.of<AppSettings>(context).isDarkMode ? BoxDecoration()
     : BoxDecoration(
@@ -67,7 +92,7 @@ class ExtraScreenState extends State<ExtraScreen> {
               );
             }
           ),
-          Divider(),
+          Divider(height: 1, color: ColorUtils.white),
           ListTile(
             leading: Icon(Icons.history, size: 50, color: ColorUtils.white),
             title: Text(AppStrings.triviaList, style: titleStyle),
@@ -79,28 +104,40 @@ class ExtraScreenState extends State<ExtraScreen> {
               );
             }
           ),
-          Divider(),
+          Divider(height: 1, color: ColorUtils.white),
           ListTile(
             leading: Icon(Icons.list, size: 50, color: ColorUtils.white),
             title: Text(AppStrings.triviaLeaderboard, style: titleStyle),
             subtitle: Text(AppStrings.triviaLeaderboardDescription, style: subtitleStyle),
-            onTap: () {
-              
-            }
+            onTap: () { }
           ),
-          Divider(),
+          Divider(height: 1, color: ColorUtils.white),
           ListTile(
             leading: Icon(Icons.settings, size: 50, color: ColorUtils.white),
             title: Text(AppStrings.triviaSettings, style: titleStyle),
             subtitle: Text(AppStrings.triviaSettingsDescription, style: subtitleStyle),
+            onTap: () { }
+          ),
+          Divider(height: 1, color: ColorUtils.white),
+          ListTile(
+            leading: Icon(Icons.monetization_on_outlined, size: 50, color: ColorUtils.white),
+            title: subsTitle,
+            subtitle: subsSubtitle,
+            tileColor: subsColor,
             onTap: () {
-              
+              showModalBottomSheet(
+                context: context,            
+                builder: (sheetContext) => BottomSheet(
+                  builder: (_) => TriviaSubscription(),
+                  onClosing: () {},
+                ),
+              );
             }
           ),
-          Divider(),
+          Divider(height: 1, color: ColorUtils.white),
         ],
       ),
     );
   }
-  
+
 }

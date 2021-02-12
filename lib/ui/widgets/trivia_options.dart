@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:anisi_controls/anisi_controls.dart';
 
 import '../../services/app_futures.dart';
 import '../../data/base/event_object.dart';
@@ -25,6 +26,7 @@ class TriviaOptions extends StatefulWidget {
 }
 
 class TriviaOptionsState extends State<TriviaOptions> {
+  AsLoader loader = AsLoader.setUp(ColorUtils.primaryColor);
   AppDatabase db = AppDatabase();  
   Future<Database> dbFuture;
 
@@ -39,6 +41,12 @@ class TriviaOptionsState extends State<TriviaOptions> {
     quizCount = 10;
     level = "easy";
     processing = false;
+    WidgetsBinding.instance.addPostFrameCallback((_) => initBuild(context));
+  }
+
+  /// Method to run anything that needs to be run immediately after Widget build
+  void initBuild(BuildContext context) async {
+    loader.showWidget();
   }
 
   @override
@@ -88,7 +96,7 @@ class TriviaOptionsState extends State<TriviaOptions> {
           Text(AppStrings.triviaLevelInstruction, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
           levelBox(),
           Divider(),
-          processing ? CircularProgressIndicator() : RaisedButton(
+          processing ? loader : RaisedButton(
             child: Text(
               AppStrings.triviaStart.toUpperCase(), 
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),

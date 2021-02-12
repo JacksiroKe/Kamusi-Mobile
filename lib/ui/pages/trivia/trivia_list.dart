@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:anisi_controls/anisi_controls.dart';
-import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 
 import '../../../services/app_settings.dart';
 import '../../../data/app_database.dart';
@@ -10,6 +9,8 @@ import '../../../data/models/trivia.dart';
 import '../../../data/models/trivia_quiz.dart';
 import '../../../utils/app_utils.dart';
 import '../../../utils/colors.dart';
+import '../../../utils/core.dart';
+import '../../widgets/trivia_subscription.dart';
 import 'quiz_screen.dart';
 
 class TriviaList extends StatefulWidget {
@@ -34,11 +35,20 @@ class TriviaListState extends State<TriviaList> {
 
   /// Run anything that needs to be run immediately after Widget build
   void initBuild(BuildContext context) async {
-    loadListView();
+    bool isMet = await AppCore.isTriviaTrialDeadlineMet();
+
+    if (isMet != null) loadListView(); 
+    else 
+      showModalBottomSheet(
+        context: context,            
+        builder: (sheetContext) => BottomSheet(
+          builder: (_) => TriviaSubscription(),
+          onClosing: () {},
+        ),
+      );
   }
   
   void loadListView() async {
-
     dbFuture = db.initializeDatabase();
     dbFuture.then((database) {
       Future<List<Trivia>> itemListFuture = db.getTriviaList();
@@ -78,7 +88,7 @@ class TriviaListState extends State<TriviaList> {
           IconButton(
             icon: Icon(Icons.refresh),
             onPressed: () {
-              loadListView();
+              initBuild(context);
             },
           ),
           menuPopup()
@@ -164,7 +174,7 @@ class TriviaListState extends State<TriviaList> {
             requestQuestionData(trivia);
           }
         ),
-        Divider(),
+        Divider(height: 1),
       ],
     );
   }
