@@ -6,7 +6,7 @@ import '../../utils/colors.dart';
 import 'index/search_screen.dart';
 import 'index/favourite_screen.dart';
 import 'index/history_screen.dart';
-import 'index/extra_screen.dart';
+import 'index/trivia_menu.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key key}) : super(key: key);
@@ -22,8 +22,8 @@ class _HomeScreenState extends State<HomeScreen>
   List<Widget> _kTabPages = [
     SearchScreen(),
     FavouriteScreen(),
-    HistoryScreen(), 
-    ExtraScreen(),    
+    HistoryScreen(),
+    TriviaMenu(),
   ];
 
   @override
@@ -54,22 +54,22 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  
-  Widget bottomNavigation()
-  {
+  Widget bottomNavigation() {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       currentIndex: _tabController.index,
       selectedItemColor: ColorUtils.white,
-      backgroundColor: Provider.of<AppSettings>(context).isDarkMode ?  ColorUtils.black : ColorUtils.baseColor,
+      backgroundColor: Provider.of<AppSettings>(context).isDarkMode
+          ? ColorUtils.black
+          : ColorUtils.baseColor,
       showSelectedLabels: false,
       showUnselectedLabels: false,
       onTap: _onItemTapped,
       items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem( icon: Icon(Icons.home), label: 'Home' ),
-        BottomNavigationBarItem( icon: Icon(Icons.star), label: 'Favourites' ),
-        BottomNavigationBarItem( icon: Icon(Icons.history), label: 'Recent' ),
-        BottomNavigationBarItem( icon: Icon(Icons.info), label: 'Extra' ),
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+        BottomNavigationBarItem(icon: Icon(Icons.star), label: 'Favourites'),
+        BottomNavigationBarItem(icon: Icon(Icons.history), label: 'Recent'),
+        BottomNavigationBarItem(icon: Icon(Icons.info), label: 'Extra'),
       ],
     );
   }
@@ -79,5 +79,4 @@ class _HomeScreenState extends State<HomeScreen>
       _tabController.index = index;
     });
   }
-
 }

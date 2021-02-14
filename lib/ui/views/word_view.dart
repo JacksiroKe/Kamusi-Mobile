@@ -52,7 +52,7 @@ class WordViewState extends State<WordView> {
 
     return WillPopScope(
       onWillPop: () {
-        moveToLastScreen();
+        Navigator.pop(context, true);
       },
       child: Scaffold(
         key: globalKey,
@@ -211,10 +211,6 @@ class WordViewState extends State<WordView> {
       content: new Text(word.title + " " + AppStrings.wordLiked),
     ));
     //notifyListeners();
-  }
-
-  void moveToLastScreen() {
-    Navigator.pop(context, true);
   }
 
   void processData() async {

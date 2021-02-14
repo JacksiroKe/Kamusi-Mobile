@@ -10,22 +10,20 @@ import '../../utils/app_utils.dart';
 import '../../utils/colors.dart';
 
 class TriviaSubscription extends StatefulWidget {
- 
   @override
-  TriviaSubscriptionState createState() => TriviaSubscriptionState();
+  State<StatefulWidget> createState() => TriviaSubscriptionState();
 }
 
 enum SubscriptionModes { P3M, P6M, P1Y }
 
 class TriviaSubscriptionState extends State<TriviaSubscription> {
   AsLoader loader = AsLoader.setUp(ColorUtils.primaryColor);
-  PurchaserInfo _purchaserInfo;
   Offerings _offerings;
   bool isSubscribed, processing;
   String subscriptionMode;
 
   List<String> options = List<String>();
-  
+
   SubscriptionModes _mode = SubscriptionModes.P3M;
 
   @override
@@ -34,9 +32,9 @@ class TriviaSubscriptionState extends State<TriviaSubscription> {
     processing = true;
     WidgetsBinding.instance.addPostFrameCallback((_) => initBuild(context));
   }
-  
+
   /// Run anything that needs to be run immediately after Widget build
-  void initBuild(BuildContext context) async {  
+  void initBuild(BuildContext context) async {
     loader.showWidget();
     initPlatformState();
   }
@@ -44,7 +42,8 @@ class TriviaSubscriptionState extends State<TriviaSubscription> {
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     isSubscribed = await Preferences.isAppTriviaSubscribed();
-    subscriptionMode = await Preferences.getSharedPreferenceStr(SharedPreferenceKeys.triviaSubscriptionMode);
+    subscriptionMode = await Preferences.getSharedPreferenceStr(
+        SharedPreferenceKeys.triviaSubscriptionMode);
 
     await Purchases.setDebugLogsEnabled(true);
     await Purchases.setup(AppStrings.revCatKey);
@@ -64,37 +63,23 @@ class TriviaSubscriptionState extends State<TriviaSubscription> {
   }
 
   @override
-  Widget build(BuildContext context){
-    return Container(
-      child: mainBody(),
-      decoration: BoxDecoration(
-        color: Provider.of<AppSettings>(context).isDarkMode ? Colors.grey : Colors.blue[200],
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: () {
+        Navigator.pop(context, true);
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(AppStrings.triviaSubscription),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.close),
+              onPressed: () => Navigator.pop(context, true),
+            )
+          ],
+        ),
+        body: mainBody(),
       ),
-    );
-  }
-
-  Widget titleBox() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(10),
-      decoration: Provider.of<AppSettings>(context).isDarkMode ? 
-        BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              stops: [ 0.1, 0.5, 0.9 ],
-              colors: [ ColorUtils.black, ColorUtils.black4, ColorUtils.grey ]),
-        ) :
-        BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              stops: [ 0.1, 0.5, 0.9 ],
-              colors: [ ColorUtils.baseColor, ColorUtils.secondaryColor, ColorUtils.primaryColor ]),
-      ),
-      child: Text(
-        AppStrings.triviaSubscription.toUpperCase(), 
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: ColorUtils.white)),
     );
   }
 
@@ -102,24 +87,26 @@ class TriviaSubscriptionState extends State<TriviaSubscription> {
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
-          titleBox(),
-          subcriptionOptions(), 
-          processing ? loader : RaisedButton(
-            child: Text(
-              AppStrings.subscribe.toUpperCase(), 
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-            ),
-            onPressed: subscribeAction,
-            color: Provider.of<AppSettings>(context).isDarkMode ? ColorUtils.black : ColorUtils.baseColor,
-          ),
+          subcriptionOptions(),
+          processing
+              ? loader
+              : RaisedButton(
+                  child: Text(
+                    AppStrings.subscribe.toUpperCase(),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                  ),
+                  onPressed: subscribeAction,
+                  color: Provider.of<AppSettings>(context).isDarkMode
+                      ? ColorUtils.black
+                      : ColorUtils.baseColor,
+                ),
           SizedBox(height: 20.0),
         ],
       ),
     );
   }
 
-  Widget subcriptionOptions()
-  {
+  Widget subcriptionOptions() {
     if (_offerings != null) {
       final offering = _offerings.current;
       if (offering != null) {
@@ -127,9 +114,12 @@ class TriviaSubscriptionState extends State<TriviaSubscription> {
         final biannully = offering.sixMonth;
         final yearly = offering.annual;
         if (quarterly != null && biannully != null && yearly != null) {
-          String product1 = AppStrings.subscription3months + " - ${quarterly.product.priceString}";
-          String product2 = AppStrings.subscription6months + " - ${biannully.product.priceString}";
-          String product3 = AppStrings.subscription1year + " - ${yearly.product.priceString}";
+          String product1 = AppStrings.subscription3months +
+              " - ${quarterly.product.priceString}";
+          String product2 = AppStrings.subscription6months +
+              " - ${biannully.product.priceString}";
+          String product3 =
+              AppStrings.subscription1year + " - ${yearly.product.priceString}";
 
           setState(() {
             processing = false;
@@ -166,64 +156,61 @@ class TriviaSubscriptionState extends State<TriviaSubscription> {
                     _mode = value;
                   });
                 },
-              ),         
+              ),
               Divider(),
             ],
           );
         }
       }
-    }
-    else return Container();
+    } else
+      return Container();
   }
-  
-  void subscribeAction() async {    
+
+  void subscribeAction() async {
     setState(() {
-      processing=true;
+      processing = true;
     });
 
     Package package;
-    bool isSubscribed;
-    String mode;
-    
-    try {      
-      switch (_mode)
-      {
+
+    try {
+      switch (_mode) {
         case SubscriptionModes.P3M:
-          mode = "P3M";
           package = _offerings.current.threeMonth;
-          PurchaserInfo purchaserInfo = await Purchases.purchasePackage(package);
-          isSubscribed = purchaserInfo.entitlements.all["kamusi_trivia_quartely"].isActive;
+          await Purchases.purchasePackage(package);
+          setSubscribed("P3M");
           break;
 
         case SubscriptionModes.P6M:
-          mode = "P6M";
           package = _offerings.current.sixMonth;
-          PurchaserInfo purchaserInfo = await Purchases.purchasePackage(package);
-          isSubscribed = purchaserInfo.entitlements.all["kamusi_trivia_biannually"].isActive;
+          await Purchases.purchasePackage(package);
+          setSubscribed("P6M");
           break;
 
         case SubscriptionModes.P1Y:
-          mode = "P1Y";
           package = _offerings.current.annual;
-          PurchaserInfo purchaserInfo = await Purchases.purchasePackage(package);
-          isSubscribed = purchaserInfo.entitlements.all["kamusi_trivia_yearly"].isActive;
+          await Purchases.purchasePackage(package);
+          setSubscribed("PIY");
           break;
-      }
-      
-      if (isSubscribed) {
-        print("User is Subscribed");
-        Preferences.setAppTriviaSubscribed(true);
-        Preferences.setSharedPreferenceStr(SharedPreferenceKeys.triviaSubscriptionMode, mode);
-        Navigator.pop(context, true);
       }
     } on PlatformException catch (e) {
       var errorCode = PurchasesErrorHelper.getErrorCode(e);
+
       if (errorCode == PurchasesErrorCode.purchaseCancelledError) {
         print("User cancelled");
       } else if (errorCode == PurchasesErrorCode.purchaseNotAllowedError) {
         print("User not allowed to purchase");
       }
+      print("Platform Error: " + e.message);
+      print("Error Details: " + e.details.toString());
     }
   }
 
+  void setSubscribed(String mode) async {
+    print("User is Subscribed");
+    Preferences.setAppTriviaSubscribed(true);
+    Preferences.setSharedPreferenceStr(
+        SharedPreferenceKeys.triviaSubscriptionMode, mode);
+    Navigator.pop(context, true);
+  }
 }

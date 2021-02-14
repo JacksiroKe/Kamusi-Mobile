@@ -21,21 +21,23 @@ class Preferences {
     return prefs.getString(prefKey);
   }
 
-  static Future<void> setSharedPreferenceStr(String prefKey, String prefValue) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();    
+  static Future<void> setSharedPreferenceStr(
+      String prefKey, String prefValue) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString(prefKey, prefValue);
   }
-  
+
   static Future<int> getSharedPreferenceInt(String prefKey) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getInt(prefKey);
+    return prefs.getInt(prefKey ?? 0);
   }
 
-  static Future<void> setSharedPreferenceInt(String prefKey, int prefValue) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();    
+  static Future<void> setSharedPreferenceInt(
+      String prefKey, int prefValue) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setInt(prefKey, prefValue);
   }
-  
+
   static Future<bool> isAppDatabaseLoaded() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool(SharedPreferenceKeys.appDatabaseLoaded);
@@ -47,7 +49,6 @@ class Preferences {
         SharedPreferenceKeys.appDatabaseLoaded, isAppDatabaseLoaded);
   }
 
-  
   static Future<bool> isAppTriviaSubscribed() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool(SharedPreferenceKeys.triviaSubscribed);
@@ -58,5 +59,4 @@ class Preferences {
     return prefs.setBool(
         SharedPreferenceKeys.triviaSubscribed, isAppTriviaSubscribed);
   }
-  
 }
