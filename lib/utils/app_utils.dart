@@ -45,8 +45,8 @@ class AppStrings {
   static const String sayingCopied = "Msemo umenakiliwa kwa clipboard!";
   static const String proverbCopied = "Methali imenakiliwa kwa clipboard!";
   static const String wordCopied = "Neno limenakiliwa kwa clipboard!";
-  static const String wordLiked = " imependwa!";
-  static const String wordDisliked = " haijapendwa!";
+  static const String wordLiked = " limependwa!";
+  static const String wordDisliked = " limetolewa kwa vipendwa!";
 
   static const String darkMode = "Mandhari Meusi";
 

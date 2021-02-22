@@ -50,13 +50,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.5.0-nullsafety.1"
-  audioplayer:
-    dependency: "direct main"
-    description:
-      name: audioplayer
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.8.1"
   auto_size_text:
     dependency: "direct main"
     description:
@@ -71,6 +64,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0-nullsafety.1"
+  bubble_bottom_bar:
+    dependency: "direct main"
+    description:
+      name: bubble_bottom_bar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.0"
   build:
     dependency: transitive
     description:
@@ -389,6 +389,34 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
+  flutter_sound:
+    dependency: "direct main"
+    description:
+      name: flutter_sound
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "7.7.0+1"
+  flutter_sound_platform_interface:
+    dependency: transitive
+    description:
+      name: flutter_sound_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "7.7.0+1"
+  flutter_sound_web:
+    dependency: transitive
+    description:
+      name: flutter_sound_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "7.7.0+1"
+  flutter_spinkit:
+    dependency: transitive
+    description:
+      name: flutter_spinkit
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.1.2+1"
   flutter_svg:
     dependency: transitive
     description:
@@ -544,6 +572,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
+  logger:
+    dependency: transitive
+    description:
+      name: logger
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.9.4"
   logging:
     dependency: transitive
     description:
@@ -740,6 +775,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.8"
+  pull_to_refresh:
+    dependency: "direct main"
+    description:
+      name: pull_to_refresh
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.6.4"
   purchases_flutter:
     dependency: "direct main"
     description:
@@ -754,6 +796,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.5"
+  recase:
+    dependency: transitive
+    description:
+      name: recase
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.1"
   responsive_widgets:
     dependency: "direct main"
     description:
@@ -1053,6 +1102,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.0.1+3"
+  uuid:
+    dependency: transitive
+    description:
+      name: uuid
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.2.2"
   vector_math:
     dependency: transitive
     description:

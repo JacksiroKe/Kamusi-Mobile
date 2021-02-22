@@ -4,17 +4,15 @@ import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
 
 import 'services/app_settings.dart';
-import 'ui/pages/splash_screen.dart';
-import 'ui/pages/start_screen.dart';
+import 'views/splash_screen.dart';
+import 'views/start_screen.dart';
 import 'utils/themes.dart';
 
 void main() {
   Crashlytics.instance.enableInDevMode = true;
   FlutterError.onError = Crashlytics.instance.recordFlutterError;
-  InAppPurchaseConnection.enablePendingPurchases();
   runApp(MyApp());
 }
 

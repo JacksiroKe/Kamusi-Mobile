@@ -21,7 +21,8 @@ class AppDatabase {
 
   factory AppDatabase() {
     if (sqliteHelper == null) {
-      sqliteHelper = AppDatabase._createInstance(); // This is executed only once, singleton object
+      sqliteHelper = AppDatabase
+          ._createInstance(); // This is executed only once, singleton object
     }
     return sqliteHelper;
   }
@@ -51,12 +52,11 @@ class AppDatabase {
     await db.execute(Queries.createSearchesTable);
     await db.execute(Queries.createWordsTable);
 
-    
     await db.execute(Queries.createTriviaTable);
     await db.execute(Queries.createTriviaAttemptTable);
   }
 
-  Future<void> additionalTables()  async{
+  Future<void> additionalTables() async {
     Database db = await this.database;
     await db.rawQuery(Queries.createTriviaTable);
     await db.rawQuery(Queries.createTriviaAttemptTable);
@@ -82,10 +82,20 @@ class AppDatabase {
 
   Future<int> favouriteWord(Word item, bool isFavorited) async {
     var db = await this.database;
-    if (isFavorited) item.isfav = 1;
-    else item.isfav = 0;
-    String sqlQuery = 'UPDATE ' + DbUtils.wordsTable + ' SET ' + DbUtils.isfav + '="' + item.isfav.toString() +
-        '" WHERE ' + DbUtils.id + '=' + item.id.toString();
+    if (isFavorited)
+      item.isfav = 1;
+    else
+      item.isfav = 0;
+    String sqlQuery = 'UPDATE ' +
+        DbUtils.wordsTable +
+        ' SET ' +
+        DbUtils.isfav +
+        '="' +
+        item.isfav.toString() +
+        '" WHERE ' +
+        DbUtils.id +
+        '=' +
+        item.id.toString();
 
     var result = await db.rawUpdate(sqlQuery);
     print(sqlQuery);
@@ -105,12 +115,13 @@ class AppDatabase {
   Future<List<Map<String, dynamic>>> getItemMapList(String table) async {
     try {
       Database db = await this.database;
-      List<Map<String, dynamic>> x = await db.rawQuery('SELECT COUNT (*) from ' + table);
+      List<Map<String, dynamic>> x =
+          await db.rawQuery('SELECT COUNT (*) from ' + table);
       int counts = Sqflite.firstIntValue(x);
       print("Counts: " + counts.toString());
       var result = db.query(table);
       return result;
-    } catch(e){
+    } catch (e) {
       print("Error: " + e.message);
       return null;
     }
@@ -126,7 +137,8 @@ class AppDatabase {
   }
 
   //GENERIC SEARCH
-  Future<List<Map<String, dynamic>>> getItemSearchMapLists(String searchString, String table) async {
+  Future<List<Map<String, dynamic>>> getItemSearchMapLists(
+      String searchString, String table) async {
     Database db = await this.database;
     String sqlQuery = DbUtils.title + ' LIKE "$searchString%"';
 
@@ -134,7 +146,8 @@ class AppDatabase {
     return result;
   }
 
-  Future<List<Map<String, dynamic>>> getItemSearchMapList(String searchString, String table, bool searchByTitle) async {
+  Future<List<Map<String, dynamic>>> getItemSearchMapList(
+      String searchString, String table, bool searchByTitle) async {
     Database db = await this.database;
     String sqlQuery = DbUtils.title + " LIKE '$searchString%'";
 
@@ -145,11 +158,13 @@ class AppDatabase {
     return result;
   }
 
-  Future<List<Item>> getItemSearch(String searchString, String table, bool searchByTitle) async {
-    var itemMapList = await getItemSearchMapList(searchString, table, searchByTitle);
+  Future<List<Item>> getItemSearch(
+      String searchString, String table, bool searchByTitle) async {
+    var itemMapList =
+        await getItemSearchMapList(searchString, table, searchByTitle);
 
     List<Item> itemList = List<Item>();
-    
+
     for (int i = 0; i < itemMapList.length; i++) {
       itemList.add(Item.fromMapObject(itemMapList[i]));
     }
@@ -173,7 +188,30 @@ class AppDatabase {
   }
 
   //NENO SEARCH
-  Future<List<Map<String, dynamic>>> getWordSearchMapList(String searchString, bool searchByTitle) async {
+  Future<List<Map<String, dynamic>>> getSpecificWordMapList(
+      String searchString) async {
+    Database db = await this.database;
+    var result = db.query(DbUtils.wordsTable,
+        where: DbUtils.title + " = '$searchString'");
+    return result;
+  }
+
+  Future<Word> getSpecificWord(String searchString) async {
+    var itemMapList = await getSpecificWordMapList(searchString);
+
+    List<Word> itemList = List<Word>();
+
+    for (int i = 0; i < itemMapList.length; i++) {
+      itemList.add(Word.fromMapObject(itemMapList[i]));
+    }
+    if (itemList.isNotEmpty)
+      return itemList[0];
+    else
+      return null;
+  }
+
+  Future<List<Map<String, dynamic>>> getWordSearchMapList(
+      String searchString, bool searchByTitle) async {
     Database db = await this.database;
     String sqlQuery = DbUtils.title + " LIKE '$searchString%'";
 
@@ -184,11 +222,12 @@ class AppDatabase {
     return result;
   }
 
-  Future<List<Word>> getWordSearch(String searchString, bool searchByTitle) async {
+  Future<List<Word>> getWordSearch(
+      String searchString, bool searchByTitle) async {
     var itemMapList = await getWordSearchMapList(searchString, searchByTitle);
 
     List<Word> itemList = List<Word>();
-    
+
     for (int i = 0; i < itemMapList.length; i++) {
       itemList.add(Word.fromMapObject(itemMapList[i]));
     }
@@ -218,8 +257,10 @@ class AppDatabase {
       String searchString) async {
     Database db = await this.database;
     String extraQuery = 'AND ' + DbUtils.isfav + "=1 ";
-    String sqlQuery = DbUtils.title + ' LIKE "$searchString%" $extraQuery OR ' +
-        DbUtils.meaning + ' LIKE "$searchString%" $extraQuery';
+    String sqlQuery = DbUtils.title +
+        ' LIKE "$searchString%" $extraQuery OR ' +
+        DbUtils.meaning +
+        ' LIKE "$searchString%" $extraQuery';
 
     var result = db.query(DbUtils.wordsTable, where: sqlQuery);
     return result;
@@ -229,7 +270,7 @@ class AppDatabase {
     var itemMapList = await getFavSearchMapList(searchString);
 
     List<Word> itemList = List<Word>();
-    
+
     for (int i = 0; i < itemMapList.length; i++) {
       itemList.add(Word.fromMapObject(itemMapList[i]));
     }
@@ -239,9 +280,25 @@ class AppDatabase {
   //Create a new Trivia
   Future<int> insertTrivia(Trivia trivia) async {
     Database db = await this.database;
-    var result = await db.rawInsert('INSERT INTO ' + DbUtils.triviaTable + 
-      '(' + DbUtils.category + ', ' + DbUtils.description + ', ' + DbUtils.questions + ', ' + DbUtils.level + ') VALUES(' + 
-      trivia.category.toString() + ', "' + trivia.description + '", "' + trivia.questions + '", "' + trivia.level + '")');
+    var result = await db.rawInsert('INSERT INTO ' +
+        DbUtils.triviaTable +
+        '(' +
+        DbUtils.category +
+        ', ' +
+        DbUtils.description +
+        ', ' +
+        DbUtils.questions +
+        ', ' +
+        DbUtils.level +
+        ') VALUES(' +
+        trivia.category.toString() +
+        ', "' +
+        trivia.description +
+        '", "' +
+        trivia.questions +
+        '", "' +
+        trivia.level +
+        '")');
     return result;
   }
 
@@ -263,7 +320,8 @@ class AppDatabase {
 
   Future<List<Map<String, dynamic>>> getTriviaByIdList(int itemID) async {
     Database db = await this.database;
-    var result = db.query(DbUtils.triviaTable, where: DbUtils.id + '=' + itemID.toString());
+    var result = db.query(DbUtils.triviaTable,
+        where: DbUtils.id + '=' + itemID.toString());
     return result;
   }
 
@@ -276,8 +334,9 @@ class AppDatabase {
     }
     return itemList[0];
   }
-  
-  Future<List<Map<String, dynamic>>> getTriviaEntryMapList(String wordids) async {
+
+  Future<List<Map<String, dynamic>>> getTriviaEntryMapList(
+      String wordids) async {
     Database db = await this.database;
     String sqlQuery = DbUtils.id + " IN ($wordids)";
 
@@ -285,13 +344,13 @@ class AppDatabase {
     return result;
   }
 
-  Future<List<TriviaQuiz>> getTriviaEntries(String level, String wordids) async {
+  Future<List<TriviaQuiz>> getTriviaEntries(
+      String level, String wordids) async {
     var itemMapList = await getTriviaEntryMapList(wordids);
 
     List<TriviaQuiz> itemList = List<TriviaQuiz>();
-   
-    for (int i = 0; i < itemMapList.length; i++) 
-    {
+
+    for (int i = 0; i < itemMapList.length; i++) {
       String correctAnswer = itemMapList[i]['title'];
       var fullQuestion = itemMapList[i]['meaning'].split("|");
 
@@ -301,8 +360,13 @@ class AppDatabase {
       alternatives.shuffle();
 
       TriviaQuiz quiz = new TriviaQuiz();
-      quiz.type = itemMapList[i]["type"] == "multiple" ? Type.multiple : Type.boolean;
-      quiz.level = itemMapList[i]["level"] == "easy" ? Level.easy : itemMapList[i]["level"] == "medium" ? Level.medium : Level.hard;
+      quiz.type =
+          itemMapList[i]["type"] == "multiple" ? Type.multiple : Type.boolean;
+      quiz.level = itemMapList[i]["level"] == "easy"
+          ? Level.easy
+          : itemMapList[i]["level"] == "medium"
+              ? Level.medium
+              : Level.hard;
       quiz.question = fullQuestion[0];
       quiz.answer = correctAnswer;
       quiz.options = List<dynamic>();
@@ -310,7 +374,7 @@ class AppDatabase {
       quiz.options.add(correctAnswer);
 
       quiz.options.add(alternatives[0].title);
-      
+
       if (alternatives.length > 2) {
         quiz.options.add(alternatives[1].title);
       }

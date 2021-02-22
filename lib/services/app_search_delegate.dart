@@ -5,7 +5,7 @@ import '../services/app_settings.dart';
 import '../data/models/word.dart';
 import '../utils/app_utils.dart';
 import '../utils/colors.dart';
-import '../ui/views/word_item.dart';
+import '../widgets/word_item.dart';
 
 class AppSearchDelegate extends SearchDelegate<List> {
 
