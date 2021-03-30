@@ -9,7 +9,6 @@ import '../services/app_settings.dart';
 import '../data/app_database.dart';
 import '../data/models/trivia.dart';
 import '../data/models/trivia_cat.dart';
-import '../data/models/trivia_word.dart';
 import '../data/models/trivia_quiz.dart';
 import '../utils/colors.dart';
 import '../utils/api_utils.dart';
@@ -29,16 +28,15 @@ class TriviaOptionsState extends State<TriviaOptions> {
   AppDatabase db = AppDatabase();
   Future<Database> dbFuture;
 
-  int quizCount;
-  String level;
+  int level, limit;
   bool processing;
-  String triviaQuestions;
+  List<TriviaQuiz> questions = List<TriviaQuiz>();
 
   @override
   void initState() {
     super.initState();
-    quizCount = 10;
-    level = "easy";
+    limit = 10;
+    level = 1;
     processing = false;
     WidgetsBinding.instance.addPostFrameCallback((_) => initBuild(context));
   }
@@ -56,13 +54,31 @@ class TriviaOptionsState extends State<TriviaOptions> {
       },
       child: Scaffold(
         appBar: AppBar(
+          leading: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+            elevation: 5,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(30),
+              child: FadeInImage(
+                image:
+                    NetworkImage(ApiConstants.baseUrl + widget.category.icon),
+                placeholder: AssetImage(AppStrings.appIcon),
+                height: 30,
+                width: 30,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
           title: Text(
-              AppStrings.triviaCartegory + widget.category.title.toUpperCase()),
+            AppStrings.triviaCartegory + widget.category.title.toUpperCase(),
+          ),
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.close),
               onPressed: () => Navigator.pop(context, true),
-            )
+            ),
           ],
         ),
         body: mainBody(),
@@ -77,7 +93,7 @@ class TriviaOptionsState extends State<TriviaOptions> {
           SizedBox(height: 20.0),
           Text(AppStrings.triviaQuizInstruction,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-          quizCountBox(),
+          limitBox(),
           Divider(),
           Text(AppStrings.triviaLevelInstruction,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
@@ -101,7 +117,7 @@ class TriviaOptionsState extends State<TriviaOptions> {
     );
   }
 
-  Widget quizCountBox() {
+  Widget limitBox() {
     return SizedBox(
       width: double.infinity,
       child: Wrap(
@@ -114,67 +130,67 @@ class TriviaOptionsState extends State<TriviaOptions> {
           ActionChip(
             label: Text("10"),
             labelStyle: TextStyle(
-                color: quizCount == 10 ? ColorUtils.white : ColorUtils.black),
-            backgroundColor: quizCount == 10
+                color: limit == 10 ? ColorUtils.white : ColorUtils.black),
+            backgroundColor: limit == 10
                 ? Provider.of<AppSettings>(context).isDarkMode
                     ? ColorUtils.black
                     : ColorUtils.baseColor
                 : Provider.of<AppSettings>(context).isDarkMode
                     ? ColorUtils.white2
                     : ColorUtils.secondaryColor,
-            onPressed: () => setQuizCount(10),
+            onPressed: () => setLimit(10),
           ),
           ActionChip(
             label: Text("20"),
             labelStyle: TextStyle(
-                color: quizCount == 20 ? ColorUtils.white : ColorUtils.black),
-            backgroundColor: quizCount == 20
+                color: limit == 20 ? ColorUtils.white : ColorUtils.black),
+            backgroundColor: limit == 20
                 ? Provider.of<AppSettings>(context).isDarkMode
                     ? ColorUtils.black
                     : ColorUtils.baseColor
                 : Provider.of<AppSettings>(context).isDarkMode
                     ? ColorUtils.white2
                     : ColorUtils.secondaryColor,
-            onPressed: () => setQuizCount(20),
+            onPressed: () => setLimit(20),
           ),
           ActionChip(
             label: Text("30"),
             labelStyle: TextStyle(
-                color: quizCount == 30 ? ColorUtils.white : ColorUtils.black),
-            backgroundColor: quizCount == 30
+                color: limit == 30 ? ColorUtils.white : ColorUtils.black),
+            backgroundColor: limit == 30
                 ? Provider.of<AppSettings>(context).isDarkMode
                     ? ColorUtils.black
                     : ColorUtils.baseColor
                 : Provider.of<AppSettings>(context).isDarkMode
                     ? ColorUtils.white2
                     : ColorUtils.secondaryColor,
-            onPressed: () => setQuizCount(30),
+            onPressed: () => setLimit(30),
           ),
           ActionChip(
             label: Text("40"),
             labelStyle: TextStyle(
-                color: quizCount == 40 ? ColorUtils.white : ColorUtils.black),
-            backgroundColor: quizCount == 40
+                color: limit == 40 ? ColorUtils.white : ColorUtils.black),
+            backgroundColor: limit == 40
                 ? Provider.of<AppSettings>(context).isDarkMode
                     ? ColorUtils.black
                     : ColorUtils.baseColor
                 : Provider.of<AppSettings>(context).isDarkMode
                     ? ColorUtils.white2
                     : ColorUtils.secondaryColor,
-            onPressed: () => setQuizCount(40),
+            onPressed: () => setLimit(40),
           ),
           ActionChip(
             label: Text("50"),
             labelStyle: TextStyle(
-                color: quizCount == 50 ? ColorUtils.white : ColorUtils.black),
-            backgroundColor: quizCount == 50
+                color: limit == 50 ? ColorUtils.white : ColorUtils.black),
+            backgroundColor: limit == 50
                 ? Provider.of<AppSettings>(context).isDarkMode
                     ? ColorUtils.black
                     : ColorUtils.baseColor
                 : Provider.of<AppSettings>(context).isDarkMode
                     ? ColorUtils.white2
                     : ColorUtils.secondaryColor,
-            onPressed: () => setQuizCount(50),
+            onPressed: () => setLimit(50),
           ),
         ],
       ),
@@ -192,56 +208,30 @@ class TriviaOptionsState extends State<TriviaOptions> {
         children: <Widget>[
           SizedBox(width: 0.0),
           ActionChip(
-            label: Text(AppStrings.triviaEasy.toUpperCase()),
+            label: Text("Kiwango 1"),
             labelStyle: TextStyle(
-                color: level == "easy" ? ColorUtils.white : ColorUtils.black),
-            backgroundColor: level == "easy"
+                color: level == 1 ? ColorUtils.white : ColorUtils.black),
+            backgroundColor: level == 1
                 ? Provider.of<AppSettings>(context).isDarkMode
                     ? ColorUtils.black
                     : ColorUtils.baseColor
                 : Provider.of<AppSettings>(context).isDarkMode
                     ? ColorUtils.white2
                     : ColorUtils.secondaryColor,
-            onPressed: () => setDifficulty("easy"),
-          ),
-          ActionChip(
-            label: Text(AppStrings.triviaMedium.toUpperCase()),
-            labelStyle: TextStyle(
-                color: level == "medium" ? ColorUtils.white : ColorUtils.black),
-            backgroundColor: level == "medium"
-                ? Provider.of<AppSettings>(context).isDarkMode
-                    ? ColorUtils.black
-                    : ColorUtils.baseColor
-                : Provider.of<AppSettings>(context).isDarkMode
-                    ? ColorUtils.white2
-                    : ColorUtils.secondaryColor,
-            onPressed: () => setDifficulty("medium"),
-          ),
-          ActionChip(
-            label: Text(AppStrings.triviaHard.toUpperCase()),
-            labelStyle: TextStyle(
-                color: level == "hard" ? ColorUtils.white : ColorUtils.black),
-            backgroundColor: level == "hard"
-                ? Provider.of<AppSettings>(context).isDarkMode
-                    ? ColorUtils.black
-                    : ColorUtils.baseColor
-                : Provider.of<AppSettings>(context).isDarkMode
-                    ? ColorUtils.white2
-                    : ColorUtils.secondaryColor,
-            onPressed: () => setDifficulty("hard"),
+            onPressed: () => setlevel(1),
           ),
         ],
       ),
     );
   }
 
-  setQuizCount(int value) {
+  setLimit(int value) {
     setState(() {
-      quizCount = value;
+      limit = value;
     });
   }
 
-  setDifficulty(String value) {
+  setlevel(int value) {
     setState(() {
       level = value;
     });
@@ -252,14 +242,14 @@ class TriviaOptionsState extends State<TriviaOptions> {
       processing = true;
     });
     EventObject eventObject =
-        await getTrivia(widget.category.number, level, quizCount);
+        await getQuestions(widget.category.id, level, limit);
 
     switch (eventObject.id) {
       case EventConstants.requestSuccessful:
         {
           setState(() {
-            triviaQuestions = TriviaWord.asString(eventObject.object);
-            saveData();
+            questions = TriviaQuiz.fromData(eventObject.object);
+            nextAction();
           });
         }
         break;
@@ -282,33 +272,15 @@ class TriviaOptionsState extends State<TriviaOptions> {
     }
   }
 
-  Future<void> saveData() async {
+  Future<void> nextAction() async {
     Trivia trivial = new Trivia(
-        widget.category.number, widget.category.title, triviaQuestions, level);
-    int iD = await db.insertTrivia(trivial);
-    Trivia trivia = await db.getTriviaById(iD);
+        widget.category.number, widget.category.title, questions.length, level);
 
-    String wordIDs = triviaQuestions.replaceAll(" ", ", ");
-    List<TriviaQuiz> questions = List<TriviaQuiz>();
-
-    dbFuture = db.initializeDatabase();
-    dbFuture.then((database) {
-      Future<List<TriviaQuiz>> itemListFuture =
-          db.getTriviaEntries(trivia.level, wordIDs);
-      itemListFuture.then((resultList) {
-        setState(() {
-          processing = false;
-          questions = resultList;
-          nextAction(trivia, questions);
-        });
-      });
-    });
-  }
-
-  Future<void> nextAction(Trivia trivia, List<TriviaQuiz> questions) async {
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (_) => QuizScreen(trivia: trivia, questions: questions)));
+      context,
+      MaterialPageRoute(
+        builder: (_) => QuizScreen(trivia: trivial, questions: questions),
+      ),
+    );
   }
 }

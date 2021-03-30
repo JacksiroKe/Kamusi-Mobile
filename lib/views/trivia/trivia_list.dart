@@ -63,7 +63,7 @@ class TriviaListState extends State<TriviaList> {
   }
 
   void requestQuestionData(Trivia trivia) async {
-    String wordIDs = trivia.questions.replaceAll(" ", ", ");
+    /*String wordIDs = trivia.questions.replaceAll(" ", ", ");
     List<TriviaQuiz> questions = List<TriviaQuiz>();
 
     dbFuture = db.initializeDatabase();
@@ -75,7 +75,7 @@ class TriviaListState extends State<TriviaList> {
           nextAction(trivia, questions);
         });
       });
-    });
+    });*/
   }
 
   @override
@@ -153,7 +153,7 @@ class TriviaListState extends State<TriviaList> {
   
   Widget triviaItem(BuildContext context, int index) {
     Trivia trivia = items[index];
-    var questions = trivia.questions.split(" ");
+    /*var questions = trivia.questions.split(" ");
     String level = "Rahisi";
     if (trivia.level == 'medium') level = "Wastani";
     else if (trivia.level == 'hard') level = "Ngumu";
@@ -176,7 +176,7 @@ class TriviaListState extends State<TriviaList> {
         ),
         Divider(height: 1),
       ],
-    );
+    );*/
   }
 
   Future<void> nextAction(Trivia trivia, List<TriviaQuiz> questions) async

@@ -9,7 +9,6 @@ import '../../services/app_futures.dart';
 import '../../data/base/event_object.dart';
 import '../../data/models/trivia_cat.dart';
 import '../../utils/colors.dart';
-import '../../utils/core.dart';
 import '../../utils/app_utils.dart';
 import '../../utils/api_utils.dart';
 import '../../widgets/trivia_subscription.dart';
@@ -175,37 +174,36 @@ class TriviaScreenState extends State<TriviaScreen> {
 
   Widget categoryItem(BuildContext context, int index) {
     TriviaCat category = categories[index];
-    return MaterialButton(
-      elevation: 1.0,
-      highlightElevation: 1.0,
-      onPressed: () => categoryPressed(context, category),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      color: Colors.grey.shade800,
-      textColor: Colors.white70,
+    return GestureDetector(
+      onTap: () {
+        categoryPressed(context, category);
+      },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Container(
-              decoration: new BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(55),
+            ),
+            elevation: 10,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(55),
+              child: FadeInImage(
+                image: NetworkImage(ApiConstants.baseUrl + category.icon),
+                placeholder: AssetImage(AppStrings.appIcon),
+                height: 55,
+                width: 55,
+                fit: BoxFit.cover,
               ),
-              /*child: FadeInImage(
-              image: NetworkImage(ApiConstants.baseUrl + category.icon),
-              placeholder: AssetImage(AppStrings.appIcon),
-              height: 50.0,
-              width: 50.0,
-              fit: BoxFit.cover,
-            ),*/
-              child: Image.asset(AppStrings.appIcon, height: 50, width: 50)),
-          SizedBox(height: 5.0),
+            ),
+          ),
+          SizedBox(height: 2.0),
           AutoSizeText(
             category.title,
-            minFontSize: 10.0,
             textAlign: TextAlign.center,
-            maxLines: 3,
+            maxLines: 1,
             wrapWords: false,
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
           ),
         ],
       ),

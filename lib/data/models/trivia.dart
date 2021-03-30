@@ -5,9 +5,9 @@ class Trivia {
   int _id;
   int _triviaid;
   int _category;
+  int _level;
   String _description;
-  String _questions;
-  String _level;
+  int _questions;
   int _score;
   String _time;
 
@@ -22,8 +22,8 @@ class Trivia {
   int get triviaid => _triviaid;
   int get category => _category;
   String get description => _description;
-  String get questions => _questions;
-  String get level => _level;
+  int get questions => _questions;
+  int get level => _level;
   int get score => _score;
   String get time => _time;
 
@@ -43,11 +43,11 @@ class Trivia {
     this._description = newDescription;
   }
 
-  set questions(String newQuestions) {
+  set questions(int newQuestions) {
     this._questions = newQuestions;
   }
 
-  set level(String newLevel) {
+  set level(int newLevel) {
     this._level = newLevel;
   }
 

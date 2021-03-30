@@ -77,6 +77,7 @@ class WordItem extends StatelessWidget {
             Center(
               child: Text(
                 "MAANA",
+                style: TextStyle(fontSize: 12),
               ),
             ),
             Center(

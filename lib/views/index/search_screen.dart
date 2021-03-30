@@ -19,6 +19,8 @@ import '../info/help_desk_screen.dart';
 import '../info/howto_use_screen.dart';
 import '../../widgets/any_item.dart';
 import '../../widgets/word_item.dart';
+import '../../widgets/nav_drawer.dart';
+import '../../widgets/trivia_menu.dart';
 
 final filters = [
   AppStrings.words,
@@ -67,10 +69,15 @@ class SearchScreen extends StatefulWidget {
 }
 
 class SearchScreenState extends State<SearchScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   AppDatabase db = AppDatabase();
   AsLoader loader = AsLoader.setUp(ColorUtils.primaryColor);
   AsInformer notice = AsInformer.setUp(3, AppStrings.nothing, Colors.red,
       Colors.transparent, ColorUtils.white, 10);
+
+  NavDrawer leftDrawer;
+  TriviaMenu rightDrawer;
+
   final ScrollController myScrollController = ScrollController();
 
   Future<Database> dbFuture;
@@ -182,7 +189,11 @@ class SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    leftDrawer = NavDrawer();
+    rightDrawer = TriviaMenu();
+
     return Scaffold(
+      key: _scaffoldKey,
       body: Container(
         decoration: Provider.of<AppSettings>(context).isDarkMode
             ? BoxDecoration()
@@ -205,7 +216,8 @@ class SearchScreenState extends State<SearchScreen> {
           child: mainBody(),
         ),
       ),
-      //floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      drawer: Drawer(child: leftDrawer),
+      endDrawer: Drawer(child: rightDrawer),
       floatingActionButton: FloatingActionButton(
         isExtended: true,
         child: Icon(Icons.arrow_upward, color: ColorUtils.white),
@@ -227,8 +239,8 @@ class SearchScreenState extends State<SearchScreen> {
         headerBar(),
         filterBar(),
         Container(
-          height: MediaQuery.of(context).size.height - 175,
-          margin: EdgeInsets.only(top: 8),
+          height: MediaQuery.of(context).size.height - 163,
+          margin: EdgeInsets.only(top: 5),
           child: contentView(),
         ),
       ],
@@ -238,27 +250,35 @@ class SearchScreenState extends State<SearchScreen> {
   /// Custom Appbar: App name, Search button, Menu button
   Widget headerBar() {
     return Container(
-      padding: EdgeInsets.only(left: 5),
+      padding: EdgeInsets.only(right: 10, left: 10),
       decoration: BoxDecoration(
           color: Provider.of<AppSettings>(context).isDarkMode
               ? ColorUtils.black
               : Colors.transparent),
       child: Row(
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(right: 5),
-            child: Image.asset(AppStrings.appIcon, height: 25, width: 25),
+          InkWell(
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Image.asset(AppStrings.appIcon, height: 22, width: 22),
+            ),
+            onTap: () async {
+              _scaffoldKey.currentState.openDrawer();
+            },
           ),
           Text(
             AppStrings.appName,
             style: TextStyle(
-                fontSize: 25,
+                fontSize: 22,
                 color: ColorUtils.white,
                 fontWeight: FontWeight.w700),
           ),
           Flexible(child: Container()),
           InkWell(
-            child: Icon(Icons.search, color: ColorUtils.white),
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Icon(Icons.search, color: ColorUtils.white),
+            ),
             onTap: () async {
               final List selected = await showSearch(
                 context: context,
@@ -266,7 +286,15 @@ class SearchScreenState extends State<SearchScreen> {
               );
             },
           ),
-          menuPopup(),
+          InkWell(
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Icon(Icons.menu, color: ColorUtils.white),
+            ),
+            onTap: () async {
+              _scaffoldKey.currentState.openEndDrawer();
+            },
+          ),
         ],
       ),
     );
@@ -276,7 +304,6 @@ class SearchScreenState extends State<SearchScreen> {
   Widget filterBar() {
     return Container(
       width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.only(top: 5),
       constraints: BoxConstraints(
         maxWidth: MediaQuery.of(context).size.width,
       ),

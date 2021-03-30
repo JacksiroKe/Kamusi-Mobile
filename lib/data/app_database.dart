@@ -295,9 +295,9 @@ class AppDatabase {
         ', "' +
         trivia.description +
         '", "' +
-        trivia.questions +
+        trivia.questions.toString() +
         '", "' +
-        trivia.level +
+        trivia.level.toString() +
         '")');
     return result;
   }
@@ -360,14 +360,14 @@ class AppDatabase {
       alternatives.shuffle();
 
       TriviaQuiz quiz = new TriviaQuiz();
-      quiz.type =
+      /*quiz.type =
           itemMapList[i]["type"] == "multiple" ? Type.multiple : Type.boolean;
       quiz.level = itemMapList[i]["level"] == "easy"
           ? Level.easy
           : itemMapList[i]["level"] == "medium"
               ? Level.medium
               : Level.hard;
-      quiz.question = fullQuestion[0];
+      quiz.question = fullQuestion[0];*/
       quiz.answer = correctAnswer;
       quiz.options = List<dynamic>();
 

@@ -36,13 +36,13 @@ class TriviaPrepareState extends State<TriviaPrepare> {
   /// Run anything that needs to be run immediately after Widget build
   void initBuild(BuildContext context) async {
     informer.showWidget();
-    triviaWords = widget.trivia.questions.split(" ");
+    //triviaWords = widget.trivia.questions.split(" ");
     quizCount = triviaWords.length;
     requestData();
   }
 
   void requestData() async {
-    String wordIDs = widget.trivia.questions.replaceAll(" ", ", ");
+    /*String wordIDs = widget.trivia.questions.replaceAll(" ", ", ");
 
     dbFuture = db.initializeDatabase();
     dbFuture.then((database) {
@@ -53,7 +53,7 @@ class TriviaPrepareState extends State<TriviaPrepare> {
           nextAction();
         });
       });
-    });
+    });*/
   }
 
 

@@ -7,7 +7,6 @@ import '../utils/colors.dart';
 import 'index/search_screen.dart';
 import 'index/favourite_screen.dart';
 import 'index/history_screen.dart';
-import 'index/trivia_menu.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key key}) : super(key: key);
@@ -24,7 +23,6 @@ class _HomeScreenState extends State<HomeScreen>
     SearchScreen(),
     FavouriteScreen(),
     HistoryScreen(),
-    TriviaMenu(),
   ];
 
   @override
@@ -62,8 +60,8 @@ class _HomeScreenState extends State<HomeScreen>
       onTap: _onItemTapped,
       borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       elevation: 8,
-      fabLocation: BubbleBottomBarFabLocation.end, //new
-      hasNotch: true, //new
+      fabLocation: BubbleBottomBarFabLocation.end,
+      hasNotch: true,
       hasInk: true, //new, gives a cute ink effect
       inkColor: ColorUtils.white,
       backgroundColor: Provider.of<AppSettings>(context).isDarkMode
@@ -71,49 +69,41 @@ class _HomeScreenState extends State<HomeScreen>
           : ColorUtils.baseColor,
       items: <BubbleBottomBarItem>[
         BubbleBottomBarItem(
-            backgroundColor: ColorUtils.white,
-            icon: Icon(
-              Icons.home,
-              color: ColorUtils.white,
-            ),
-            activeIcon: Icon(
-              Icons.home,
-              color: ColorUtils.white,
-            ),
-            title: Text("Nyumbani")),
+          backgroundColor: ColorUtils.white,
+          icon: Icon(
+            Icons.home,
+            color: ColorUtils.white,
+          ),
+          activeIcon: Icon(
+            Icons.home,
+            color: ColorUtils.white,
+          ),
+          title: Text("Nyumbani"),
+        ),
         BubbleBottomBarItem(
-            backgroundColor: ColorUtils.white,
-            icon: Icon(
-              Icons.star,
-              color: ColorUtils.white,
-            ),
-            activeIcon: Icon(
-              Icons.star,
-              color: ColorUtils.white,
-            ),
-            title: Text("Vipendwa")),
+          backgroundColor: ColorUtils.white,
+          icon: Icon(
+            Icons.star,
+            color: ColorUtils.white,
+          ),
+          activeIcon: Icon(
+            Icons.star,
+            color: ColorUtils.white,
+          ),
+          title: Text("Vipendwa"),
+        ),
         BubbleBottomBarItem(
-            backgroundColor: ColorUtils.white,
-            icon: Icon(
-              Icons.history,
-              color: ColorUtils.white,
-            ),
-            activeIcon: Icon(
-              Icons.history,
-              color: ColorUtils.white,
-            ),
-            title: Text("Historia")),
-        BubbleBottomBarItem(
-            backgroundColor: ColorUtils.white,
-            icon: Icon(
-              Icons.info,
-              color: ColorUtils.white,
-            ),
-            activeIcon: Icon(
-              Icons.info,
-              color: ColorUtils.white,
-            ),
-            title: Text("Trivia"))
+          backgroundColor: ColorUtils.white,
+          icon: Icon(
+            Icons.history,
+            color: ColorUtils.white,
+          ),
+          activeIcon: Icon(
+            Icons.history,
+            color: ColorUtils.white,
+          ),
+          title: Text("Historia"),
+        ),
       ],
     );
   }

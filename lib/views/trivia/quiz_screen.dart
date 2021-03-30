@@ -18,7 +18,7 @@ class QuizScreen extends StatefulWidget {
   final List<TriviaQuiz> questions;
   final Trivia trivia;
 
-  const QuizScreen({Key key, @required this.trivia, @required this.questions})
+  const QuizScreen({Key key, @required this.questions, this.trivia})
       : super(key: key);
 
   @override
@@ -26,73 +26,13 @@ class QuizScreen extends StatefulWidget {
 }
 
 class QuizScreenState extends State<QuizScreen> {
-  FlutterSoundPlayer _mPlayer = FlutterSoundPlayer();
-  bool _mPlayerIsInited;
-  final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
-
   final TextStyle _questionStyle = TextStyle(
       fontSize: 18.0, fontWeight: FontWeight.w500, color: Colors.white);
-  TriviaQuiz question;
-  bool busy = false;
+
   int _currentIndex = 0;
   final Map<int, dynamic> _answers = {};
-  String kamusiAudio;
-  Uint8List introfiledata, loopfiledata;
-
-  Future<Uint8List> getAssetData(String path) async {
-    var asset = await rootBundle.load(path);
-    return asset.buffer.asUint8List();
-  }
-
-  void initState() {
-    super.initState();
-    _mPlayer.openAudioSession().then((value) {
-      setState(() {
-        _mPlayerIsInited = true;
-        initData();
-      });
-    });
-    WidgetsBinding.instance.addPostFrameCallback((_) => initBuild(context));
-  }
-
-  void initData() async {
-    introfiledata = await getAssetData("assets/audio/timelapse1.mp3");
-    loopfiledata = await getAssetData("assets/audio/timelapse2.mp3");
-  }
-
-  @override
-  void dispose() {
-    _mPlayer.stopPlayer();
-    _mPlayer.closeAudioSession();
-    _mPlayer = null;
-
-    super.dispose();
-  }
-
-  void playNow() async {
-    await _mPlayer.startPlayer(
-        fromDataBuffer: loopfiledata,
-        codec: Codec.mp3,
-        whenFinished: () {
-          playNow();
-        });
-  }
-
-  void playKamusiAudio() async {
-    if (!busy && _mPlayerIsInited) {
-      busy = true;
-      await _mPlayer.startPlayer(
-          fromDataBuffer: introfiledata,
-          codec: Codec.mp3,
-          whenFinished: () {
-            playNow();
-          });
-      setState(() {});
-    }
-  }
-
-  /// Method to run anything that needs to be run immediately after Widget build
-  void initBuild(BuildContext context) async {}
+  final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
+  TriviaQuiz question;
 
   @override
   Widget build(BuildContext context) {
@@ -103,47 +43,18 @@ class QuizScreenState extends State<QuizScreen> {
       child: Scaffold(
         key: _key,
         appBar: AppBar(
-          title: Text("Trivia: " +
-              widget.trivia.description +
-              " - Msl " +
-              widget.questions.length.toString()),
+          title: Text(
+            "Trivia: " +
+                widget.trivia.description +
+                " - Msl " +
+                widget.questions.length.toString(),
+          ),
           elevation: 0,
-          actions: <Widget>[
-            menuPopup(),
-          ],
         ),
         body: mainBody(),
       ),
     );
   }
-
-  Widget menuPopup() => PopupMenuButton<int>(
-        itemBuilder: (context) => [
-          PopupMenuItem(
-            value: 1,
-            child: Consumer<AppSettings>(
-                builder: (context, AppSettings settings, _) {
-              return ListTile(
-                onTap: () {},
-                title: Text(AppStrings.darkMode),
-                trailing: Switch(
-                  onChanged: (bool value) => settings.setDarkMode(value),
-                  value: settings.isDarkMode,
-                ),
-              );
-            }),
-          ),
-        ],
-        onCanceled: () {},
-        onSelected: (value) {
-          //selectedMenu(value, context);
-        },
-        icon: Icon(
-            Theme.of(context).platform == TargetPlatform.iOS
-                ? Icons.more_horiz
-                : Icons.more_vert,
-            color: ColorUtils.white),
-      );
 
   Widget mainBody() {
     return Stack(
@@ -151,41 +62,36 @@ class QuizScreenState extends State<QuizScreen> {
         ClipPath(
           clipper: WaveClipperTwo(),
           child: Container(
-            decoration: BoxDecoration(
-                color: Provider.of<AppSettings>(context).isDarkMode
-                    ? ColorUtils.black
-                    : ColorUtils.primaryColor),
+            decoration: BoxDecoration(color: Theme.of(context).primaryColor),
             height: 200,
           ),
         ),
-        Container(
-          padding: const EdgeInsets.all(10),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             children: <Widget>[
-              quizHeader(),
-              SizedBox(height: 20.0),
               quizBody(),
+              SizedBox(height: 20),
+              quizOptions(),
+              quizActions(),
             ],
           ),
-        ),
-        quizActions()
+        )
       ],
     );
   }
 
-  Widget quizHeader() {
-    var questionStr = widget.questions[_currentIndex].question.split(":");
-    String question = questionStr[0];
+  Widget quizBody() {
     return Row(
       children: <Widget>[
         CircleAvatar(
-          backgroundColor: ColorUtils.white,
+          backgroundColor: Colors.white70,
           child: Text("${_currentIndex + 1}"),
         ),
         SizedBox(width: 16.0),
         Expanded(
           child: Text(
-            HtmlUnescape().convert(question),
+            HtmlUnescape().convert(widget.questions[_currentIndex].title),
             softWrap: true,
             style: MediaQuery.of(context).size.width > 800
                 ? _questionStyle.copyWith(fontSize: 30.0)
@@ -196,137 +102,60 @@ class QuizScreenState extends State<QuizScreen> {
     );
   }
 
-  Widget quizBody() {
+  Widget quizOptions() {
     return Card(
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Text(AppStrings.answers.toUpperCase(),
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500)),
-            Divider(),
-            ListTile(
-              title: Text(showLetter(0) + ". " + question.options[0],
-                  style: TextStyle(fontSize: 18)),
-            ),
-            Divider(height: 1),
-            ListTile(
-              title: Text(showLetter(1) + ". " + question.options[1],
-                  style: TextStyle(fontSize: 18)),
-            ),
-            Divider(height: 1),
-            ListTile(
-              title: Text(showLetter(2) + ". " + question.options[2],
-                  style: TextStyle(fontSize: 18)),
-            ),
-            Divider(height: 1),
-            ListTile(
-              title: Text(showLetter(3) + ". " + question.options[3],
-                  style: TextStyle(fontSize: 18)),
-            ),
-          ],
-        ),
-      ),
       elevation: 10,
-    );
-  }
-
-  Widget answersList(BuildContext context, int index) {
-    return Container(
-      child: Text(
-        question.options[index],
-        style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          ...question.options.map(
+            (option) => RadioListTile(
+              title: Text(
+                HtmlUnescape().convert("$option"),
+                style: MediaQuery.of(context).size.width > 800
+                    ? TextStyle(fontSize: 30.0)
+                    : null,
+              ),
+              groupValue: _answers[_currentIndex],
+              value: option,
+              onChanged: (value) {
+                setState(() {
+                  _answers[_currentIndex] = option;
+                });
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
 
   Widget quizActions() {
-    return Container(
-        padding: const EdgeInsets.all(20),
-        margin: EdgeInsets.only(top: MediaQuery.of(context).size.height - 250),
-        alignment: Alignment.bottomCenter,
-        decoration: BoxDecoration(
-          color: Provider.of<AppSettings>(context).isDarkMode
-              ? ColorUtils.grey
-              : ColorUtils.activeColor,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-        ),
-        child: Column(
-          children: [
-            Container(
-              height: 50,
-              width: 250,
-              child: Center(
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  physics: BouncingScrollPhysics(),
-                  itemCount: question.options.length,
-                  itemBuilder: optionsList,
-                ),
-              ),
-            ),
-            SizedBox(height: 10),
-            Container(
-              child: RaisedButton(
-                child: Text(
-                    _currentIndex == (widget.questions.length - 1)
-                        ? AppStrings.submit.toUpperCase()
-                        : AppStrings.next.toUpperCase(),
-                    style: TextStyle(fontSize: 30.0)),
-                color: Provider.of<AppSettings>(context).isDarkMode
-                    ? ColorUtils.black
-                    : ColorUtils.baseColor,
-                onPressed: _nextSubmit,
-              ),
-            ),
-          ],
-        ));
-  }
-
-  Widget optionsList(BuildContext context, int index) {
-    return GestureDetector(
-      onTap: () {
-        onAnswerSelected(index);
-      },
+    return Expanded(
       child: Container(
-        width: 60,
-        child: Card(
-          elevation: 5,
-          color: _answers[_currentIndex] == question.options[index]
-              ? Colors.red
-              : null,
-          child: Hero(
-            tag: question.options[index].toString(),
-            child: Center(
-                child: Text(
-              showLetter(index),
-              style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                  color: _answers[_currentIndex] == question.options[index]
-                      ? Colors.white
-                      : null),
-              textAlign: TextAlign.center,
-            )),
+        alignment: Alignment.bottomCenter,
+        child: RaisedButton(
+          color: Provider.of<AppSettings>(context).isDarkMode
+              ? ColorUtils.black
+              : ColorUtils.baseColor,
+          onPressed: _nextSubmit,
+          child: Padding(
+            child: Text(
+              _currentIndex == (widget.questions.length - 1)
+                  ? AppStrings.submit.toUpperCase()
+                  : AppStrings.next.toUpperCase(),
+              style: TextStyle(fontSize: 30),
+            ),
+            padding: const EdgeInsets.all(10),
           ),
         ),
       ),
     );
   }
 
-  void onAnswerSelected(int tapped) {
-    setState(() {
-      _answers[_currentIndex] = question.options[tapped];
-    });
-  }
-
   void _nextSubmit() {
-    playKamusiAudio();
-    /*if (_answers[_currentIndex] == null) {
+    //playKamusiAudio();
+    if (_answers[_currentIndex] == null) {
       _key.currentState.showSnackBar(SnackBar(
         content: Text(AppStrings.selectAnswer),
       ));
@@ -342,49 +171,32 @@ class QuizScreenState extends State<QuizScreen> {
               trivia: widget.trivia,
               questions: widget.questions,
               answers: _answers)));
-    }*/
-  }
-
-  // ignore: missing_return
-  String showLetter(int index) {
-    switch (index) {
-      case 0:
-        return "A";
-      case 1:
-        return "B";
-      case 2:
-        return "C";
-      case 3:
-        return "D";
-      case 4:
-        return "E";
-      case 5:
-        return "F";
     }
   }
 
   Future<bool> _onWillPop() async {
     return showDialog<bool>(
-        context: context,
-        builder: (_) {
-          return AlertDialog(
-            title: Text(AppStrings.justaMinute),
-            content: Text(AppStrings.areYouleaving),
-            actions: <Widget>[
-              FlatButton(
-                child: Text(AppStrings.yes.toUpperCase()),
-                onPressed: () {
-                  Navigator.pop(context, true);
-                },
-              ),
-              FlatButton(
-                child: Text(AppStrings.no.toUpperCase()),
-                onPressed: () {
-                  Navigator.pop(context, false);
-                },
-              ),
-            ],
-          );
-        });
+      context: context,
+      builder: (_) {
+        return AlertDialog(
+          title: Text(AppStrings.justaMinute),
+          content: Text(AppStrings.areYouleaving),
+          actions: <Widget>[
+            FlatButton(
+              child: Text(AppStrings.yes.toUpperCase()),
+              onPressed: () {
+                Navigator.pop(context, true);
+              },
+            ),
+            FlatButton(
+              child: Text(AppStrings.no.toUpperCase()),
+              onPressed: () {
+                Navigator.pop(context, false);
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

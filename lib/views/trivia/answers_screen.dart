@@ -60,7 +60,7 @@ class AnswersScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(HtmlUnescape().convert("${index + 1}. ${question.question}"), style: TextStyle(
+            Text(HtmlUnescape().convert("${index + 1}. ${question.title}"), style: TextStyle(
               color: ColorUtils.black,
               fontWeight: FontWeight.w500,
               fontSize: 16.0
