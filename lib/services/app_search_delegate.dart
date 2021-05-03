@@ -24,16 +24,19 @@ class AppSearchDelegate extends SearchDelegate<List> {
 			primaryColor: Provider.of<AppSettings>(context).isDarkMode ? ColorUtils.black : ColorUtils.primaryColor,
 			accentIconTheme: IconThemeData(color: ColorUtils.white),
 			primaryIconTheme: IconThemeData(color: ColorUtils.white),
-			textTheme: TextTheme(
-				subtitle1: TextStyle(
-						color: Color(0xFFFBF5E8)
-				),
-			),
-			primaryTextTheme: TextTheme(
-				subtitle1: TextStyle(
+      primaryTextTheme: TextTheme(
+				headline6: TextStyle(
           color: ColorUtils.white
 				),
 			),
+			textTheme: TextTheme(
+				headline6: TextStyle(
+					color: ColorUtils.white
+				),
+			),
+      inputDecorationTheme: InputDecorationTheme(
+        hintStyle: Theme.of(context).textTheme.headline6.copyWith(color: Colors.white),
+      ),
 		);
   }
   
@@ -48,6 +51,12 @@ class AppSearchDelegate extends SearchDelegate<List> {
 					showSuggestions(context);
         },
       ),
+      /*IconButton(
+        icon: Icon(Provider.of<AppSettings>(context).isDarkMode ? Icons.brightness_4 : Icons.brightness_7),
+        onPressed: () {
+          Provider.of<AppSettings>(context).setDarkMode(Provider.of<AppSettings>(context).isDarkMode ? true : false);
+        },
+      ),*/
     ];
   }
 
@@ -78,14 +87,23 @@ class AppSearchDelegate extends SearchDelegate<List> {
 
   Widget _buildItems(BuildContext context) {
     return Container(
-      decoration: Provider.of<AppSettings>(context).isDarkMode ? BoxDecoration()
+      decoration: Provider.of<AppSettings>(context).isDarkMode ? BoxDecoration(color: Colors.black)
           : BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                stops: [ 0.1, 0.4, 0.6, 0.9 ],
-                colors: [ ColorUtils.black, Colors.blue[900],  Colors.blue, Colors.blue[200] ]),
+                stops: [
+                  0.1,
+                  0.5,
+                  0.9
+                ],
+                colors: [
+                  ColorUtils.primaryColor,
+                  ColorUtils.baseColor,
+                  ColorUtils.black
+                ]
             ),
+          ),
       child: ListView.builder(
         itemCount: filtered.length,
         itemBuilder: (context, index) {
@@ -98,7 +116,7 @@ class AppSearchDelegate extends SearchDelegate<List> {
   void filterNow() async {
     if (query.isNotEmpty)
     {
-      List<Word> tmpList = new List<Word>();
+      List<Word> tmpList = [];
       for(int i = 0; i < itemList.length; i++) {        
         if (
           itemList[i].title.toLowerCase().startsWith(query.toLowerCase())

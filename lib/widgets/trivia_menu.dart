@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:anisi_controls/anisi_controls.dart';
 
 import '../services/app_settings.dart';
-import '../utils/preferences.dart';
 import '../utils/colors.dart';
 import '../utils/app_utils.dart';
 import '../views/trivia/trivia_screen.dart';

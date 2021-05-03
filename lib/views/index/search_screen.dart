@@ -81,9 +81,9 @@ class SearchScreenState extends State<SearchScreen> {
   final ScrollController myScrollController = ScrollController();
 
   Future<Database> dbFuture;
-  List<Word> searchList = List<Word>();
-  List<Word> words = List<Word>();
-  List<Item> items = List<Item>();
+  List<Word> searchList = [];
+  List<Word> words = [];
+  List<Item> items = [];
   String letterSearch;
 
   List toggles = List.generate(filters.length, (index) => false);
@@ -210,7 +210,8 @@ class SearchScreenState extends State<SearchScreen> {
                       ColorUtils.primaryColor,
                       ColorUtils.baseColor,
                       ColorUtils.black
-                    ]),
+                    ]
+                  ),
               ),
         child: SafeArea(
           child: mainBody(),
@@ -251,10 +252,7 @@ class SearchScreenState extends State<SearchScreen> {
   Widget headerBar() {
     return Container(
       padding: EdgeInsets.only(right: 10, left: 10),
-      decoration: BoxDecoration(
-          color: Provider.of<AppSettings>(context).isDarkMode
-              ? ColorUtils.black
-              : Colors.transparent),
+      decoration: BoxDecoration(color: Colors.transparent),
       child: Row(
         children: <Widget>[
           InkWell(

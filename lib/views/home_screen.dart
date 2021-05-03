@@ -15,8 +15,7 @@ class HomeScreen extends StatefulWidget {
   State<StatefulWidget> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>
-    with SingleTickerProviderStateMixin {
+class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
   TabController _tabController;
 
   List<Widget> _kTabPages = [

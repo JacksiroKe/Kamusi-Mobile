@@ -25,7 +25,7 @@ class TriviaListState extends State<TriviaList> {
   AppDatabase db = AppDatabase();
 
   Future<Database> dbFuture;
-  List<Trivia> items = List<Trivia>();
+  List<Trivia> items = [];
 
   @override
   void initState() {
@@ -64,7 +64,7 @@ class TriviaListState extends State<TriviaList> {
 
   void requestQuestionData(Trivia trivia) async {
     /*String wordIDs = trivia.questions.replaceAll(" ", ", ");
-    List<TriviaQuiz> questions = List<TriviaQuiz>();
+    List<TriviaQuiz> questions = [];
 
     dbFuture = db.initializeDatabase();
     dbFuture.then((database) {

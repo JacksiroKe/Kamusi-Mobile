@@ -4,6 +4,7 @@ import '../data/app_database.dart';
 import '../data/models/word.dart';
 import 'word_view.dart';
 
+// ignore: must_be_immutable
 class WordItem extends StatelessWidget {
   final String heroTag;
   final Word word;

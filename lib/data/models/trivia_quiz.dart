@@ -18,7 +18,7 @@ class TriviaQuiz {
         options = data["options"];
 
   static List<TriviaQuiz> fromData(List<Map<String, dynamic>> data) {
-    List<TriviaQuiz> questions = List<TriviaQuiz>();
+    List<TriviaQuiz> questions = [];
     for (int i = 1; i < data.length; i++) {
       TriviaQuiz quiz = new TriviaQuiz();
       quiz.id = int.tryParse(data[i]["id"].toString());
@@ -26,7 +26,7 @@ class TriviaQuiz {
       quiz.answer = data[i]["answer"].toString();
       quiz.level = int.tryParse(data[i]["level"].toString());
 
-      quiz.options = List<dynamic>();
+      quiz.options = [];
 
       quiz.options.add(data[i]["option1"].toString());
       quiz.options.add(data[i]["option2"].toString());

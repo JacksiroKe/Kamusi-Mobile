@@ -22,7 +22,7 @@ class TriviaSubscriptionState extends State<TriviaSubscription> {
   bool isSubscribed, processing;
   String subscriptionMode;
 
-  List<String> options = List<String>();
+  List<String> options = [];
 
   SubscriptionModes _mode = SubscriptionModes.P3M;
 

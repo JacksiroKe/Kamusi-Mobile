@@ -48,8 +48,8 @@ class GenericViewState extends State<GenericView> {
     bool isFavourited(int favorite) => favorite == 1 ?? false;
 
     if (meanings == null) {
-      meanings = List<String>();
-      synonyms = List<String>();
+      meanings = [];
+      synonyms = [];
       processData();
     }
 

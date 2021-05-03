@@ -129,7 +129,7 @@ class AppDatabase {
 
   Future<List<Item>> getItemList(String table) async {
     var itemMapList = await getItemMapList(table);
-    List<Item> itemList = List<Item>();
+    List<Item> itemList = [];
     for (int i = 0; i < itemMapList.length; i++) {
       itemList.add(Item.fromMapObject(itemMapList[i]));
     }
@@ -163,7 +163,7 @@ class AppDatabase {
     var itemMapList =
         await getItemSearchMapList(searchString, table, searchByTitle);
 
-    List<Item> itemList = List<Item>();
+    List<Item> itemList = [];
 
     for (int i = 0; i < itemMapList.length; i++) {
       itemList.add(Item.fromMapObject(itemMapList[i]));
@@ -180,7 +180,7 @@ class AppDatabase {
 
   Future<List<Word>> getWordList() async {
     var itemMapList = await getWordMapList();
-    List<Word> itemList = List<Word>();
+    List<Word> itemList = [];
     for (int i = 0; i < itemMapList.length; i++) {
       itemList.add(Word.fromMapObject(itemMapList[i]));
     }
@@ -199,7 +199,7 @@ class AppDatabase {
   Future<Word> getSpecificWord(String searchString) async {
     var itemMapList = await getSpecificWordMapList(searchString);
 
-    List<Word> itemList = List<Word>();
+    List<Word> itemList = [];
 
     for (int i = 0; i < itemMapList.length; i++) {
       itemList.add(Word.fromMapObject(itemMapList[i]));
@@ -226,7 +226,7 @@ class AppDatabase {
       String searchString, bool searchByTitle) async {
     var itemMapList = await getWordSearchMapList(searchString, searchByTitle);
 
-    List<Word> itemList = List<Word>();
+    List<Word> itemList = [];
 
     for (int i = 0; i < itemMapList.length; i++) {
       itemList.add(Word.fromMapObject(itemMapList[i]));
@@ -244,7 +244,7 @@ class AppDatabase {
   Future<List<Word>> getFavorites() async {
     var itemMapList = await getFavoritesList();
 
-    List<Word> itemList = List<Word>();
+    List<Word> itemList = [];
     for (int i = 0; i < itemMapList.length; i++) {
       itemList.add(Word.fromMapObject(itemMapList[i]));
     }
@@ -269,7 +269,7 @@ class AppDatabase {
   Future<List<Word>> getFavSearch(String searchString) async {
     var itemMapList = await getFavSearchMapList(searchString);
 
-    List<Word> itemList = List<Word>();
+    List<Word> itemList = [];
 
     for (int i = 0; i < itemMapList.length; i++) {
       itemList.add(Word.fromMapObject(itemMapList[i]));
@@ -311,7 +311,7 @@ class AppDatabase {
 
   Future<List<Trivia>> getTriviaList() async {
     var itemMapList = await getTriviaMapList();
-    List<Trivia> itemList = List<Trivia>();
+    List<Trivia> itemList = [];
     for (int i = 0; i < itemMapList.length; i++) {
       itemList.add(Trivia.fromMapObject(itemMapList[i]));
     }
@@ -328,7 +328,7 @@ class AppDatabase {
   Future<Trivia> getTriviaById(int itemID) async {
     var itemMapList = await getTriviaByIdList(itemID);
 
-    List<Trivia> itemList = List<Trivia>();
+    List<Trivia> itemList = [];
     for (int i = 0; i < itemMapList.length; i++) {
       itemList.add(Trivia.fromMapObject(itemMapList[i]));
     }
@@ -348,7 +348,7 @@ class AppDatabase {
       String level, String wordids) async {
     var itemMapList = await getTriviaEntryMapList(wordids);
 
-    List<TriviaQuiz> itemList = List<TriviaQuiz>();
+    List<TriviaQuiz> itemList = [];
 
     for (int i = 0; i < itemMapList.length; i++) {
       String correctAnswer = itemMapList[i]['title'];
@@ -369,7 +369,7 @@ class AppDatabase {
               : Level.hard;
       quiz.question = fullQuestion[0];*/
       quiz.answer = correctAnswer;
-      quiz.options = List<dynamic>();
+      quiz.options = [];
 
       quiz.options.add(correctAnswer);
 

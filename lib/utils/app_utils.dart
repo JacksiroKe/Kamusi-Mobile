@@ -33,7 +33,7 @@ class AppStrings {
       "\n\n#KamusiYaKiswahili #KiswahiliKitukuzwe \n\nhttps://play.google.com/store/apps/details?id=com.kazibora.kamusi ";
   static const String synonyms_for = "\n\nVisawe (synonyms) vya neno ";
   static const String searchNow = "Tafuta ";
-  static const String searchHint = "Tafuta Maneno ya Kiswahili";
+  static const String searchHint = "Tafuta Kwenye Kamusi";
   static const String favourited = "Maneno Uliyoyapenda";
   static const String history = "Historia yako";
 
@@ -110,13 +110,13 @@ class AppStrings {
   static const String triviaPage = "Makundi ya Trivia";
   static const String triviaListPage = "Trivia za Awali";
   static const String triviaPageDescription =
-      "Chagua kundi la Trivia ili kuanza";
+      "Chagua kundi kuanza";
   static const String triviaList = "Trivia Zangu za Awali";
   static const String triviaListDescription =
       "Pitia au Rudia Trivia Zako za Awali";
   static const String triviaLeaderboard = "Orodha ya Kuongoza";
   static const String triviaLeaderboardDescription =
-      "Orodha za wanao ongoza (leaderboard)";
+      "Ubao wa Wanaoongoza";
   static const String triviaSettings = "Mipangilio ya Trivia";
   static const String triviaSettingsDescription = "Badili Mipangilio ya Trivia";
   static const String triviaSubscription = "Usajili (Subscription)";
@@ -124,7 +124,7 @@ class AppStrings {
       "Tazama Usajili (Manage Subscription)";
   static const String triviaSubscribe = "Jisajili (Subscribe) kwa huduma hii";
 
-  static const String triviaPageInstruction = "Chagua kundi ili kuanza";
+  static const String triviaPageInstruction = "Chagua kundi la Trivia ili kuanza";
   static const String triviaQuizInstruction = "Chagua Idadi ya Maswali";
   static const String triviaLevelInstruction = "Chagua Kiwango cha Ugumu";
   static const String triviaStart = "Anza!";

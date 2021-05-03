@@ -22,7 +22,7 @@ class FavouriteScreenState extends State<FavouriteScreen> {
   AppDatabase db = AppDatabase();
 
   Future<Database> dbFuture;
-  List<Word> items = List<Word>();
+  List<Word> items = [];
 
   @override
   void initState() {

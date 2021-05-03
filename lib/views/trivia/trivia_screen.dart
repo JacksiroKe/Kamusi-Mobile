@@ -23,7 +23,7 @@ class TriviaScreenState extends State<TriviaScreen> {
   AsLoader loader = AsLoader.setUp(ColorUtils.primaryColor);
   AsInformer notice = AsInformer.setUp(3, AppStrings.nothing, Colors.red,
       Colors.transparent, ColorUtils.white, 10);
-  List<TriviaCat> categories = List<TriviaCat>();
+  List<TriviaCat> categories = [];
 
   @override
   void initState() {
@@ -252,7 +252,7 @@ class TriviaScreenState extends State<TriviaScreen> {
             textColor: ColorUtils.white,
             onPressed: () {
               Navigator.pop(context);
-              categories = List<TriviaCat>();
+              categories = [];
               requestData();
             },
           ),

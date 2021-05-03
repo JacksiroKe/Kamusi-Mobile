@@ -22,7 +22,7 @@ class TriviaPrepareState extends State<TriviaPrepare> {
   AsInformer informer = AsInformer.setUp(1, AppStrings.gettingReady, ColorUtils.primaryColor, Colors.transparent, ColorUtils.white, 10);
   
   Future<Database> dbFuture;
-  List<TriviaQuiz> questions = List<TriviaQuiz>();
+  List<TriviaQuiz> questions = [];
 
   int quizCount = 0;
   var triviaWords;

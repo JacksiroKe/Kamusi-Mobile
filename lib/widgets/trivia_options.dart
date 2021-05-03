@@ -30,7 +30,7 @@ class TriviaOptionsState extends State<TriviaOptions> {
 
   int level, limit;
   bool processing;
-  List<TriviaQuiz> questions = List<TriviaQuiz>();
+  List<TriviaQuiz> questions = [];
 
   @override
   void initState() {
@@ -43,7 +43,7 @@ class TriviaOptionsState extends State<TriviaOptions> {
 
   /// Method to run anything that needs to be run immediately after Widget build
   void initBuild(BuildContext context) async {
-    loader.showWidget();
+    
   }
 
   @override
@@ -100,17 +100,18 @@ class TriviaOptionsState extends State<TriviaOptions> {
           levelBox(),
           Divider(),
           processing
-              ? loader
-              : RaisedButton(
-                  child: Text(
-                    AppStrings.triviaStart.toUpperCase(),
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-                  ),
-                  onPressed: startTrivia,
-                  color: Provider.of<AppSettings>(context).isDarkMode
-                      ? ColorUtils.black
-                      : ColorUtils.baseColor,
+            ? Container()
+            : RaisedButton(
+                child: Text(
+                  AppStrings.triviaStart.toUpperCase(),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
                 ),
+                onPressed: startTrivia,
+                color: Provider.of<AppSettings>(context).isDarkMode
+                    ? ColorUtils.black
+                    : ColorUtils.baseColor,
+              ),
+          loader,
           SizedBox(height: 20.0),
         ],
       ),
@@ -240,9 +241,10 @@ class TriviaOptionsState extends State<TriviaOptions> {
   void startTrivia() async {
     setState(() {
       processing = true;
+      loader.showWidget();
     });
-    EventObject eventObject =
-        await getQuestions(widget.category.id, level, limit);
+    
+    EventObject eventObject = await getQuestions(widget.category.id, level, limit);
 
     switch (eventObject.id) {
       case EventConstants.requestSuccessful:
@@ -258,6 +260,7 @@ class TriviaOptionsState extends State<TriviaOptions> {
         {
           setState(() {
             processing = false;
+            loader.hideWidget();
           });
         }
         break;
@@ -266,6 +269,7 @@ class TriviaOptionsState extends State<TriviaOptions> {
         {
           setState(() {
             processing = false;
+            loader.hideWidget();
           });
         }
         break;
@@ -273,8 +277,7 @@ class TriviaOptionsState extends State<TriviaOptions> {
   }
 
   Future<void> nextAction() async {
-    Trivia trivial = new Trivia(
-        widget.category.number, widget.category.title, questions.length, level);
+    Trivia trivial = new Trivia(widget.category.number, widget.category.title, questions.length, level);
 
     Navigator.push(
       context,

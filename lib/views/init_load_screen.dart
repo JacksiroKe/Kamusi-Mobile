@@ -35,10 +35,10 @@ class InitLoadState extends State<InitLoadScreen> {
   AppDatabase appDB = AppDatabase();
   AssetDatabase assetDB = AssetDatabase();
 
-  List<WordCallback> words = List<WordCallback>();
-  List<ItemCallback> idiomsList = List<ItemCallback>();
-  List<ItemCallback> sayingsList = List<ItemCallback>();
-  List<ItemCallback> proverbsList = List<ItemCallback>();
+  List<WordCallback> words = [];
+  List<ItemCallback> idiomsList = [];
+  List<ItemCallback> sayingsList = [];
+  List<ItemCallback> proverbsList = [];
 
   Future<Database> dbAssets;
   Future<Database> dbFuture;

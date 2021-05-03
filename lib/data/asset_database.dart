@@ -62,7 +62,7 @@ class AssetDatabase {
 
   Future<List<WordCallback>> getWordList() async {
     var wordMapList = await getWordMapList();
-    List<WordCallback> wordList = List<WordCallback>();
+    List<WordCallback> wordList = [];
     for (int i = 0; i < wordMapList.length; i++) {
       wordList.add(WordCallback.fromMapObject(wordMapList[i]));
     }
@@ -77,7 +77,7 @@ class AssetDatabase {
 
   Future<List<ItemCallback>> getItemList(String table) async {
     var genericMapList = await getItemMapList(table);
-    List<ItemCallback> genericList = List<ItemCallback>();
+    List<ItemCallback> genericList = [];
     for (int i = 0; i < genericMapList.length; i++) {
       genericList.add(ItemCallback.fromMapObject(genericMapList[i]));
     }
