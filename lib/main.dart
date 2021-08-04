@@ -5,9 +5,9 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'services/app_settings.dart';
-import 'views/splash_screen.dart';
-import 'views/start_screen.dart';
 import 'utils/themes.dart';
+import 'ui/pages/splash_screen.dart';
+import 'ui/pages/start_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -39,7 +39,9 @@ class _MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Kamusi',
-      theme: Provider.of<AppSettings>(context).isDarkMode ? asDarkTheme : asLightTheme,
+      theme: Provider.of<AppSettings>(context).isDarkMode
+          ? asDarkTheme
+          : asLightTheme,
       home: new StartScreen(),
       navigatorObservers: [
         FirebaseAnalyticsObserver(analytics: analytics),
