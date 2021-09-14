@@ -23,10 +23,11 @@ class WordView extends StatefulWidget {
 
 class WordViewState extends State<WordView> {
   WordViewState(this.word);
+  Word word;
+  
   final globalKey = GlobalKey<ScaffoldState>();
   AppDatabase db = AppDatabase();
 
-  Word word;
   bool? isFavourited;
   String? varTitle, varContents;
   var varSynonyms, varMeaning, varExtra;
