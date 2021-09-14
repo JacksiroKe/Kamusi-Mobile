@@ -109,29 +109,33 @@ Future<void> main() async {
 
   runApp(
     MyApp(
+      dataLoaded: appDbLoaded,
       startWidget: widget,
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
+  final bool? dataLoaded;
   final Widget? startWidget;
 
-  MyApp({this.startWidget});
+  MyApp({this.dataLoaded, this.startWidget});
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (BuildContext context) => AppCubit()..loadHomeListView(),
+          create: (BuildContext context) => KamusiCubit()
+            ..initialLoading(dataLoaded)
+            ..loadHomeListView(),
         ),
       ],
       child: MaterialApp(
         theme: ThemeData(
           fontFamily: 'Roboto',
           appBarTheme: AppBarTheme(
-            backgroundColor: AppColors.baseColor, // status bar color
+            backgroundColor: AppColors.baseColor,
             brightness: Brightness.dark,
             elevation: 0,
           ),

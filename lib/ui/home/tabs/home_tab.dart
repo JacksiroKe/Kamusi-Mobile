@@ -17,7 +17,7 @@ class HomeTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AppCubit, AppStates>(
+    return BlocConsumer<KamusiCubit, AppStates>(
       listener: (context, state) {},
       builder: (context, state) {
         return Container(
@@ -122,28 +122,29 @@ class HomeTab extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: filters.map(
               (filter) {
-                final isActive = filter == AppCubit.get(context).activeFilter;
+                final isActive =
+                    filter == KamusiCubit.get(context).activeFilter;
                 return InkWell(
                   hoverColor: Colors.transparent,
                   focusColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   splashColor: Colors.transparent,
                   onHover: (focus) =>
-                      AppCubit.get(context).onFilterFocus(focus, filter),
+                      KamusiCubit.get(context).onFilterFocus(focus, filter),
                   onFocusChange: (focus) =>
-                      AppCubit.get(context).onFilterFocus(focus, filter),
+                      KamusiCubit.get(context).onFilterFocus(focus, filter),
                   onTap: () {
-                    AppCubit.get(context).activeFilter = filter;
-                    AppCubit.get(context).activeTable =
+                    KamusiCubit.get(context).activeFilter = filter;
+                    KamusiCubit.get(context).activeTable =
                         filtersTable[filters.indexOf(filter)];
-                    AppCubit.get(context).loadHomeListView();
+                    KamusiCubit.get(context).loadHomeListView();
                   },
                   child: CustomAnimation(
                     startPosition: 0.0,
-                    control:
-                        AppCubit.get(context).toggles[filters.indexOf(filter)]
-                            ? CustomAnimationControl.play
-                            : CustomAnimationControl.playReverse,
+                    control: KamusiCubit.get(context)
+                            .toggles[filters.indexOf(filter)]
+                        ? CustomAnimationControl.play
+                        : CustomAnimationControl.playReverse,
                     duration: Duration(milliseconds: 280),
                     tween: ColorTween(
                       begin: Colors.transparent,
@@ -196,8 +197,8 @@ class HomeTab extends StatelessWidget {
         Container(
           width: MediaQuery.of(context).size.width - 70,
           child: ConditionalBuilder(
-            condition: AppCubit.get(context).words.length != 0 ||
-                AppCubit.get(context).items.length != 0,
+            condition: KamusiCubit.get(context).words.length != 0 ||
+                KamusiCubit.get(context).items.length != 0,
             builder: (context) => itemsBuilder(context),
             fallback: (context) => Center(
               child: Container(
@@ -260,20 +261,22 @@ class HomeTab extends StatelessWidget {
     return ListView.builder(
       controller: myScrollController,
       padding: EdgeInsets.zero,
-      itemCount: AppCubit.get(context).activeTable == filtersTable[0]
-          ? AppCubit.get(context).words.length
-          : AppCubit.get(context).items.length,
+      itemCount: KamusiCubit.get(context).activeTable == filtersTable[0]
+          ? KamusiCubit.get(context).words.length
+          : KamusiCubit.get(context).items.length,
       itemBuilder: (BuildContext context, int index) {
-        return AppCubit.get(context).activeTable == filtersTable[0]
+        return KamusiCubit.get(context).activeTable == filtersTable[0]
             ? WordItem(
-                'WordIndex_' + AppCubit.get(context).words[index].id.toString(),
-                AppCubit.get(context).words[index],
+                'WordIndex_' +
+                    KamusiCubit.get(context).words[index].id.toString(),
+                KamusiCubit.get(context).words[index],
                 context,
               )
             : AnyItem(
-                'ItemIndex_' + AppCubit.get(context).items[index].id.toString(),
-                AppCubit.get(context).items[index],
-                AppCubit.get(context).activeTable,
+                'ItemIndex_' +
+                    KamusiCubit.get(context).items[index].id.toString(),
+                KamusiCubit.get(context).items[index],
+                KamusiCubit.get(context).activeTable,
                 context,
               );
       },

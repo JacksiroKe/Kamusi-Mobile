@@ -1,6 +1,8 @@
 class AppStrings {
   static const String appIcon = "assets/images/appicon.png";
   static const String appName = "Kamusi Ya Kiswahili";
+  static const String dataCount =
+      "16641 words, 528 idioms, 276 sayings, 382 proverbs";
   static const String appVersion = " v1.4.8";
   static const String appSlogan = "Kiswahili Kitukuzwe";
   static const String inProgress = "Inaendelea ...";

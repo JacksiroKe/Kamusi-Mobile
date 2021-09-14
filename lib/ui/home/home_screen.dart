@@ -8,10 +8,10 @@ import '../../utils/styles/app_colors.dart';
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AppCubit, AppStates>(
+    return BlocConsumer<KamusiCubit, AppStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        var cubit = AppCubit.get(context);
+        var cubit = KamusiCubit.get(context);
 
         return Scaffold(
           extendBody: true,
@@ -22,7 +22,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget navigationContainer(AppCubit cubit) {
+  Widget navigationContainer(KamusiCubit cubit) {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       selectedItemColor: AppColors.activeColor,

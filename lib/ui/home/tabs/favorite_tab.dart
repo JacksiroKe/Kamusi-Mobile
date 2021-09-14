@@ -8,7 +8,7 @@ import '../../../utils/styles/app_colors.dart';
 class FavoriteTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AppCubit, AppStates>(
+    return BlocConsumer<KamusiCubit, AppStates>(
       listener: (context, state) {},
       builder: (context, state) {
         return Container(
