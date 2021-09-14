@@ -2,14 +2,14 @@
 // words from the live database
 
 class Trivia {
-  int _id;
-  int _triviaid;
-  int _category;
-  int _level;
-  String _description;
-  int _questions;
-  int _score;
-  String _time;
+  int? _id;
+  int? _triviaid;
+  int? _category;
+  int? _level;
+  String? _description;
+  int? _questions;
+  int? _score;
+  String? _time;
 
   Trivia(
     this._category,
@@ -18,14 +18,14 @@ class Trivia {
     this._level
   );
 
-  int get id => _id;
-  int get triviaid => _triviaid;
-  int get category => _category;
-  String get description => _description;
-  int get questions => _questions;
-  int get level => _level;
-  int get score => _score;
-  String get time => _time;
+  int get id => _id ?? 0;
+  int get triviaid => _triviaid!;
+  int get category => _category!;
+  String get description => _description!;
+  int get questions => _questions!;
+  int get level => _level!;
+  int get score => _score!;
+  String get time => _time!;
 
   set id(int newId) {
     this._id = newId;

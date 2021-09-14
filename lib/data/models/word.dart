@@ -1,28 +1,24 @@
-// This file declares word model that will be used to manage 
+// This file declares word model that will be used to manage
 // words from the live database
 
 class Word {
-  int _id;
-  String _title;
-  String _meaning;
-  String _synonyms;
-  String _conjugation;
-  int _views;
-  int _isfav;
+  int? _id;
+  String? _title;
+  String? _meaning;
+  String? _synonyms;
+  String? _conjugation;
+  int? _views;
+  int? _isfav;
 
-  Word(
-      this._title,
-      this._meaning,
-      this._synonyms,
-      this._conjugation);
+  Word(this._title, this._meaning, this._synonyms, this._conjugation);
 
-  int get id => _id;
-  String get title => _title;
-  String get meaning => _meaning;
-  String get synonyms => _synonyms;
-  String get conjugation => _conjugation;
-  int get views => _views;
-  int get isfav => _isfav;
+  int get id => _id ?? 0;
+  String get title => _title!;
+  String get meaning => _meaning!;
+  String get synonyms => _synonyms!;
+  String get conjugation => _conjugation!;
+  int get views => _views!;
+  int get isfav => _isfav!;
 
   set id(int newId) {
     this._id = newId;

@@ -1,6 +1,6 @@
 class TriviaCat {
-  int id, number;
-  String title, description, icon;
+  int? id, number;
+  String? title, description, icon;
 
   TriviaCat(
       {

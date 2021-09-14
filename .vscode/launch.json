@@ -5,9 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Kamusi",
+            "name": "kyk",
             "request": "launch",
             "type": "dart"
+        },
+        {
+            "name": "Kamusi (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
         }
     ]
 }

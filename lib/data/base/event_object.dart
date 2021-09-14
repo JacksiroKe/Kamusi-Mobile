@@ -1,9 +1,8 @@
-import '../../utils/api_utils.dart';
+import '../../utils/strings/api_strings.dart';
 
 class EventObject {
-  int id;
-  Object object;
+  int? id;
+  Object? object;
 
-  EventObject(
-      {this.id: EventConstants.noInternetConnection, this.object: null});
+  EventObject({this.id: EventConstants.noInternetConnection, this.object});
 }

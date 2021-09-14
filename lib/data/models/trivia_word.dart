@@ -1,5 +1,5 @@
 class TriviaWord {
-  int id;
+  int? id;
 
   TriviaWord(
       {

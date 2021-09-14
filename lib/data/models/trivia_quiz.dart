@@ -1,11 +1,11 @@
 enum Type { multiple, boolean }
 
 class TriviaQuiz {
-  Type type;
-  int id, level;
-  String title;
-  String answer;
-  List<dynamic> options;
+  Type? type;
+  int? id, level;
+  String? title;
+  String? answer;
+  List<dynamic>? options;
 
   TriviaQuiz(
       {this.id, this.type, this.level, this.title, this.answer, this.options});
@@ -28,30 +28,30 @@ class TriviaQuiz {
 
       quiz.options = [];
 
-      quiz.options.add(data[i]["option1"].toString());
-      quiz.options.add(data[i]["option2"].toString());
-      quiz.options.add(data[i]["option3"].toString());
-      quiz.options.add(data[i]["option4"].toString());
+      quiz.options!.add(data[i]["option1"].toString());
+      quiz.options!.add(data[i]["option2"].toString());
+      quiz.options!.add(data[i]["option3"].toString());
+      quiz.options!.add(data[i]["option4"].toString());
 
       if (data[i]["option5"].toString().isNotEmpty)
-        quiz.options.add(data[i]["option5"].toString());
+        quiz.options!.add(data[i]["option5"].toString());
 
       if (data[i]["option6"].toString().isNotEmpty)
-        quiz.options.add(data[i]["option6"].toString());
+        quiz.options!.add(data[i]["option6"].toString());
 
       if (data[i]["option7"].toString().isNotEmpty)
-        quiz.options.add(data[i]["option7"].toString());
+        quiz.options!.add(data[i]["option7"].toString());
 
       if (data[i]["option8"].toString().isNotEmpty)
-        quiz.options.add(data[i]["option8"].toString());
+        quiz.options!.add(data[i]["option8"].toString());
 
       if (data[i]["option9"].toString().isNotEmpty)
-        quiz.options.add(data[i]["option9"].toString());
+        quiz.options!.add(data[i]["option9"].toString());
 
       if (data[i]["option10"].toString().isNotEmpty)
-        quiz.options.add(data[i]["option10"].toString());
+        quiz.options!.add(data[i]["option10"].toString());
 
-      quiz.options.shuffle();
+      quiz.options!.shuffle();
 
       questions.add(quiz);
     }

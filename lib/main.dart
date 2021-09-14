@@ -1,51 +1,62 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:firebase_analytics/observer.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'services/app_settings.dart';
-import 'utils/themes.dart';
-import 'ui/pages/splash_screen.dart';
-import 'ui/pages/start_screen.dart';
+import '../cubit/cubit.dart';
+import '../utils/bloc_observer.dart';
+import '../utils/network/remote/dio_helper.dart';
+import '../utils/styles/app_colors.dart';
+import 'data/cache_helper.dart';
+import 'ui/home/home_screen.dart';
+import 'ui/init_load_screen.dart';
+import 'utils/strings/app_preferences.dart';
 
-void main() {
-  runApp(MyApp());
+Future<void> main() async {
+  Bloc.observer = MyBlocObserver();
+  WidgetsFlutterBinding.ensureInitialized();
+  DioHelper.init();
+
+  Widget widget;
+
+  bool? appDbLoaded =
+      await CacheHelper.getPrefBool(SharedPrefKeys.appDatabaseLoaded);
+
+  if (appDbLoaded != null)
+    widget = HomeScreen();
+  else
+    widget = InitLoadScreen();
+
+  runApp(
+    MyApp(
+      startWidget: widget,
+    ),
+  );
 }
 
-/// The genesis of this great app
 class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<SharedPreferences>(
-      future: SharedPreferences.getInstance(),
-      builder:
-          (BuildContext context, AsyncSnapshot<SharedPreferences> snapshot) {
-        if (!snapshot.hasData) return SplashScreen();
-
-        return ChangeNotifierProvider<AppSettings>.value(
-          value: AppSettings(snapshot.data),
-          child: _MyApp(),
-        );
-      },
-    );
-  }
-}
-
-class _MyApp extends StatelessWidget {
-  final FirebaseAnalytics analytics = FirebaseAnalytics();
+  final Widget? startWidget;
+  MyApp({this.startWidget});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Kamusi',
-      theme: Provider.of<AppSettings>(context).isDarkMode
-          ? asDarkTheme
-          : asLightTheme,
-      home: new StartScreen(),
-      navigatorObservers: [
-        FirebaseAnalyticsObserver(analytics: analytics),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (BuildContext context) => AppCubit()
+              ..loadHomeListView()
+        ),
       ],
+      child: MaterialApp(
+        theme: ThemeData(
+          fontFamily: 'Roboto',
+          appBarTheme: AppBarTheme(
+            backgroundColor: AppColors.baseColor, // status bar color
+            brightness: Brightness.dark,
+            elevation: 0,
+          ),
+        ),
+        debugShowCheckedModeBanner: false,
+        home: startWidget,
+      ),
     );
   }
 }

@@ -1,19 +1,20 @@
 // This file declares functions that manages the asset database that is compiled with the app
 
-import 'dart:io';
 import 'dart:async';
+import 'dart:io';
 import 'dart:typed_data';
+
 import 'package:flutter/services.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 
 import '../data/callbacks/ItemCallback.dart';
 import '../data/callbacks/WordCallback.dart';
-import '../utils/db_utils.dart';
+import '../utils/strings/db_strings.dart';
 
 class AssetDatabase {
-  static AssetDatabase sqliteHelper; // Singleton DatabaseHelper
-  static Database appDb; // Singleton Database
+  static AssetDatabase? sqliteHelper; // Singleton DatabaseHelper
+  static Database? appDb; // Singleton Database
 
   AssetDatabase._createInstance(); // Named constructor to create instance of DatabaseHelper
 
@@ -22,14 +23,14 @@ class AssetDatabase {
       sqliteHelper = AssetDatabase
           ._createInstance(); // This is executed only once, singleton object
     }
-    return sqliteHelper;
+    return sqliteHelper!;
   }
 
   Future<Database> get database async {
     if (appDb == null) {
       appDb = await initializeDatabase();
     }
-    return appDb;
+    return appDb!;
   }
 
   Future<Database> initializeDatabase() async {
@@ -56,7 +57,7 @@ class AssetDatabase {
 
   Future<List<Map<String, dynamic>>> getWordMapList() async {
     Database db = await this.database;
-    var result = db.query(DbUtils.wordsTable);
+    var result = db.query(DbStrings.wordsTable);
     return result;
   }
 
