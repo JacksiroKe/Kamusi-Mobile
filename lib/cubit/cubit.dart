@@ -11,9 +11,9 @@ import '../data/callbacks/ItemCallback.dart';
 import '../data/callbacks/WordCallback.dart';
 import '../data/models/item.dart';
 import '../data/models/word.dart';
-import '../ui/home/tabs/favorite_tab.dart';
-import '../ui/home/tabs/history_tab.dart';
 import '../ui/home/tabs/home_tab.dart';
+import '../ui/home/tabs/trivia_tab.dart';
+import '../ui/home/tabs/user_tab.dart';
 import '../utils/app_variables.dart';
 
 class KamusiCubit extends Cubit<AppStates> {
@@ -25,8 +25,8 @@ class KamusiCubit extends Cubit<AppStates> {
 
   List<Widget> tabScreens = [
     HomeTab(),
-    FavoriteTab(),
-    HistoryTab(),
+    TriviaTab(),
+    UserTab(),
   ];
 
   AppDatabase appDB = AppDatabase();
@@ -100,7 +100,6 @@ class KamusiCubit extends Cubit<AppStates> {
       dbAssets.then((database) {
         Future<List<WordCallback>> wordListAsset = assetDB.getWordList();
         wordListAsset.then((itemsList) {
-          print(itemsList.length.toString() + ' words found so far!');
           saveWordsData(itemsList);
         });
       });
@@ -130,7 +129,6 @@ class KamusiCubit extends Cubit<AppStates> {
       Future<List<ItemCallback>> idiomsListAsset =
           assetDB.getItemList(DbStrings.idiomsTable);
       idiomsListAsset.then((itemsList) {
-        print(itemsList.length.toString() + ' idioms found so far!');
         saveItemData(
           AppStrings.idioms,
           DbStrings.idiomsTable,
@@ -148,7 +146,6 @@ class KamusiCubit extends Cubit<AppStates> {
       Future<List<ItemCallback>> sayingsListAsset =
           assetDB.getItemList(DbStrings.sayingsTable);
       sayingsListAsset.then((itemsList) {
-        print(itemsList.length.toString() + ' sayings found so far!');
         saveItemData(
           AppStrings.sayings,
           DbStrings.sayingsTable,
@@ -166,7 +163,6 @@ class KamusiCubit extends Cubit<AppStates> {
       Future<List<ItemCallback>> proverbsListAsset =
           assetDB.getItemList(DbStrings.proverbsTable);
       proverbsListAsset.then((itemsList) {
-        print(itemsList.length.toString() + ' proverbs found so far!');
         saveItemData(
           AppStrings.proverbs,
           DbStrings.proverbsTable,
@@ -191,7 +187,6 @@ class KamusiCubit extends Cubit<AppStates> {
 
       await appDB.insertItem(table, item);
     }
-    print('Done saving: ' + table);
   }
 
   Future<void> finishSavingData() async {

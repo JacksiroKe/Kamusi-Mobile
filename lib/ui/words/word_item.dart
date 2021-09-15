@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../data/app_database.dart';
 import '../../../data/models/word.dart';
+import '../../utils/styles/app_colors.dart';
 import 'word_view.dart';
 
 // ignore: must_be_immutable
@@ -136,20 +137,38 @@ class WordItem extends StatelessWidget {
   Widget tagView(String tagText) {
     try {
       if (tagText.isNotEmpty) {
-        return Container(
-          margin: EdgeInsets.only(left: 5, bottom: 5),
-          child: RaisedButton(
-            padding: EdgeInsets.all(5),
-            child: Text(
-              tagText,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 15,
+        return InkWell(
+          onTap: () {
+            navigateToSynonym(tagText);
+          },
+          child: Container(
+            margin: EdgeInsets.only(left: 10, bottom: 5),
+            padding:
+                const EdgeInsets.only(left: 15, right: 15, bottom: 5, top: 5),
+            decoration: BoxDecoration(
+              color: AppColors.baseColor,
+              borderRadius: BorderRadius.all(
+                Radius.circular(20),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey,
+                  spreadRadius: 1,
+                  blurRadius: 1,
+                  offset: Offset(0, 1),
+                ),
+              ],
+            ),
+            child: Center(
+              child: Text(
+                tagText,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
               ),
             ),
-            onPressed: () {
-              navigateToSynonym(tagText);
-            },
           ),
         );
       } else

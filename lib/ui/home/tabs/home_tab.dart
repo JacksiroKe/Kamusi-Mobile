@@ -48,12 +48,9 @@ class HomeTab extends StatelessWidget {
     return Column(
       children: <Widget>[
         headerBar(context),
+        searchBar(context),
         filterBar(context),
-        Container(
-          height: MediaQuery.of(context).size.height - 163,
-          margin: EdgeInsets.only(top: 5),
-          child: contentView(context),
-        ),
+        bodyContainer(context),
       ],
     );
   }
@@ -64,6 +61,16 @@ class HomeTab extends StatelessWidget {
       decoration: BoxDecoration(color: Colors.transparent),
       child: Row(
         children: <Widget>[
+          InkWell(
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Icon(Icons.menu, color: Colors.white),
+            ),
+            onTap: () async {
+              //_scaffoldKey.currentState!.openEndDrawer();
+            },
+          ),
+          Flexible(child: Container()),
           InkWell(
             child: Padding(
               padding: const EdgeInsets.all(10),
@@ -82,7 +89,7 @@ class HomeTab extends StatelessWidget {
           InkWell(
             child: Padding(
               padding: const EdgeInsets.all(10),
-              child: Icon(Icons.search, color: Colors.white),
+              child: Icon(Icons.notifications, color: Colors.white),
             ),
             onTap: () async {
               /*final List? selected = await showSearch(
@@ -91,16 +98,35 @@ class HomeTab extends StatelessWidget {
               );*/
             },
           ),
-          InkWell(
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Icon(Icons.menu, color: Colors.white),
-            ),
-            onTap: () async {
-              //_scaffoldKey.currentState!.openEndDrawer();
-            },
-          ),
         ],
+      ),
+    );
+  }
+
+  Widget searchBar(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(left: 15, right: 15),
+      child: Material(
+        borderRadius: BorderRadius.circular(5),
+        elevation: 5,
+        child: Container(
+          child: TextFormField(
+            cursorColor: AppColors.baseColor,
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.all(5),
+              prefixIcon:
+                  Icon(Icons.search, color: AppColors.baseColor, size: 30),
+              suffixIcon:
+                  Icon(Icons.clear, color: AppColors.baseColor, size: 30),
+              hintText: 'Tafuta maneno, nahau, misemo, methali',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide.none,
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -108,6 +134,7 @@ class HomeTab extends StatelessWidget {
   Widget filterBar(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
+      margin: EdgeInsets.only(left: 10, right: 10, bottom: 5, top: 5),
       constraints: BoxConstraints(
         maxWidth: MediaQuery.of(context).size.width,
       ),
@@ -183,7 +210,125 @@ class HomeTab extends StatelessWidget {
     );
   }
 
-  Widget contentView(BuildContext context) {
+  Widget bodyContainer(BuildContext context) {
+    return Expanded(
+      flex: 1,
+      child: Container(
+        margin: EdgeInsets.only(left: 5, right: 5),
+        child: Stack(
+          children: [
+            listContainer(context),
+            Container(
+              child: Column(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Container(),
+                  ),
+                  footerContainer(context),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget footerContainer(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black,
+            blurRadius: 10,
+            offset: Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          vipendwaContainer(),
+          historiaContainer(),
+        ],
+      ),
+    );
+  }
+
+  Widget vipendwaContainer() {
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.all(10),
+          child: Row(
+            children: [
+              Text(
+                'VIPENDWA',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.baseColor,
+                ),
+              ),
+              Spacer(flex: 2),
+              Text(
+                'Orodha yote',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.baseColor,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          height: 50,
+        ),
+      ],
+    );
+  }
+
+  Widget historiaContainer() {
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.all(10),
+          child: Row(
+            children: [
+              Text(
+                'HISTORIA',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.baseColor,
+                ),
+              ),
+              Spacer(flex: 2),
+              Text(
+                'Orodha yote',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.baseColor,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          height: 50,
+        ),
+      ],
+    );
+  }
+
+  Widget listContainer(BuildContext context) {
     return Row(
       children: <Widget>[
         Container(

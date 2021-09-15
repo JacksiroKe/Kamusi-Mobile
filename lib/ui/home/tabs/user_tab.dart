@@ -5,7 +5,7 @@ import '../../../cubit/cubit.dart';
 import '../../../cubit/states.dart';
 import '../../../utils/styles/app_colors.dart';
 
-class FavoriteTab extends StatelessWidget {
+class UserTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<KamusiCubit, AppStates>(
