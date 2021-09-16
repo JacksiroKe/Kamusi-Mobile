@@ -20,7 +20,6 @@ class AppStrings {
   static const String campaign =
       "\n\n#KamusiYaKiswahili #KiswahiliKitukuzwe \n\nhttps://play.google.com/store/apps/details?id=com.kazibora.kamusi ";
   static const String synonyms_for = "\n\nVisawe (synonyms) vya neno ";
-  static const String searchNow = "Tafuta ";
   static const String searchHint = "Tafuta Kwenye Kamusi";
   static const String favourited = "Maneno Uliyoyapenda";
   static const String history = "Historia yako";
@@ -33,6 +32,7 @@ class AppStrings {
 
   static const String okayGotIt = "Sawa";
   static const String retry = "Jaribu Tena";
+  static const String searchNow = "Tafuta Maneno Kwenye Kamusi";
 
   static const String idiomCopied = "Nahau imenakiliwa kwa clipboard!";
   static const String sayingCopied = "Msemo umenakiliwa kwa clipboard!";

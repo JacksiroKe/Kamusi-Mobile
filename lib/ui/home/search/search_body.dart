@@ -28,14 +28,36 @@ class SearchBody extends StatelessWidget {
 
   Widget mainBody(BuildContext context) {
     return SafeArea(
-      child: Column(
-        children: <Widget>[
-          SearchHeader(),
+      child: Stack(
+        children: [
+          Column(
+            children: <Widget>[
+              searchContainer(),
+              bottomContainer(context),
+            ],
+          ),
           SearchBar(),
-          SearchFilters(),
-          bottomContainer(context),
         ],
       ),
+    );
+  }
+
+  Widget searchContainer() {
+    return Container(
+      margin: EdgeInsets.only(top: 10, bottom: 5, left: 10, right: 10),
+      padding: EdgeInsets.only(top: 50, bottom: 3),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black,
+            blurRadius: 5,
+            offset: Offset(0, 2),
+          ),
+        ],
+        borderRadius: BorderRadius.circular(7),
+      ),
+      child: SearchFilters(),
     );
   }
 

@@ -34,6 +34,10 @@ class FavoriteContainer extends StatelessWidget {
         Container(
           height: 50,
         ),
+        Padding(
+          padding: EdgeInsets.all(10),
+          child: Divider(),
+        ),
       ],
     );
   }
