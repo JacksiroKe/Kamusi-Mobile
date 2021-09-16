@@ -11,9 +11,9 @@ import '../data/callbacks/ItemCallback.dart';
 import '../data/callbacks/WordCallback.dart';
 import '../data/models/item.dart';
 import '../data/models/word.dart';
-import '../ui/home/tabs/home_tab.dart';
-import '../ui/home/tabs/trivia_tab.dart';
-import '../ui/home/tabs/user_tab.dart';
+import '../ui/home/search/search.dart';
+import '../ui/home/trivia/trivia_tab.dart';
+import '../ui/home/user/user_tab.dart';
 import '../utils/app_variables.dart';
 
 class KamusiCubit extends Cubit<AppStates> {
@@ -24,7 +24,7 @@ class KamusiCubit extends Cubit<AppStates> {
   int currentIndex = 0;
 
   List<Widget> tabScreens = [
-    HomeTab(),
+    SearchTab(),
     TriviaTab(),
     UserTab(),
   ];
