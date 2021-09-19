@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../data/app_database.dart';
-import '../../../../data/models/word.dart';
+import '../../../../data/models/models.dart';
 import 'word.dart';
 
 // ignore: must_be_immutable

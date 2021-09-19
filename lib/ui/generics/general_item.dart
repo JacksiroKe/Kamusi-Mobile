@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html/style.dart';
 
-import '../../../data/models/item.dart';
+import '../../../data/models/models.dart';
 import '../../utils/styles/app_colors.dart';
 import 'generic_view.dart';
 

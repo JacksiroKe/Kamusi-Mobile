@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../data/app_database.dart';
-import '../../../data/models/word.dart';
+import '../../../data/models/models.dart';
 import '../../../utils/styles/app_colors.dart';
 import '../view/word.dart';
 

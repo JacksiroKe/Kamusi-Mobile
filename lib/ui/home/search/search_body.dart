@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../cubit/cubit.dart';
-import '../../../data/models/word.dart';
+import '../../../data/models/models.dart';
 import '../../../utils/styles/app_colors.dart';
 import 'search.dart';
 

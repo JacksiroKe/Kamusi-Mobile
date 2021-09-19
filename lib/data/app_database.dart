@@ -1,17 +1,12 @@
-// This file declares functions that manages the database that is created in the app
-// when the app is installed for the first time
-
-import 'dart:io';
 import 'dart:async';
-import 'package:sqflite/sqflite.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart';
+import 'dart:io';
 
-import '../data/models/item.dart';
-import '../data/models/trivia_quiz.dart';
-import '../data/models/trivia.dart';
-import '../data/models/word.dart';
-import '../utils/strings/db_strings.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:sqflite/sqflite.dart';
+
+import '../data/models/models.dart';
+import '../utils/strings/strings.dart';
 
 class AppDatabase {
   static AppDatabase? sqliteHelper; // Singleton DatabaseHelper

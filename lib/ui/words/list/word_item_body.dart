@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../data/models/word.dart';
+import '../../../../data/models/models.dart';
 import '../view/word_screen.dart';
 import 'word.dart';
 

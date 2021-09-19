@@ -3,8 +3,8 @@ import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../utils/strings/app_preferences.dart';
-import 'models/User.dart';
+import '../data/callbacks/callbacks.dart';
+import '../utils/strings/strings.dart';
 
 class CacheHelper {
   static Future<SharedPreferences> getInstance() async {

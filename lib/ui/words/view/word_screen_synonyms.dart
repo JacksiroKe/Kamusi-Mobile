@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kamusi/utils/styles/app_colors.dart';
 
 import '../../../../data/app_database.dart';
-import '../../../../data/models/word.dart';
+import '../../../../data/models/models.dart';
 import 'word.dart';
 
 // ignore: must_be_immutable

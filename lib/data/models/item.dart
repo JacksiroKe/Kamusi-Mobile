@@ -1,6 +1,3 @@
-// This file declares generic model that will be used to manage
-// sayings, idioms, proverbs from the live database
-
 class Item {
   int? _id;
   String? _title;

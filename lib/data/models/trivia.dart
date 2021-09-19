@@ -1,6 +1,3 @@
-// This file declares word model that will be used to manage 
-// words from the live database
-
 class Trivia {
   int? _id;
   int? _triviaid;
@@ -11,12 +8,7 @@ class Trivia {
   int? _score;
   String? _time;
 
-  Trivia(
-    this._category,
-    this._description,
-    this._questions,
-    this._level
-  );
+  Trivia(this._category, this._description, this._questions, this._level);
 
   int get id => _id ?? 0;
   int get triviaid => _triviaid!;

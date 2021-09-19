@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../cubit/cubit.dart';
-import '../../../data/models/word.dart';
-import '../../../utils/app_variables.dart';
+import '../../../data/models/models.dart';
+import '../../../utils/strings/strings.dart';
 import '../../../utils/conditional_builder.dart';
 import '../../../utils/styles/app_colors.dart';
 import '../../generics/general_item.dart';

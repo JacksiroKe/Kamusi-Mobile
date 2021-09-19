@@ -1,6 +1,3 @@
-// This file declares word model that will be used to manage
-// words from the live database
-
 class Word {
   int? _id;
   String? _title;

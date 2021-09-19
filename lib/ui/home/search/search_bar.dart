@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../data/models/word.dart';
 import '../../../ui/words/list/word.dart';
-import '../../../utils/strings/app_strings.dart';
+import '../../../utils/strings/strings.dart';
 import '../../../utils/styles/app_colors.dart';
 
 class SearchBar extends SearchDelegate<List> {

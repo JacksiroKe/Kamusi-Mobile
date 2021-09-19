@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../cubit/cubit.dart';
 import '../../../../cubit/states.dart';
-import '../../../../data/models/word.dart';
+import '../../../../data/models/models.dart';
 import 'word.dart';
 
 class WordItem extends StatelessWidget {

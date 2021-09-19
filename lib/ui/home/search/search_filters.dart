@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../cubit/cubit.dart';
-import '../../../utils/app_variables.dart';
+import '../../../utils/strings/strings.dart';
 import '../../../utils/styles/app_colors.dart';
 
 class SearchFilters extends StatelessWidget {

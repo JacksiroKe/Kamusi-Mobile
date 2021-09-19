@@ -1,5 +1,5 @@
-import 'strings/app_strings.dart';
-import 'strings/db_strings.dart';
+import 'app_strings.dart';
+import 'db_strings.dart';
 
 final filters = [
   AppStrings.words,

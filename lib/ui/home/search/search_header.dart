@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../data/models/word.dart';
-import '../../../utils/strings/app_strings.dart';
+import '../../../data/models/models.dart';
+import '../../../utils/strings/strings.dart';
 import 'search.dart';
 
 // ignore: must_be_immutable
