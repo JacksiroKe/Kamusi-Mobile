@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 
 import '../../../cubit/cubit.dart';
-import '../../generics/general_item.dart';
-import '../../words/list/word_item.dart';
+import '../../../data/models/word.dart';
 import '../../../utils/app_variables.dart';
 import '../../../utils/conditional_builder.dart';
 import '../../../utils/styles/app_colors.dart';
+import '../../generics/general_item.dart';
+import '../../words/list/word_item.dart';
 
 class SearchList extends StatelessWidget {
   final ScrollController myScrollController = ScrollController();
+  final List<Word> wordlist;
+
+  SearchList(this.wordlist);
 
   @override
   Widget build(BuildContext context) {
@@ -90,15 +94,12 @@ class SearchList extends StatelessWidget {
       controller: myScrollController,
       padding: EdgeInsets.zero,
       itemCount: KamusiCubit.get(context).activeTable == filtersTable[0]
-          ? KamusiCubit.get(context).words.length
+          ? wordlist.length
           : KamusiCubit.get(context).items.length,
       itemBuilder: (BuildContext context, int index) {
         return KamusiCubit.get(context).activeTable == filtersTable[0]
             ? WordItem(
-                'WordIndex_' +
-                    KamusiCubit.get(context).words[index].id.toString(),
-                KamusiCubit.get(context).words[index],
-              )
+                'WordIndex_' + wordlist[index].id.toString(), wordlist[index])
             : GeneralItem(
                 'ItemIndex_' +
                     KamusiCubit.get(context).items[index].id.toString(),

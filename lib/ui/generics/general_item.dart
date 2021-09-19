@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html/style.dart';
-import 'package:moovebeta/utils/styles/app_colors.dart';
-import 'package:provider/provider.dart';
 
 import '../../../data/models/item.dart';
+import '../../utils/styles/app_colors.dart';
 import 'generic_view.dart';
 
 class GeneralItem extends StatelessWidget {
@@ -92,9 +91,7 @@ class GeneralItem extends StatelessWidget {
           child: Text(
             tagText,
             style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 15),
+                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),
           ),
         );
       } else

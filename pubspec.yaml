@@ -1,4 +1,4 @@
-name: moovebeta
+name: kamusi
 description: A new Flutter project.
 version: 1.0.1
 publish_to: none
@@ -28,8 +28,6 @@ dependencies:
   html_unescape: ^2.0.0
   http: ^0.13.3
   json_annotation: ^4.0.0
-  implicitly_animated_reorderable_list: ^0.4.1
-  material_floating_search_bar: ^0.3.4
   path_provider: ^2.0.1
   provider: ^6.0.0
   rxdart: ^0.26.0-nullsafety.1

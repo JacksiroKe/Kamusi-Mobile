@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:moovebeta/utils/strings/app_strings.dart';
-import 'package:moovebeta/utils/strings/db_strings.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../cubit/states.dart';
@@ -15,6 +13,8 @@ import '../ui/home/search/search.dart';
 import '../ui/home/trivia/trivia_tab.dart';
 import '../ui/home/user/user_tab.dart';
 import '../utils/app_variables.dart';
+import '../utils/strings/app_strings.dart';
+import '../utils/strings/db_strings.dart';
 
 class KamusiCubit extends Cubit<AppStates> {
   KamusiCubit() : super(AppInitialState());

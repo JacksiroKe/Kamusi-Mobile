@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../data/app_database.dart';
 import '../../../data/models/word.dart';
 import '../../../utils/styles/app_colors.dart';
-import '../word_view.dart';
+import '../view/word.dart';
 
 // ignore: must_be_immutable
 class WordItemSecondLine extends StatelessWidget {
@@ -29,27 +29,27 @@ class WordItemSecondLine extends StatelessWidget {
             ),
           ),
           Flexible(
-            child: tagViewer(context),
+            child: synonymViewer(context),
           ),
         ],
       ),
     );
   }
 
-  Widget tagViewer(BuildContext context) {
+  Widget synonymViewer(BuildContext context) {
     return Container(
       height: 35,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: wordSynonyms.length,
         itemBuilder: (BuildContext context, int index) {
-          return tagView(context, wordSynonyms[index]);
+          return synonymView(context, wordSynonyms[index]);
         },
       ),
     );
   }
 
-  Widget tagView(BuildContext context, String tagText) {
+  Widget synonymView(BuildContext context, String tagText) {
     try {
       if (tagText.isNotEmpty) {
         return InkWell(
@@ -101,7 +101,7 @@ class WordItemSecondLine extends StatelessWidget {
         context,
         MaterialPageRoute(
           builder: (context) {
-            return WordView(word);
+            return WordScreen(word);
           },
         ),
       );

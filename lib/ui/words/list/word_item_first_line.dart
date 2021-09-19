@@ -11,6 +11,8 @@ class WordItemFirstLine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    isFavourited(int favorite) => favorite == 1;
+    
     wordMeaning = meaning.replaceAll("\\", "");
     wordMeaning = wordMeaning!.replaceAll('"', '');
     wordMeaning = wordMeaning!.replaceAll(',', ', ');

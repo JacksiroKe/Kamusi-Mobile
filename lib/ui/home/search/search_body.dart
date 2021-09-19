@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 
+import '../../../cubit/cubit.dart';
+import '../../../data/models/word.dart';
 import '../../../utils/styles/app_colors.dart';
 import 'search.dart';
 
+// ignore: must_be_immutable
 class SearchBody extends StatelessWidget {
+  List<Word> wordlist = [];
+
   @override
   Widget build(BuildContext context) {
+    wordlist = KamusiCubit.get(context).words;
+
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -28,15 +35,10 @@ class SearchBody extends StatelessWidget {
 
   Widget mainBody(BuildContext context) {
     return SafeArea(
-      child: Stack(
-        children: [
-          Column(
-            children: <Widget>[
-              searchContainer(),
-              bottomContainer(context),
-            ],
-          ),
-          SearchBar(),
+      child: Column(
+        children: <Widget>[
+          searchContainer(),
+          bottomContainer(context),
         ],
       ),
     );
@@ -44,8 +46,7 @@ class SearchBody extends StatelessWidget {
 
   Widget searchContainer() {
     return Container(
-      margin: EdgeInsets.only(top: 10, bottom: 5, left: 10, right: 10),
-      padding: EdgeInsets.only(top: 50, bottom: 3),
+      margin: EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
@@ -57,7 +58,12 @@ class SearchBody extends StatelessWidget {
         ],
         borderRadius: BorderRadius.circular(7),
       ),
-      child: SearchFilters(),
+      child: Column(
+        children: <Widget>[
+          SearchHeader(wordlist),
+          SearchFilters(),
+        ],
+      ),
     );
   }
 
@@ -68,7 +74,7 @@ class SearchBody extends StatelessWidget {
         margin: EdgeInsets.only(left: 5, right: 5),
         child: Stack(
           children: [
-            SearchList(),
+            SearchList(wordlist),
             Container(
               child: Column(
                 children: [

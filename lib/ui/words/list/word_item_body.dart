@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../data/models/word.dart';
-import '../word_view.dart';
+import '../view/word_screen.dart';
 import 'word.dart';
 
 // ignore: must_be_immutable
@@ -51,7 +51,7 @@ class WordItemBody extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return WordView(word);
+          return WordScreen(word);
         },
       ),
     );
