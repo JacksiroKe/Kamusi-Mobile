@@ -98,7 +98,7 @@ Future<void> main() async {
   });
 
   bool? appDbLoaded =
-      await CacheHelper.getPrefBool(SharedPrefKeys.appDatabaseLoaded);
+      await CacheHelper.getPrefBool(SharedPrefKeys.isDatabaseLoaded);
 
   Widget widget;
 

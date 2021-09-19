@@ -40,12 +40,12 @@ class AppDatabase {
   }
 
   void _createDb(Database db, int newVersion) async {
-    await db.execute(Queries.createHistoryTable);
     await db.execute(Queries.createIdiomsTable);
     await db.execute(Queries.createProverbsTable);
     await db.execute(Queries.createSayingsTable);
-    await db.execute(Queries.createSearchesTable);
     await db.execute(Queries.createWordsTable);
+    await db.execute(Queries.createWordsHistoryTable);
+    await db.execute(Queries.createWordsSearchTable);
 
     await db.execute(Queries.createTriviaTable);
     await db.execute(Queries.createTriviaAttemptTable);

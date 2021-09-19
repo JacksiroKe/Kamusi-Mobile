@@ -1,34 +1,27 @@
 class Search {
   int? _id;
-  int? _itemid;
-  String? _type;
-  String? _posted;
+  int? _wordid;
+  String? _created;
 
   Search(
-    this._itemid,
-    this._type,
-    this._posted,
+    this._wordid,
+    this._created,
   );
 
   int get id => _id ?? 0;
-  int get itemid => _itemid!;
-  String get type => _type!;
-  String get posted => _posted!;
+  int get wordid => _wordid!;
+  String get created => _created!;
 
   set id(int newId) {
     this._id = newId;
   }
 
-  set itemid(int newItemid) {
-    this._itemid = newItemid;
+  set wordid(int newwordid) {
+    this._wordid = newwordid;
   }
 
-  set type(String newType) {
-    this._type = newType;
-  }
-
-  set posted(String newPosted) {
-    this._posted = newPosted;
+  set created(String newcreated) {
+    this._created = newcreated;
   }
 
   // Convert a Data object into a Map object
@@ -37,9 +30,8 @@ class Search {
     if (id != null) {
       map['id'] = _id;
     }
-    map['itemid'] = _itemid;
-    map['type'] = _type;
-    map['posted'] = _posted;
+    map['wordid'] = _wordid;
+    map['created'] = _created;
 
     return map;
   }
@@ -47,8 +39,7 @@ class Search {
   // Extract a Data object from a Map object
   Search.fromMapObject(Map<String, dynamic> map) {
     this._id = map['id'];
-    this._itemid = map['itemid'];
-    this._type = map['type'];
-    this._posted = map['posted'];
+    this._wordid = map['wordid'];
+    this._created = map['created'];
   }
 }

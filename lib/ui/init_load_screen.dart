@@ -100,7 +100,7 @@ class InitLoadState extends State<InitLoadScreen> {
 
   Future<void> goToHomeScreen() async {
     showNotification();
-    CacheHelper.setPrefBool(SharedPrefKeys.appDatabaseLoaded, true);
+    CacheHelper.setPrefBool(SharedPrefKeys.isDatabaseLoaded, true);
     Navigator.pushReplacement(
       context,
       new MaterialPageRoute(
