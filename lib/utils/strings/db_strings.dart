@@ -35,8 +35,7 @@ class DbStrings {
 }
 
 /// Strings used in the database queries
-class Queries {
-  
+class DbQueries {
   /// Query string for creating the idioms table
   static const String createIdiomsTable = 'CREATE TABLE IF NOT EXISTS ' +
       DbStrings.idiomsTable +
@@ -54,8 +53,7 @@ class Queries {
       DbStrings.isfav +
       ' INTEGER NOT NULL DEFAULT 0, ' +
       DbStrings.views +
-      ' INTEGER NOT NULL DEFAULT 0' +
-      ');';
+      ' INTEGER NOT NULL DEFAULT 0);';
 
   /// Query string for creating the proverbs table
   static const String createProverbsTable = 'CREATE TABLE IF NOT EXISTS ' +
@@ -74,8 +72,7 @@ class Queries {
       DbStrings.isfav +
       ' INTEGER NOT NULL DEFAULT 0, ' +
       DbStrings.views +
-      ' INTEGER NOT NULL DEFAULT 0' +
-      ');';
+      ' INTEGER NOT NULL DEFAULT 0);';
 
   /// Query string for creating the sayings table
   static const String createSayingsTable = 'CREATE TABLE IF NOT EXISTS ' +
@@ -94,8 +91,7 @@ class Queries {
       DbStrings.isfav +
       ' INTEGER NOT NULL DEFAULT 0, ' +
       DbStrings.views +
-      ' INTEGER NOT NULL DEFAULT 0' +
-      ');';
+      ' INTEGER NOT NULL DEFAULT 0);';
 
   /// Query string for creating the words table
   static const String createWordsTable = 'CREATE TABLE IF NOT EXISTS ' +
@@ -118,10 +114,9 @@ class Queries {
       DbStrings.updated +
       ' INTEGER NOT NULL DEFAULT 0, ' +
       DbStrings.views +
-      ' INTEGER NOT NULL DEFAULT 0' +
-      ');';
+      ' INTEGER NOT NULL DEFAULT 0);';
 
-/// Query string for creating the searches table
+  /// Query string for creating the searches table
   static const String createWordsHistoryTable = 'CREATE TABLE IF NOT EXISTS ' +
       DbStrings.wordsHistoryTable +
       '(' +
@@ -130,8 +125,47 @@ class Queries {
       DbStrings.wordid +
       ' INTEGER NOT NULL DEFAULT 0, ' +
       DbStrings.created +
-      ' VARCHAR(20) NOT NULL DEFAULT ""' +
-      ');';
+      ' VARCHAR(20) NOT NULL DEFAULT "");';
+
+  static const String queryWordsHistory = 'SELECT ' +
+      DbStrings.wordsTable +
+      '.* FROM ' +
+      DbStrings.wordsHistoryTable +
+      ' LEFT JOIN ' +
+      DbStrings.wordsTable +
+      ' ON ' +
+      DbStrings.wordsHistoryTable +
+      '.' +
+      DbStrings.wordid +
+      ' = ' +
+      DbStrings.wordsTable +
+      '.' +
+      DbStrings.id +
+      ' ORDER BY ' +
+      DbStrings.wordsHistoryTable +
+      '.' +
+      DbStrings.id +
+      ' DESC;';
+
+  static const String queryWordsSearch = 'SELECT ' +
+      DbStrings.wordsTable +
+      '.* FROM ' +
+      DbStrings.wordsSearchTable +
+      ' LEFT JOIN ' +
+      DbStrings.wordsTable +
+      ' ON ' +
+      DbStrings.wordsSearchTable +
+      '.' +
+      DbStrings.wordid +
+      ' = ' +
+      DbStrings.wordsTable +
+      '.' +
+      DbStrings.id +
+      ' ORDER BY ' +
+      DbStrings.wordsSearchTable +
+      '.' +
+      DbStrings.id +
+      ' DESC;';
 
   /// Query string for creating the searches table
   static const String createWordsSearchTable = 'CREATE TABLE IF NOT EXISTS ' +
@@ -142,8 +176,7 @@ class Queries {
       DbStrings.wordid +
       ' INTEGER NOT NULL DEFAULT 0, ' +
       DbStrings.created +
-      ' VARCHAR(20) NOT NULL DEFAULT ""' +
-      ');';
+      ' VARCHAR(20) NOT NULL DEFAULT "");';
 
   /// Query string for creating the trivia table
   static const String createTriviaTable = 'CREATE TABLE IF NOT EXISTS ' +
@@ -166,8 +199,7 @@ class Queries {
       DbStrings.time +
       ' VARCHAR(20) NOT NULL DEFAULT "", ' +
       DbStrings.created +
-      ' VARCHAR(20) NOT NULL DEFAULT ""' +
-      ');';
+      ' VARCHAR(20) NOT NULL DEFAULT "");';
 
   /// Query string for creating the trivia table
   static const String createTriviaAttemptTable = 'CREATE TABLE IF NOT EXISTS ' +
@@ -182,6 +214,5 @@ class Queries {
       DbStrings.time +
       ' VARCHAR(20) NOT NULL DEFAULT "", ' +
       DbStrings.created +
-      ' VARCHAR(20) NOT NULL DEFAULT ""' +
-      ');';
+      ' VARCHAR(20) NOT NULL DEFAULT "");';
 }

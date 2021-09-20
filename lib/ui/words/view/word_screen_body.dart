@@ -36,7 +36,6 @@ class WordScreenBody extends StatelessWidget {
       child: Column(
         children: <Widget>[
           if (word.synonyms.length != 0) WordScreenSynonyms(wordSynonyms),
-          if (word.synonyms.length != 0) SizedBox(height: 10),
           WordScreenMeaning(wordMeanings),
         ],
       ),

@@ -4,7 +4,7 @@ import '../../../cubit/cubit.dart';
 import '../../../utils/strings/strings.dart';
 import '../../../utils/styles/app_colors.dart';
 
-class SearchFilters extends StatelessWidget {
+class PersonalFilters extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,9 +25,10 @@ class SearchFilters extends StatelessWidget {
       width: double.infinity,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: searchFilters.map(
+        children: personalFilters.map(
           (filter) {
-            final isActive = filter == KamusiCubit.get(context).activeSearchFilter;
+            final isActive =
+                filter == KamusiCubit.get(context).activePersonalFilter;
             return filterItem(context, isActive, filter);
           },
         ).toList(),
@@ -41,14 +42,15 @@ class SearchFilters extends StatelessWidget {
       focusColor: Colors.transparent,
       highlightColor: Colors.transparent,
       splashColor: Colors.transparent,
-      onHover: (focus) => KamusiCubit.get(context).onSearchFilterFocus(focus, filter),
+      onHover: (focus) =>
+          KamusiCubit.get(context).onPersonalFilterFocus(focus, filter),
       onFocusChange: (focus) =>
-          KamusiCubit.get(context).onSearchFilterFocus(focus, filter),
+          KamusiCubit.get(context).onPersonalFilterFocus(focus, filter),
       onTap: () {
-        KamusiCubit.get(context).activeSearchFilter = filter;
-        KamusiCubit.get(context).activeSearchTab =
-            searchFiltersTable[searchFilters.indexOf(filter)];
-        KamusiCubit.get(context).loadSearchListView();
+        KamusiCubit.get(context).activePersonalFilter = filter;
+        KamusiCubit.get(context).activePersonalTab =
+            personalFilters[personalFilters.indexOf(filter)];
+        KamusiCubit.get(context).loadPersonalListView();
       },
       child: filterContainer(isActive, filter),
     );
@@ -58,12 +60,15 @@ class SearchFilters extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
-        color: isActive ? AppColors.baseColor : Colors.transparent,
+        color: isActive ? AppColors.baseColor : Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(5)),
-        border: Border.all(
-          color: isActive ? Colors.transparent : AppColors.baseColor,
-          width: 1,
-        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black,
+            blurRadius: 5,
+            offset: Offset(0, 2),
+          ),
+        ],
       ),
       child: filterText(isActive, filter),
     );

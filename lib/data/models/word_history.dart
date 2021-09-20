@@ -1,9 +1,9 @@
-class History {
+class WordHistory {
   int? _id;
   int? _wordid;
   String? _created;
 
-  History(
+  WordHistory(
     this._wordid,
     this._created,
   );
@@ -37,7 +37,7 @@ class History {
   }
 
   // Extract a Data object from a Map object
-  History.fromMapObject(Map<String, dynamic> map) {
+  WordHistory.fromMapObject(Map<String, dynamic> map) {
     this._id = map['id'];
     this._wordid = map['wordid'];
     this._created = map['created'];

@@ -9,7 +9,7 @@ import '../data/callbacks/callbacks.dart';
 import '../data/models/models.dart';
 import '../ui/home/search/search.dart';
 import '../ui/home/trivia/trivia_tab.dart';
-import '../ui/home/user/user_tab.dart';
+import '../ui/home/personal/personal.dart';
 import '../utils/strings/strings.dart';
 
 class KamusiCubit extends Cubit<AppStates> {
@@ -22,49 +22,59 @@ class KamusiCubit extends Cubit<AppStates> {
   List<Widget> tabScreens = [
     SearchTab(),
     TriviaTab(),
-    UserTab(),
+    PersonalTab(),
   ];
 
   AppDatabase appDB = AppDatabase();
   AssetDatabase assetDB = AssetDatabase();
   late Future<Database> dbAssets, dbFuture;
 
-  List<Word> searchList = [], words = [];
+  List<Word> searchList = [], words = [], personals = [];
   List<Item> items = [];
   late String letterSearch;
 
-  List toggles = List.generate(filters.length, (index) => false);
-  String activeFilter = filters[0], activeTable = filtersTable[0];
+  List searchToggles = List.generate(searchFilters.length, (index) => false);
+  String activeSearchFilter = searchFilters[0],
+      activeSearchTab = searchFiltersTable[0];
+
+  void onSearchFilterFocus(bool focus, String filter) {
+    searchToggles[searchFilters.indexOf(filter)] = focus;
+  }
+
+  List personalToggles =
+      List.generate(personalFilters.length, (index) => false);
+  String activePersonalFilter = personalFilters[0],
+      activePersonalTab = personalFilters[0];
+
+  void onPersonalFilterFocus(bool focus, String filter) {
+    personalToggles[personalFilters.indexOf(filter)] = focus;
+  }
 
   void changeBottom(int index) {
     currentIndex = index;
     emit(AppChangeBottomNavState());
   }
 
-  void onFilterFocus(bool focus, String filter) {
-    toggles[filters.indexOf(filter)] = focus;
-  }
-
   Future<void> loadHomeWordList() async {
-    emit(AppLoadingHomeDataState());
+    emit(AppLoadingSearchDataState());
     dbFuture = appDB.initializeDatabase();
 
     dbFuture.then((database) {
       Future<List<Word>> wordsListFuture = appDB.getWordList();
       wordsListFuture.then((resultList) {
         words = resultList;
-        emit(AppSuccessHomeDataState());
+        emit(AppSuccessSearchDataState());
       });
     });
   }
 
-  void loadHomeListView() {
-    emit(AppLoadingHomeDataState());
+  void loadSearchListView() {
+    emit(AppLoadingSearchDataState());
     words.clear();
     items.clear();
     dbFuture = appDB.initializeDatabase();
 
-    if (activeTable == filtersTable[0]) {
+    if (activeSearchTab == DbStrings.wordsTable) {
       dbFuture.then((database) {
         Future<List<Word>> wordsListFuture = appDB.getWordList();
         wordsListFuture.then((resultList) {
@@ -72,16 +82,76 @@ class KamusiCubit extends Cubit<AppStates> {
             searchList = words = resultList;
           else
             words = resultList;
-          emit(AppSuccessHomeDataState());
-          if (words.length == 0) emit(AppErrorHomeDataState());
+          emit(AppSuccessSearchDataState());
         });
       });
     } else {
       dbFuture.then((database) {
-        Future<List<Item>> itemListFuture = appDB.getItemList(activeTable);
+        Future<List<Item>> itemListFuture = appDB.getItemList(activeSearchTab);
         itemListFuture.then((resultList) {
           items = resultList.cast<Item>();
-          emit(AppSuccessHomeDataState());
+          emit(AppSuccessSearchDataState());
+        });
+      });
+    }
+  }
+
+  void setSearchingLetter(String letter) async {
+    emit(AppLoadingSearchDataState());
+    words.clear();
+    items.clear();
+    letterSearch = letter;
+    dbFuture = appDB.initializeDatabase();
+
+    if (activeSearchTab == DbStrings.wordsTable) {
+      dbFuture.then((database) {
+        Future<List<Word>> wordListFuture = appDB.getWordSearch(letter, true);
+        wordListFuture.then((resultList) {
+          words = resultList;
+          emit(AppSuccessSearchDataState());
+            
+        });
+      });
+    } else {
+      dbFuture.then((database) {
+        Future<List<Item>> itemListFuture =
+            appDB.getItemSearch(letter, activeSearchTab, true);
+        itemListFuture.then((resultList) {
+          items = resultList.cast<Item>();
+          emit(AppSuccessSearchDataState());
+            
+        });
+      });
+    }
+  }
+
+  void loadPersonalListView() {
+    emit(AppLoadingPersonalDataState());
+    personals.clear();
+    dbFuture = appDB.initializeDatabase();
+
+    if (activePersonalTab == AppStrings.history) {
+      dbFuture.then((database) {
+        Future<List<Word>> personalListFuture = appDB.getHistories();
+        personalListFuture.then((resultList) {
+          personals = resultList;
+          emit(AppSuccessPersonalDataState());
+        });
+      });
+    } else if (activePersonalTab == AppStrings.favorites) {
+      dbFuture.then((database) {
+        Future<List<Word>> personalListFuture = appDB.getFavorites();
+        personalListFuture.then((resultList) {
+          personals = resultList;
+          emit(AppSuccessPersonalDataState());
+        });
+      });
+    } else if (activePersonalTab == AppStrings.searches) {
+      dbFuture.then((database) {
+        Future<List<Word>> personalListFuture = appDB.getSearches();
+        personalListFuture.then((resultList) {
+          personals = resultList;
+          emit(AppSuccessPersonalDataState());
         });
       });
     }
@@ -89,9 +159,9 @@ class KamusiCubit extends Cubit<AppStates> {
 
   Future<void> initialLoading(bool? isDataLoaded) async {
     if (isDataLoaded != null)
-      emit(AppSuccessHomeDataState());
+      emit(AppSuccessSearchDataState());
     else {
-      emit(AppLoadingHomeDataState());
+      emit(AppLoadingSearchDataState());
       dbAssets = assetDB.initializeDatabase();
       dbAssets.then((database) {
         Future<List<WordCallback>> wordListAsset = assetDB.getWordList();
@@ -115,7 +185,7 @@ class KamusiCubit extends Cubit<AppStates> {
 
       await appDB.insertWord(word);
     }
-    loadHomeListView();
+    loadSearchListView();
     requestIdiomsData();
   }
 
@@ -130,7 +200,7 @@ class KamusiCubit extends Cubit<AppStates> {
           DbStrings.idiomsTable,
           itemsList,
         );
-        loadHomeListView();
+        loadSearchListView();
         requestSayingsData();
       });
     });
@@ -147,7 +217,7 @@ class KamusiCubit extends Cubit<AppStates> {
           DbStrings.sayingsTable,
           itemsList,
         );
-        loadHomeListView();
+        loadSearchListView();
         requestProverbsData();
       });
     });
@@ -164,7 +234,7 @@ class KamusiCubit extends Cubit<AppStates> {
           DbStrings.proverbsTable,
           itemsList,
         );
-        loadHomeListView();
+        loadSearchListView();
         finishSavingData();
       });
     });
@@ -186,7 +256,7 @@ class KamusiCubit extends Cubit<AppStates> {
   }
 
   Future<void> finishSavingData() async {
-    emit(AppSuccessHomeDataState());
-    loadHomeListView();
+    emit(AppSuccessSearchDataState());
+    loadSearchListView();
   }
 }

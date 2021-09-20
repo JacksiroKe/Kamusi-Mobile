@@ -12,8 +12,11 @@ class AppStrings {
   static const String proverbs = 'methali';
   static const String sayings = 'misemo';
   static const String idioms = 'nahau';
-  static const String searches = 'matafuto';
   static const String trivia = 'trivia';
+
+  static const String history = 'historia';
+  static const String favorites = 'vipendwa';
+  static const String searches = 'utafutaji';
 
   static const String revCatKey = 'danXhdPXSzsDcJgElNAexHaGnvsPMSqY';
 
@@ -22,7 +25,6 @@ class AppStrings {
   static const String synonyms_for = "\n\nVisawe (synonyms) vya neno ";
   static const String searchHint = "Tafuta Kwenye Kamusi";
   static const String favourited = "Maneno Uliyoyapenda";
-  static const String history = "Historia yako";
 
   static const String nothing =
       'Ala! Yaani hivi kumbe hamna chochote huku!\nHebu fanya jambo ...';

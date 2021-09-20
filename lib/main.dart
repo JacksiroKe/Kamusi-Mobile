@@ -128,7 +128,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (BuildContext context) => KamusiCubit()
             ..initialLoading(dataLoaded)
-            ..loadHomeListView(),
+            ..loadSearchListView()
+            ..loadPersonalListView(),
         ),
       ],
       child: MaterialApp(

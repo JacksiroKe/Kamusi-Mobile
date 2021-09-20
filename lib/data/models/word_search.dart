@@ -1,9 +1,9 @@
-class Search {
+class WordSearch {
   int? _id;
   int? _wordid;
   String? _created;
 
-  Search(
+  WordSearch(
     this._wordid,
     this._created,
   );
@@ -37,7 +37,7 @@ class Search {
   }
 
   // Extract a Data object from a Map object
-  Search.fromMapObject(Map<String, dynamic> map) {
+  WordSearch.fromMapObject(Map<String, dynamic> map) {
     this._id = map['id'];
     this._wordid = map['wordid'];
     this._created = map['created'];

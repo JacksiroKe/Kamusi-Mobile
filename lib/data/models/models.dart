@@ -1,9 +1,9 @@
-export 'history.dart';
 export 'item.dart';
 export 'page.dart';
-export 'search.dart';
+export 'trivia.dart';
 export 'trivia_cat.dart';
 export 'trivia_quiz.dart';
 export 'trivia_word.dart';
-export 'trivia.dart';
 export 'word.dart';
+export 'word_history.dart';
+export 'word_search.dart';

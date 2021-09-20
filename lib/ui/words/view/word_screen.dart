@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../data/app_database.dart';
+import '../../../../cubit/cubit.dart';
 import '../../../../data/models/models.dart';
+import '../../../../utils/strings/strings.dart';
 import 'word.dart';
 
 // ignore: must_be_immutable
@@ -11,7 +12,6 @@ class WordScreen extends StatelessWidget {
   WordScreen(this.word);
 
   final globalKey = GlobalKey<ScaffoldState>();
-  AppDatabase db = AppDatabase();
 
   bool isFavourited = false;
   String? wordMeaning;
@@ -35,6 +35,8 @@ class WordScreen extends StatelessWidget {
       wordMeaning = wordMeaning! + "\n" + " ~ " + wordExtra[0].trim() + ".";
     }
 
+    KamusiCubit.get(context).appDB.insertWordHistory(word.id);
+
     return WillPopScope(
       onWillPop: () async {
         Navigator.of(context).pop(true);
@@ -49,7 +51,7 @@ class WordScreen extends StatelessWidget {
               icon: Icon(
                 isFavourited ? Icons.favorite : Icons.favorite_border,
               ),
-              onPressed: () => favoriteThis(),
+              onPressed: () => favoriteThis(context),
             )
           ],
         ),
@@ -84,5 +86,22 @@ class WordScreen extends StatelessWidget {
     );
   }
 
-  void favoriteThis() {}
+  void favoriteThis(BuildContext context) {
+    bool _isfavorite;
+    if (word.isfav == 1) {
+      _isfavorite = false;
+      KamusiCubit.get(context).appDB.favouriteWord(word, _isfavorite);
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Neno " + word.title + " " + AppStrings.wordDisliked),
+      ));
+    } else {
+      _isfavorite = true;
+      KamusiCubit.get(context).appDB.favouriteWord(word, _isfavorite);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Neno " + word.title + " " + AppStrings.wordLiked),
+      ));
+    }
+    isFavourited = _isfavorite;
+  }
 }

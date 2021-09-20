@@ -1,18 +1,22 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../cubit/cubit.dart';
 import '../../../data/models/models.dart';
 import '../../../utils/strings/strings.dart';
-import '../../../utils/conditional_builder.dart';
 import '../../../utils/styles/app_colors.dart';
 import '../../generics/general_item.dart';
 import '../../words/list/word_item.dart';
 
+// ignore: must_be_immutable
 class SearchList extends StatelessWidget {
   final ScrollController myScrollController = ScrollController();
   final List<Word> wordlist;
 
   SearchList(this.wordlist);
+  RefreshController refreshController =
+      RefreshController(initialRefresh: false);
 
   @override
   Widget build(BuildContext context) {
@@ -23,44 +27,23 @@ class SearchList extends StatelessWidget {
           child: ListView.builder(
             physics: BouncingScrollPhysics(),
             itemCount: letters.length,
-            itemBuilder: lettersView,
+            itemBuilder: lettersList,
           ),
         ),
         Container(
           width: MediaQuery.of(context).size.width - 70,
-          child: ConditionalBuilder(
-            condition: KamusiCubit.get(context).words.length != 0 ||
-                KamusiCubit.get(context).items.length != 0,
-            builder: (context) => itemsBuilder(context),
-            fallback: (context) => Center(
-              child: Container(
-                decoration: new BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(color: AppColors.baseColor),
-                  boxShadow: [BoxShadow(blurRadius: 5)],
-                  borderRadius: BorderRadius.all(Radius.circular(30)),
-                ),
-                margin: const EdgeInsets.all(20),
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation(AppColors.baseColor),
-                  ),
-                ),
-              ),
-            ),
-          ),
+          child: listContainer(context),
         ),
       ],
     );
   }
 
-  Widget lettersView(BuildContext context, int index) {
+  Widget lettersList(BuildContext context, int index) {
     return Container(
       height: 60,
       child: GestureDetector(
         onTap: () {
-          //setSearchingLetter(letters[index]);
+          KamusiCubit.get(context).setSearchingLetter(letters[index]);
         },
         child: Card(
           shape: RoundedRectangleBorder(
@@ -76,9 +59,10 @@ class SearchList extends StatelessWidget {
                 child: Text(
                   letters[index],
                   style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.secondaryColor),
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.secondaryColor,
+                  ),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -89,22 +73,41 @@ class SearchList extends StatelessWidget {
     );
   }
 
-  Widget itemsBuilder(BuildContext context) {
+  Widget listContainer(BuildContext context) {
+    return SmartRefresher(
+      enablePullDown: true,
+      header: WaterDropHeader(),
+      controller: refreshController,
+      onRefresh: () async {
+        KamusiCubit.get(context).loadSearchListView();
+        refreshController.refreshCompleted();
+      },
+      onLoading: () async {
+        KamusiCubit.get(context).loadSearchListView();
+        refreshController.loadComplete();
+        refreshController.refreshCompleted();
+      },
+      child: listView(context),
+    );
+  }
+
+  Widget listView(BuildContext context) {
     return ListView.builder(
       controller: myScrollController,
       padding: EdgeInsets.zero,
-      itemCount: KamusiCubit.get(context).activeTable == filtersTable[0]
-          ? wordlist.length
-          : KamusiCubit.get(context).items.length,
+      itemCount:
+          KamusiCubit.get(context).activeSearchTab == searchFiltersTable[0]
+              ? wordlist.length
+              : KamusiCubit.get(context).items.length,
       itemBuilder: (BuildContext context, int index) {
-        return KamusiCubit.get(context).activeTable == filtersTable[0]
+        return KamusiCubit.get(context).activeSearchTab == searchFiltersTable[0]
             ? WordItem(
                 'WordIndex_' + wordlist[index].id.toString(), wordlist[index])
             : GeneralItem(
                 'ItemIndex_' +
                     KamusiCubit.get(context).items[index].id.toString(),
                 KamusiCubit.get(context).items[index],
-                KamusiCubit.get(context).activeTable,
+                KamusiCubit.get(context).activeSearchTab,
               );
       },
     );

@@ -42,6 +42,7 @@ class WordScreenSynonyms extends StatelessWidget {
           child: Container(
             padding:
                 const EdgeInsets.only(left: 15, right: 15, bottom: 5, top: 5),
+            margin: const EdgeInsets.only(bottom: 10, left: 10),
             decoration: BoxDecoration(
               color: AppColors.baseColor,
               borderRadius: BorderRadius.all(
