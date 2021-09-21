@@ -105,7 +105,10 @@ class SearchBar extends SearchDelegate<List> {
           itemCount: filtered.length,
           itemBuilder: (context, index) {
             return WordItem(
-                'ItemSearch_' + filtered[index].id.toString(), filtered[index]);
+              'ItemSearch_' + filtered[index].id.toString(),
+              filtered[index],
+              false,
+            );
           }),
     );
   }

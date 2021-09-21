@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-
+import '../../../data/models/models.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+
 import '../../../cubit/cubit.dart';
 import '../../../utils/conditional_builder.dart';
 import '../../../utils/strings/strings.dart';
-import '../../../utils/styles/app_colors.dart';
 import '../../../widgets/widgets.dart';
-import '../../words/list/word_item.dart';
+import '../../words/list/word.dart';
 
 // ignore: must_be_immutable
 class PersonalList extends StatelessWidget {
@@ -27,8 +27,8 @@ class PersonalList extends StatelessWidget {
           refreshController.refreshCompleted();
         },
         onLoading: () async {
-          KamusiCubit.get(context).loadPersonalListView();
-          refreshController.loadComplete();
+          //KamusiCubit.get(context).loadPersonalListView();
+          //refreshController.loadComplete();
         },
         child: listView(context),
       ),
@@ -52,6 +52,8 @@ class PersonalList extends StatelessWidget {
   }
 
   Widget listView(BuildContext context) {
+    print(
+        'Favourites: ' + KamusiCubit.get(context).personals.length.toString());
     return ListView.builder(
       controller: myScrollController,
       padding: EdgeInsets.zero,
@@ -61,6 +63,7 @@ class PersonalList extends StatelessWidget {
           'WordIndex_' +
               KamusiCubit.get(context).personals[index].id.toString(),
           KamusiCubit.get(context).personals[index],
+          true,
         );
       },
     );

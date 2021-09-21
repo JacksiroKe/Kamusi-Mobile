@@ -120,7 +120,9 @@ class AppDatabase {
     var itemMapList = await getItemMapList(table);
     List<Item> itemList = [];
     for (int i = 0; i < itemMapList!.length; i++) {
-      itemList.add(Item.fromMapObject(itemMapList[i]));
+      itemList.add(
+        Item.fromMapObject(itemMapList[i]),
+      );
     }
     return itemList;
   }
@@ -155,7 +157,9 @@ class AppDatabase {
     List<Item> itemList = [];
 
     for (int i = 0; i < itemMapList.length; i++) {
-      itemList.add(Item.fromMapObject(itemMapList[i]));
+      itemList.add(
+        Item.fromMapObject(itemMapList[i]),
+      );
     }
     return itemList;
   }
@@ -170,7 +174,9 @@ class AppDatabase {
     var itemMapList = await getWordMapList();
     List<Word> itemList = [];
     for (int i = 0; i < itemMapList.length; i++) {
-      itemList.add(Word.fromMapObject(itemMapList[i]));
+      itemList.add(
+        Word.fromMapObject(itemMapList[i]),
+      );
     }
     return itemList;
   }
@@ -189,7 +195,9 @@ class AppDatabase {
     List<Word> itemList = [];
 
     for (int i = 0; i < itemMapList.length; i++) {
-      itemList.add(Word.fromMapObject(itemMapList[i]));
+      itemList.add(
+        Word.fromMapObject(itemMapList[i]),
+      );
     }
     if (itemList.isNotEmpty)
       return itemList[0];
@@ -217,7 +225,9 @@ class AppDatabase {
     List<Word> itemList = [];
 
     for (int i = 0; i < itemMapList.length; i++) {
-      itemList.add(Word.fromMapObject(itemMapList[i]));
+      itemList.add(
+        Word.fromMapObject(itemMapList[i]),
+      );
     }
     return itemList;
   }
@@ -233,7 +243,9 @@ class AppDatabase {
 
     List<Word> itemList = [];
     for (int i = 0; i < itemMapList.length; i++) {
-      itemList.add(Word.fromMapObject(itemMapList[i]));
+      itemList.add(
+        Word.fromMapObject(itemMapList[i]),
+      );
     }
 
     return itemList;
@@ -258,7 +270,9 @@ class AppDatabase {
     List<Word> itemList = [];
 
     for (int i = 0; i < itemMapList.length; i++) {
-      itemList.add(Word.fromMapObject(itemMapList[i]));
+      itemList.add(
+        Word.fromMapObject(itemMapList[i]),
+      );
     }
     return itemList;
   }
@@ -283,7 +297,9 @@ class AppDatabase {
 
     List<Word> itemList = [];
     for (int i = 0; i < itemMapList.length; i++) {
-      itemList.add(Word.fromMapObject(itemMapList[i]));
+      itemList.add(
+        Word.fromMapObject(itemMapList[i]),
+      );
     }
 
     return itemList;
@@ -304,11 +320,13 @@ class AppDatabase {
   }
 
   Future<List<Word>> getSearches() async {
-    var itemMapList = await getHistoriesList();
+    var itemMapList = await getSearchesList();
 
     List<Word> itemList = [];
     for (int i = 0; i < itemMapList.length; i++) {
-      itemList.add(Word.fromMapObject(itemMapList[i]));
+      itemList.add(
+        Word.fromMapObject(itemMapList[i]),
+      );
     }
 
     return itemList;
@@ -348,7 +366,9 @@ class AppDatabase {
     var itemMapList = await getTriviaMapList();
     List<Trivia> itemList = [];
     for (int i = 0; i < itemMapList.length; i++) {
-      itemList.add(Trivia.fromMapObject(itemMapList[i]));
+      itemList.add(
+        Trivia.fromMapObject(itemMapList[i]),
+      );
     }
     return itemList;
   }
@@ -365,7 +385,9 @@ class AppDatabase {
 
     List<Trivia> itemList = [];
     for (int i = 0; i < itemMapList.length; i++) {
-      itemList.add(Trivia.fromMapObject(itemMapList[i]));
+      itemList.add(
+        Trivia.fromMapObject(itemMapList[i]),
+      );
     }
     return itemList[0];
   }

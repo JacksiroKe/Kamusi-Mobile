@@ -102,7 +102,10 @@ class SearchList extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         return KamusiCubit.get(context).activeSearchTab == searchFiltersTable[0]
             ? WordItem(
-                'WordIndex_' + wordlist[index].id.toString(), wordlist[index])
+                'WordIndex_' + wordlist[index].id.toString(),
+                wordlist[index],
+                false,
+              )
             : GeneralItem(
                 'ItemIndex_' +
                     KamusiCubit.get(context).items[index].id.toString(),

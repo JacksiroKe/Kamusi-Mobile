@@ -3,9 +3,14 @@ import 'package:intl/intl.dart';
 import 'app_strings.dart';
 import 'db_strings.dart';
 
-String datetimeNow() {
+String datetimeReadable() {
   DateTime now = DateTime.now();
   return DateFormat('y-M-d kk:mm:ss').format(now);
+}
+
+String datetimeNow() {
+  var datetimenow = DateTime.now().millisecondsSinceEpoch;
+  return datetimenow.toString();
 }
 
 final searchFilters = [

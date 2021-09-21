@@ -1,4 +1,4 @@
-class Word {
+class WordRecord {
   int? _id;
   String? _title;
   String? _meaning;
@@ -6,9 +6,9 @@ class Word {
   String? _conjugation;
   int? _views;
   int? _isfav;
-  String? _updated;
+  String? _posted;
 
-  Word(this._title, this._meaning, this._synonyms, this._conjugation);
+  WordRecord(this._title, this._meaning, this._synonyms, this._conjugation, this._posted);
 
   int get id => _id ?? 0;
   String get title => _title!;
@@ -17,7 +17,7 @@ class Word {
   String get conjugation => _conjugation!;
   int get views => _views!;
   int get isfav => _isfav!;
-  String get updated => _updated!;
+  String get posted => _posted!;
 
   set id(int newId) {
     this._id = newId;
@@ -47,8 +47,8 @@ class Word {
     this._isfav = newIsfav;
   }
 
-  set updated(String newPosted) {
-    this._updated = newPosted;
+  set posted(String newPosted) {
+    this._posted = newPosted;
   }
 
   // Convert a Data object into a Map object
@@ -63,13 +63,13 @@ class Word {
     map['conjugation'] = _conjugation;
     map['views'] = _views;
     map['isfav'] = _isfav;
-    map['updated'] = _updated;
+    map['posted'] = _posted;
 
     return map;
   }
 
   // Extract a Data object from a Map object
-  Word.fromMapObject(Map<String, dynamic> map) {
+  WordRecord.fromMapObject(Map<String, dynamic> map) {
     this._id = map['id'];
     this._title = map['title'];
     this._meaning = map['meaning'];
@@ -77,6 +77,6 @@ class Word {
     this._conjugation = map['conjugation'];
     this._views = map['views'];
     this._isfav = map['isfav'];
-    this._updated = map['updated'];
+    this._posted = map['posted'];
   }
 }

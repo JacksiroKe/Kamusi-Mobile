@@ -109,7 +109,6 @@ class KamusiCubit extends Cubit<AppStates> {
         wordListFuture.then((resultList) {
           words = resultList;
           emit(AppSuccessSearchDataState());
-            
         });
       });
     } else {
@@ -119,7 +118,6 @@ class KamusiCubit extends Cubit<AppStates> {
         itemListFuture.then((resultList) {
           items = resultList.cast<Item>();
           emit(AppSuccessSearchDataState());
-            
         });
       });
     }
@@ -143,6 +141,7 @@ class KamusiCubit extends Cubit<AppStates> {
         Future<List<Word>> personalListFuture = appDB.getFavorites();
         personalListFuture.then((resultList) {
           personals = resultList;
+          //print('Results: ' + personals.length.toString());
           emit(AppSuccessPersonalDataState());
         });
       });
