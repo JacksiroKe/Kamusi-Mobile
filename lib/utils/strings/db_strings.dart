@@ -47,7 +47,7 @@ class DbQueries {
       DbStrings.notes + ' VARCHAR(500) NOT NULL DEFAULT "", ' +
       DbStrings.isfav + ' INTEGER NOT NULL DEFAULT 0, ' +
       DbStrings.views + ' INTEGER NOT NULL DEFAULT 0, ' +
-      DbStrings.updated + ' VARCHAR(30));';
+      DbStrings.updated + ' VARCHAR(20));';
 
   /// Query string for creating the proverbs table
   static const String createProverbsTable = 'CREATE TABLE IF NOT EXISTS ' +
@@ -60,7 +60,7 @@ class DbQueries {
       DbStrings.notes + ' VARCHAR(500) NOT NULL DEFAULT "", ' +
       DbStrings.isfav + ' INTEGER NOT NULL DEFAULT 0, ' +
       DbStrings.views + ' INTEGER NOT NULL DEFAULT 0, ' +
-      DbStrings.updated + ' VARCHAR(30));';
+      DbStrings.updated + ' VARCHAR(20));';
 
   /// Query string for creating the sayings table
   static const String createSayingsTable = 'CREATE TABLE IF NOT EXISTS ' +
@@ -73,7 +73,7 @@ class DbQueries {
       DbStrings.notes + ' VARCHAR(500) NOT NULL DEFAULT "", ' +
       DbStrings.isfav + ' INTEGER NOT NULL DEFAULT 0, ' +
       DbStrings.views + ' INTEGER NOT NULL DEFAULT 0, ' +
-      DbStrings.updated + ' VARCHAR(30));';
+      DbStrings.updated + ' VARCHAR(20));';
 
   /// Query string for creating the words table
   static const String createWordsTable = 'CREATE TABLE IF NOT EXISTS ' +
@@ -87,7 +87,7 @@ class DbQueries {
       DbStrings.notes + ' VARCHAR(500) NOT NULL DEFAULT "", ' +
       DbStrings.isfav + ' INTEGER NOT NULL DEFAULT 0, ' +
       DbStrings.views + ' INTEGER NOT NULL DEFAULT 0, ' +
-      DbStrings.updated + ' VARCHAR(30));';
+      DbStrings.updated + ' VARCHAR(20));';
 
   /// Query string for creating the searches table
   static const String createWordsHistoryTable = 'CREATE TABLE IF NOT EXISTS ' +
@@ -148,7 +148,7 @@ class DbQueries {
       DbStrings.level + ' VARCHAR(20) NOT NULL DEFAULT "", ' +
       DbStrings.score + ' INTEGER NOT NULL DEFAULT 0, ' +
       DbStrings.time + ' VARCHAR(20) NOT NULL DEFAULT "", ' +
-      DbStrings.created + ' VARCHAR(30));';
+      DbStrings.created + ' VARCHAR(20));';
 
   /// Query string for creating the trivia table
   static const String createTriviaAttemptTable = 'CREATE TABLE IF NOT EXISTS ' +
@@ -158,5 +158,5 @@ class DbQueries {
       DbStrings.trivia + ' INTEGER NOT NULL DEFAULT 0, ' +
       DbStrings.progress + ' INTEGER NOT NULL DEFAULT 0, ' +
       DbStrings.time + ' VARCHAR(20) NOT NULL DEFAULT "", ' +
-      DbStrings.created + ' VARCHAR(30));';
+      DbStrings.created + ' VARCHAR(20));';
 }

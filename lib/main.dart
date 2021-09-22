@@ -9,7 +9,7 @@ import '../utils/bloc_observer.dart';
 import '../utils/network/remote/dio_helper.dart';
 import '../utils/strings/strings.dart';
 import '../utils/styles/app_colors.dart';
-import 'data/cache_helper.dart';
+import 'services/cache_helper.dart';
 import 'ui/home/home_screen.dart';
 import 'ui/init_load_screen.dart';
 

@@ -32,6 +32,21 @@ class CacheHelper {
     return prefs.getString(prefKey);
   }
 
+  static Future<void> setPrefStr(String key, String value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(key, value);
+  }
+
+  static Future<int?> getPrefInt(String key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getInt(key);
+  }
+
+  static Future<void> setPrefInt(String key, int value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt(key, value);
+  }
+
   static Future<User?> getUserProfile() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return User.fromJson(json.decode(prefs.getString(SharedPrefKeys.appUser)!));

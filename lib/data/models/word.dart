@@ -47,8 +47,8 @@ class Word {
     this._isfav = newIsfav;
   }
 
-  set updated(String newPosted) {
-    this._updated = newPosted;
+  set updated(String newUpdated) {
+    this._updated = newUpdated;
   }
 
   // Convert a Data object into a Map object

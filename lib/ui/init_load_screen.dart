@@ -5,7 +5,7 @@ import 'package:sqflite/sqflite.dart';
 import '../data/callbacks/callbacks.dart';
 import '../data/app_database.dart';
 import '../data/asset_database.dart';
-import '../data/cache_helper.dart';
+import '../services/cache_helper.dart';
 import '../utils/strings/strings.dart';
 import '../utils/styles/app_colors.dart';
 import 'home/home_screen.dart';

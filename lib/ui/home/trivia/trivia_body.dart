@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../../ui/home/personal/personal.dart';
 import '../../../utils/strings/strings.dart';
 import '../../../utils/styles/app_colors.dart';
 
 class TriviaBody extends StatelessWidget {
+  final TextStyle titleStyle =
+      TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.w500);
+  final TextStyle subtitleStyle = TextStyle(fontSize: 16, color: Colors.white);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,6 +35,7 @@ class TriviaBody extends StatelessWidget {
       child: Column(
         children: <Widget>[
           appIconName(),
+          menuContainer(context),
         ],
       ),
     );
@@ -56,12 +60,63 @@ class TriviaBody extends StatelessWidget {
     );
   }
 
-  Widget bottomContainer() {
+  Widget menuContainer(BuildContext context) {
     return Expanded(
       flex: 1,
-      child: Container(
-        margin: EdgeInsets.only(left: 5, right: 5),
-        child: PersonalList(),
+      child: ListView(
+        children: <Widget>[
+          ListTile(
+            leading: Icon(Icons.help, size: 50, color: Colors.white),
+            title: Text(AppStrings.triviaPage, style: titleStyle),
+            subtitle:
+                Text(AppStrings.triviaPageDescription, style: subtitleStyle),
+            onTap: () {},
+          ),
+          /*Divider(height: 1, color: Colors.white),
+          ListTile(
+              leading: Icon(Icons.history, size: 50, color: Colors.white),
+              title: Text(AppStrings.triviaList, style: titleStyle),
+              subtitle:
+                  Text(AppStrings.triviaListDescription, style: subtitleStyle),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return TriviaList();
+                }));
+              }),*/
+          Divider(height: 1, color: Colors.white),
+          ListTile(
+            leading: Icon(Icons.list, size: 50, color: Colors.white),
+            title: Text(AppStrings.triviaLeaderboard, style: titleStyle),
+            subtitle: Text(AppStrings.triviaLeaderboardDescription,
+                style: subtitleStyle),
+            onTap: () {},
+          ),
+          Divider(height: 1, color: Colors.white),
+          ListTile(
+            leading: Icon(Icons.settings, size: 50, color: Colors.white),
+            title: Text(AppStrings.triviaSettings, style: titleStyle),
+            subtitle: Text(AppStrings.triviaSettingsDescription,
+                style: subtitleStyle),
+            onTap: () {},
+          ),
+          Divider(height: 1, color: Colors.white),
+          /*ListTile(
+              leading: Icon(Icons.monetization_on_outlined,
+                  size: 50, color: ColorUtils.white),
+              title: subsTitle,
+              subtitle: subsSubtitle,
+              tileColor: subsColor,
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (sheetContext) => BottomSheet(
+                    builder: (_) => TriviaSubscription(),
+                    onClosing: () => requestData(),
+                  ),
+                );
+              }),
+          Divider(height: 1, color: ColorUtils.white),*/
+        ],
       ),
     );
   }

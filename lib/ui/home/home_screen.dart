@@ -22,13 +22,15 @@ class HomeScreen extends StatelessWidget {
             onPressed: () {
               cubit.changeBottom(1);
             },
-            backgroundColor: AppColors.activeColor,
+            backgroundColor:
+                cubit.currentIndex == 1 ? Colors.red : AppColors.activeColor,
             icon: Icon(Icons.help),
             label: Text(
               "MASWALI",
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -54,13 +56,23 @@ class HomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             IconButton(
-              icon: Icon(Icons.home),
+              icon: Icon(
+                Icons.home,
+                size: 30,
+                color:
+                    cubit.currentIndex == 0 ? Colors.red : AppColors.baseColor,
+              ),
               onPressed: () {
                 cubit.changeBottom(0);
               },
             ),
             IconButton(
-              icon: Icon(Icons.person_search_sharp),
+              icon: Icon(
+                Icons.person_search_sharp,
+                size: 30,
+                color:
+                    cubit.currentIndex == 2 ? Colors.red : AppColors.baseColor,
+              ),
               onPressed: () {
                 cubit.changeBottom(2);
               },

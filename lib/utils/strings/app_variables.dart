@@ -13,6 +13,28 @@ String datetimeNow() {
   return datetimenow.toString();
 }
 
+String timeAgo(int input) {
+  var date = DateTime.fromMillisecondsSinceEpoch(input);
+  Duration diff = DateTime.now().difference(date);
+
+  if (diff.inDays >= 1) {
+    if (diff.inDays <= 2) {
+      return 'Jana\n' + DateFormat('kk:mm').format(date);
+    } else
+      return DateFormat('MMM d\ny').format(date);
+  } else {
+    if (diff.inHours >= 1) {
+      return 'Saa\n${diff.inHours}';
+    } else if (diff.inMinutes >= 1) {
+      return 'Dakika\n${diff.inMinutes}';
+    } else if (diff.inSeconds >= 1) {
+      return 'Sekunde\n${diff.inSeconds}';
+    } else {
+      return 'Hivi\nsasa';
+    }
+  }
+}
+
 final searchFilters = [
   AppStrings.words,
   AppStrings.idioms,
