@@ -30,6 +30,7 @@ class KamusiCubit extends Cubit<AppStates> {
   late Future<Database> dbAssets, dbFuture;
 
   List<Word> searchList = [], words = [], personals = [];
+  List<Word> histories = [], favorites = [];
   List<Item> items = [];
   late String letterSearch;
 
@@ -76,8 +77,8 @@ class KamusiCubit extends Cubit<AppStates> {
 
     if (activeSearchTab == DbStrings.wordsTable) {
       dbFuture.then((database) {
-        Future<List<Word>> wordsListFuture = appDB.getWordList();
-        wordsListFuture.then((resultList) {
+        Future<List<Word>> listFuture = appDB.getWordList();
+        listFuture.then((resultList) {
           if (searchList.isEmpty)
             searchList = words = resultList;
           else
@@ -87,8 +88,8 @@ class KamusiCubit extends Cubit<AppStates> {
       });
     } else {
       dbFuture.then((database) {
-        Future<List<Item>> itemListFuture = appDB.getItemList(activeSearchTab);
-        itemListFuture.then((resultList) {
+        Future<List<Item>> listFuture = appDB.getItemList(activeSearchTab);
+        listFuture.then((resultList) {
           items = resultList.cast<Item>();
           emit(AppSuccessSearchDataState());
         });
@@ -105,17 +106,17 @@ class KamusiCubit extends Cubit<AppStates> {
 
     if (activeSearchTab == DbStrings.wordsTable) {
       dbFuture.then((database) {
-        Future<List<Word>> wordListFuture = appDB.getWordSearch(letter, true);
-        wordListFuture.then((resultList) {
+        Future<List<Word>> listFuture = appDB.getWordSearch(letter, true);
+        listFuture.then((resultList) {
           words = resultList;
           emit(AppSuccessSearchDataState());
         });
       });
     } else {
       dbFuture.then((database) {
-        Future<List<Item>> itemListFuture =
+        Future<List<Item>> listFuture =
             appDB.getItemSearch(letter, activeSearchTab, true);
-        itemListFuture.then((resultList) {
+        listFuture.then((resultList) {
           items = resultList.cast<Item>();
           emit(AppSuccessSearchDataState());
         });
@@ -130,16 +131,16 @@ class KamusiCubit extends Cubit<AppStates> {
 
     if (activePersonalTab == AppStrings.history) {
       dbFuture.then((database) {
-        Future<List<Word>> personalListFuture = appDB.getHistories();
-        personalListFuture.then((resultList) {
+        Future<List<Word>> listFuture = appDB.getHistories(0);
+        listFuture.then((resultList) {
           personals = resultList;
           emit(AppSuccessPersonalDataState());
         });
       });
     } else if (activePersonalTab == AppStrings.favorites) {
       dbFuture.then((database) {
-        Future<List<Word>> personalListFuture = appDB.getFavorites();
-        personalListFuture.then((resultList) {
+        Future<List<Word>> listFuture = appDB.getFavorites(0);
+        listFuture.then((resultList) {
           personals = resultList;
           //print('Results: ' + personals.length.toString());
           emit(AppSuccessPersonalDataState());
@@ -147,13 +148,41 @@ class KamusiCubit extends Cubit<AppStates> {
       });
     } else if (activePersonalTab == AppStrings.searches) {
       dbFuture.then((database) {
-        Future<List<Word>> personalListFuture = appDB.getSearches();
-        personalListFuture.then((resultList) {
+        Future<List<Word>> listFuture = appDB.getSearches();
+        listFuture.then((resultList) {
           personals = resultList;
           emit(AppSuccessPersonalDataState());
         });
       });
     }
+  }
+
+  void loadHistories() {
+    emit(AppLoadingPersonalDataState());
+    histories.clear();
+    dbFuture = appDB.initializeDatabase();
+
+    dbFuture.then((database) {
+      Future<List<Word>> listFuture = appDB.getHistories(5);
+      listFuture.then((resultList) {
+        histories = resultList;
+        emit(AppSuccessPersonalDataState());
+      });
+    });
+  }
+
+  void loadFavorites() {
+    emit(AppLoadingPersonalDataState());
+    favorites.clear();
+    dbFuture = appDB.initializeDatabase();
+
+    dbFuture.then((database) {
+      Future<List<Word>> listFuture = appDB.getFavorites(5);
+      listFuture.then((resultList) {
+        favorites = resultList;
+        emit(AppSuccessPersonalDataState());
+      });
+    });
   }
 
   Future<void> initialLoading(bool? isDataLoaded) async {

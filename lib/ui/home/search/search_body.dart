@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../cubit/cubit.dart';
 import '../../../data/models/models.dart';
+import '../../../utils/conditional_builder.dart';
 import '../../../utils/styles/app_colors.dart';
 import 'search.dart';
 
@@ -38,7 +39,14 @@ class SearchBody extends StatelessWidget {
       child: Column(
         children: <Widget>[
           searchContainer(),
-          bottomContainer(context),
+          Expanded(
+            flex: 1,
+            child: Container(
+              margin: EdgeInsets.only(left: 5, right: 5),
+              child: SearchList(wordlist),
+            ),
+          ),
+          footerContainer(context),
         ],
       ),
     );
@@ -67,51 +75,28 @@ class SearchBody extends StatelessWidget {
     );
   }
 
-  Widget bottomContainer(BuildContext context) {
-    return Expanded(
-      flex: 1,
-      child: Container(
-        margin: EdgeInsets.only(left: 5, right: 5),
-        child: Stack(
-          children: [
-            SearchList(wordlist),
-            Container(
-              child: Column(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Container(),
-                  ),
-                  footerContainer(context),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget footerContainer(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10),
-          topRight: Radius.circular(10),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black,
-            blurRadius: 10,
-            offset: Offset(0, 3),
-          ),
-        ],
-      ),
-      child: Column(
+      child: Row(
         children: [
-          FavoriteContainer(),
-          HistoryContainer(),
+          ConditionalBuilder(
+            condition: KamusiCubit.get(context).histories.length != 0,
+            builder: (context) {
+              return HistoryContainer();
+            },
+            fallback: (context) {
+              return Container();
+            },
+          ),
+          ConditionalBuilder(
+            condition: KamusiCubit.get(context).favorites.length != 0,
+            builder: (context) {
+              return FavoriteContainer();
+            },
+            fallback: (context) {
+              return Container();
+            },
+          )
         ],
       ),
     );

@@ -1,81 +1,143 @@
+import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 
-import '../../../utils/styles/app_colors.dart';
+import '../../../cubit/cubit.dart';
+import '../../../data/models/models.dart';
 
-class FavoriteContainer extends StatelessWidget {
+// ignore: must_be_immutable
+class HistoryContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          margin: EdgeInsets.all(10),
-          child: Row(
-            children: [
-              Text(
-                'VIPENDWA',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.baseColor,
-                ),
+    return Expanded(
+      flex: 1,
+      child: Container(
+        height: 130,
+        child: Column(
+          children: [
+            Text(
+              'HISTORIA',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
-              Spacer(flex: 2),
-              Text(
-                'Orodha yote',
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.baseColor,
-                ),
+            ),
+            Container(
+              height: 105,
+              child: Swiper(
+                itemCount: KamusiCubit.get(context).histories.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return WordContainer(
+                    'Histories_' +
+                        KamusiCubit.get(context).histories[index].id.toString(),
+                    KamusiCubit.get(context).histories[index],
+                  );
+                },
+                itemWidth: 250,
+                itemHeight: 200,
+                layout: SwiperLayout.TINDER,
+                autoplay: true,
+                duration: 5000,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-        Container(
-          height: 50,
-        ),
-        Padding(
-          padding: EdgeInsets.all(10),
-          child: Divider(),
-        ),
-      ],
+      ),
     );
   }
 }
 
-class HistoryContainer extends StatelessWidget {
+class FavoriteContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          margin: EdgeInsets.all(10),
-          child: Row(
-            children: [
-              Text(
-                'HISTORIA',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.baseColor,
-                ),
+    return Expanded(
+      flex: 1,
+      child: Container(
+        height: 130,
+        child: Column(
+          children: [
+            Text(
+              'VIPENDWA',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
-              Spacer(flex: 2),
+            ),
+            Container(
+              height: 105,
+              child: Swiper(
+                itemCount: KamusiCubit.get(context).favorites.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return WordContainer(
+                    'Favorites_' +
+                        KamusiCubit.get(context).favorites[index].id.toString(),
+                    KamusiCubit.get(context).favorites[index],
+                  );
+                },
+                itemWidth: 250,
+                itemHeight: 200,
+                layout: SwiperLayout.TINDER,
+                autoplay: true,
+                duration: 5000,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ignore: must_be_immutable
+class WordContainer extends StatelessWidget {
+  final String heroTag;
+  final Word word;
+
+  WordContainer(this.heroTag, this.word);
+
+  String? wordMeaning;
+  var wordMeanings, wordExtra, wordSynonyms;
+
+  @override
+  Widget build(BuildContext context) {
+    wordMeaning = word.meaning.replaceAll("\\", "");
+    wordMeaning = wordMeaning!.replaceAll('"', '');
+    wordMeaning = wordMeaning!.replaceAll(',', ', ');
+    wordMeaning = wordMeaning!.replaceAll('  ', ' ');
+
+    wordMeanings = wordMeaning!.split("|");
+    wordExtra = wordMeanings[0].split(":");
+    wordSynonyms = word.synonyms.split(',');
+
+    wordMeaning = " ~ " + wordExtra[0].trim() + ".";
+
+    return Card(
+      elevation: 5,
+      child: GestureDetector(
+        child: Container(
+          padding: EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
               Text(
-                'Orodha yote',
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.baseColor,
-                ),
+                word.title,
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                '~ ' + wordMeanings[0],
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+                softWrap: true,
+                style: TextStyle(fontSize: 15),
               ),
             ],
           ),
         ),
-        Container(
-          height: 50,
-        ),
-      ],
+        onTap: () {
+          //navigateToViewer(context, word);
+        },
+      ),
     );
   }
 }

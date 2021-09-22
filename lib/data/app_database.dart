@@ -232,14 +232,19 @@ class AppDatabase {
     return itemList;
   }
 
-  Future<List<Map<String, dynamic>>> getFavoritesList() async {
+  Future<List<Map<String, dynamic>>> getFavoritesList(int limitBy) async {
     Database db = await this.database;
-    var result = db.query(DbStrings.wordsTable, where: DbStrings.isfav + "=1");
+    var result;
+    if (limitBy == 0)
+      result = db.query(DbStrings.wordsTable, where: DbStrings.isfav + "=1");
+    else
+      result = db.query(DbStrings.wordsTable,
+          where: DbStrings.isfav + "=1", limit: limitBy);
     return result;
   }
 
-  Future<List<Word>> getFavorites() async {
-    var itemMapList = await getFavoritesList();
+  Future<List<Word>> getFavorites(int limitBy) async {
+    var itemMapList = await getFavoritesList(limitBy);
 
     List<Word> itemList = [];
     for (int i = 0; i < itemMapList.length; i++) {
@@ -286,14 +291,19 @@ class AppDatabase {
     return result;
   }
 
-  Future<List<Map<String, dynamic>>> getHistoriesList() async {
+  Future<List<Map<String, dynamic>>> getHistoriesList(int limitBy) async {
     Database db = await this.database;
-    var result = db.rawQuery(DbQueries.queryWordsHistory);
+    var result;
+    if (limitBy == 0)
+      result = db.rawQuery(DbQueries.queryWordsHistory);
+    else
+      result = db.rawQuery(
+          DbQueries.queryWordsHistory + ' LIMIT ' + limitBy.toString() + ';');
     return result;
   }
 
-  Future<List<Word>> getHistories() async {
-    var itemMapList = await getHistoriesList();
+  Future<List<Word>> getHistories(int limitBy) async {
+    var itemMapList = await getHistoriesList(limitBy);
 
     List<Word> itemList = [];
     for (int i = 0; i < itemMapList.length; i++) {

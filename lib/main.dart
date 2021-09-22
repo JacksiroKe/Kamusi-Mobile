@@ -129,6 +129,8 @@ class MyApp extends StatelessWidget {
           create: (BuildContext context) => KamusiCubit()
             ..initialLoading(dataLoaded)
             ..loadSearchListView()
+            ..loadHistories()
+            ..loadFavorites()
             ..loadPersonalListView(),
         ),
       ],

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../data/models/models.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../cubit/cubit.dart';
@@ -27,8 +26,8 @@ class PersonalList extends StatelessWidget {
           refreshController.refreshCompleted();
         },
         onLoading: () async {
-          //KamusiCubit.get(context).loadPersonalListView();
-          //refreshController.loadComplete();
+          KamusiCubit.get(context).loadPersonalListView();
+          refreshController.refreshCompleted();
         },
         child: listView(context),
       ),
@@ -52,8 +51,6 @@ class PersonalList extends StatelessWidget {
   }
 
   Widget listView(BuildContext context) {
-    print(
-        'Favourites: ' + KamusiCubit.get(context).personals.length.toString());
     return ListView.builder(
       controller: myScrollController,
       padding: EdgeInsets.zero,
