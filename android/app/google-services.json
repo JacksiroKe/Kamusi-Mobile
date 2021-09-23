@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "162433030179",
+    "project_id": "kiswahili-kamusi",
+    "storage_bucket": "kiswahili-kamusi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:162433030179:android:9cae439b9b8f6e53d07996",
+        "android_client_info": {
+          "package_name": "kiswahili.kamusi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "162433030179-lrkpomsra4j4s08dior3m8b2bat935j9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "kiswahili.kamusi",
+            "certificate_hash": "b840268c1a5de54277fb87404757f4b05b687ca3"
+          }
+        },
+        {
+          "client_id": "162433030179-sf5s7dv8hmu14u1tnh843m1k3o0tubb2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC86CA2schVt5mNrrp8Q44_EM5ZSEoQPaM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "162433030179-sf5s7dv8hmu14u1tnh843m1k3o0tubb2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

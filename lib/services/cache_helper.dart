@@ -3,8 +3,8 @@ import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../utils/strings/app_preferences.dart';
-import 'models/User.dart';
+import '../data/callbacks/callbacks.dart';
+import '../utils/strings/strings.dart';
 
 class CacheHelper {
   static Future<SharedPreferences> getInstance() async {
@@ -30,6 +30,21 @@ class CacheHelper {
   static Future<String?> getPrefStr(String prefKey) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(prefKey);
+  }
+
+  static Future<void> setPrefStr(String key, String value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(key, value);
+  }
+
+  static Future<int?> getPrefInt(String key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getInt(key);
+  }
+
+  static Future<void> setPrefInt(String key, int value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt(key, value);
   }
 
   static Future<User?> getUserProfile() async {

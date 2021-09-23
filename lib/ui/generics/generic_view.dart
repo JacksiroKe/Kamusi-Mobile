@@ -8,9 +8,8 @@ import 'package:flutter_html/style.dart';
 import 'package:share/share.dart';
 
 import '../../../data/app_database.dart';
-import '../../../data/models/item.dart';
-import '../../../utils/strings/app_strings.dart';
-import '../../../utils/strings/db_strings.dart';
+import '../../../data/models/models.dart';
+import '../../../utils/strings/strings.dart';
 
 /// Show a full View of a item meaning
 class GenericView extends StatefulWidget {

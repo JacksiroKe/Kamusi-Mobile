@@ -1,6 +1,3 @@
-// This file declares generic model that will be used to manage
-// sayings, idioms, proverbs from the live database
-
 class Item {
   int? _id;
   String? _title;
@@ -8,6 +5,7 @@ class Item {
   String? _synonyms;
   int? _views;
   int? _isfav;
+  String? _updated;
 
   Item(
     this._title,
@@ -21,6 +19,7 @@ class Item {
   String get synonyms => _synonyms!;
   int get views => _views!;
   int get isfav => _isfav!;
+  String get updated => _updated!;
 
   set id(int newId) {
     this._id = newId;
@@ -46,6 +45,10 @@ class Item {
     this._isfav = newIsfav;
   }
 
+  set updated(String newPosted) {
+    this._updated = newPosted;
+  }
+
   // Convert a Data object into a Map object
   Map<String, dynamic> toMap() {
     var map = Map<String, dynamic>();
@@ -56,6 +59,7 @@ class Item {
     map['meaning'] = _meaning;
     map['views'] = _views;
     map['isfav'] = _isfav;
+    map['updated'] = _updated;
 
     return map;
   }
@@ -67,5 +71,6 @@ class Item {
     this._meaning = map['meaning'];
     this._views = map['views'];
     this._isfav = map['isfav'];
+    this._updated = map['updated'];
   }
 }

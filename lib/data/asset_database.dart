@@ -1,5 +1,3 @@
-// This file declares functions that manages the asset database that is compiled with the app
-
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
@@ -8,9 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../data/callbacks/ItemCallback.dart';
-import '../data/callbacks/WordCallback.dart';
-import '../utils/strings/db_strings.dart';
+import '../data/callbacks/callbacks.dart';
+import '../utils/strings/strings.dart';
 
 class AssetDatabase {
   static AssetDatabase? sqliteHelper; // Singleton DatabaseHelper

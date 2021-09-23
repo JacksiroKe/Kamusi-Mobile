@@ -52,6 +52,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  card_swiper:
+    dependency: "direct main"
+    description:
+      name: card_swiper
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.4"
   carousel_slider:
     dependency: "direct main"
     description:
@@ -150,13 +157,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.2"
-  floating_bottom_navigation_bar:
-    dependency: "direct main"
-    description:
-      name: floating_bottom_navigation_bar
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.5.2"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -169,6 +169,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "7.2.0"
+  flutter_custom_clippers:
+    dependency: "direct main"
+    description:
+      name: flutter_custom_clippers
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   flutter_form_builder:
     dependency: "direct main"
     description:
@@ -268,13 +275,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "8.0.8"
-  formz:
-    dependency: "direct main"
-    description:
-      name: formz
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.4.0"
   html:
     dependency: transitive
     description:
@@ -289,6 +289,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+  http:
+    dependency: "direct main"
+    description:
+      name: http
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.13.3"
   http_parser:
     dependency: transitive
     description:
@@ -471,6 +478,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.0.0"
+  pull_to_refresh:
+    dependency: "direct main"
+    description:
+      name: pull_to_refresh
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
+  purchases_flutter:
+    dependency: "direct main"
+    description:
+      name: purchases_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.4.5"
   quiver:
     dependency: transitive
     description:
@@ -553,13 +574,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
-  smooth_page_indicator:
+  sliding_sheet:
     dependency: "direct main"
     description:
-      name: smooth_page_indicator
+      name: sliding_sheet
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.0-nullsafety.0"
+    version: "0.3.7"
   source_span:
     dependency: transitive
     description:

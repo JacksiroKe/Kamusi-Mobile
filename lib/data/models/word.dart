@@ -1,6 +1,3 @@
-// This file declares word model that will be used to manage
-// words from the live database
-
 class Word {
   int? _id;
   String? _title;
@@ -9,6 +6,7 @@ class Word {
   String? _conjugation;
   int? _views;
   int? _isfav;
+  String? _updated;
 
   Word(this._title, this._meaning, this._synonyms, this._conjugation);
 
@@ -19,6 +17,7 @@ class Word {
   String get conjugation => _conjugation!;
   int get views => _views!;
   int get isfav => _isfav!;
+  String get updated => _updated!;
 
   set id(int newId) {
     this._id = newId;
@@ -48,6 +47,10 @@ class Word {
     this._isfav = newIsfav;
   }
 
+  set updated(String newUpdated) {
+    this._updated = newUpdated;
+  }
+
   // Convert a Data object into a Map object
   Map<String, dynamic> toMap() {
     var map = Map<String, dynamic>();
@@ -60,6 +63,7 @@ class Word {
     map['conjugation'] = _conjugation;
     map['views'] = _views;
     map['isfav'] = _isfav;
+    map['updated'] = _updated;
 
     return map;
   }
@@ -73,5 +77,6 @@ class Word {
     this._conjugation = map['conjugation'];
     this._views = map['views'];
     this._isfav = map['isfav'];
+    this._updated = map['updated'];
   }
 }

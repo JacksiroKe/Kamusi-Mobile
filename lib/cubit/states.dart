@@ -5,11 +5,23 @@ class AppInitialState extends AppStates {}
 
 class AppChangeBottomNavState extends AppStates {}
 
-class AppLoadingHomeDataState extends AppStates {}
+class AppLoadingSearchDataState extends AppStates {}
 
-class AppSuccessHomeDataState extends AppStates {}
+class AppSuccessSearchDataState extends AppStates {}
 
-class AppErrorHomeDataState extends AppStates {}
+class AppErrorSearchDataState extends AppStates {}
+
+class AppLoadingPersonalDataState extends AppStates {}
+
+class AppSuccessPersonalDataState extends AppStates {}
+
+class AppErrorPersonalDataState extends AppStates {}
+
+class AppLoadingTriviaDataState extends AppStates {}
+
+class AppSuccessTriviaDataState extends AppStates {}
+
+class AppErrorTriviaDataState extends AppStates {}
 
 class AppLoadingUserDataState extends AppStates {}
 

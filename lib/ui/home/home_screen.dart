@@ -16,40 +16,70 @@ class HomeScreen extends StatelessWidget {
         return Scaffold(
           extendBody: true,
           body: cubit.tabScreens[cubit.currentIndex],
-          bottomNavigationBar: navigationContainer(cubit),
+          bottomNavigationBar: bottomNavContainer(cubit),
+          floatingActionButton: FloatingActionButton.extended(
+            elevation: 3,
+            onPressed: () {
+              cubit.changeBottom(1);
+            },
+            backgroundColor:
+                cubit.currentIndex == 1 ? Colors.red : AppColors.activeColor,
+            icon: Icon(Icons.help),
+            label: Text(
+              "MASWALI",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
         );
       },
     );
   }
 
-  Widget navigationContainer(KamusiCubit cubit) {
-    return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      selectedItemColor: AppColors.activeColor,
-      onTap: (index) {
-        cubit.changeBottom(index);
-      },
-      currentIndex: cubit.currentIndex,
-      items: [
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.home,
-          ),
-          label: 'Nyumbani',
+  Widget bottomNavContainer(KamusiCubit cubit) {
+    return BottomAppBar(
+      notchMargin: 3,
+      shape: AutomaticNotchedShape(RoundedRectangleBorder(),
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))),
+      child: Container(
+        margin: EdgeInsets.only(left: 50, right: 50),
+        decoration: BoxDecoration(
+            shape: BoxShape.rectangle, borderRadius: BorderRadius.circular(30)),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.home,
+                size: 30,
+                color:
+                    cubit.currentIndex == 0 ? Colors.red : AppColors.baseColor,
+              ),
+              onPressed: () {
+                cubit.changeBottom(0);
+              },
+            ),
+            IconButton(
+              icon: Icon(
+                Icons.person_search_sharp,
+                size: 30,
+                color:
+                    cubit.currentIndex == 2 ? Colors.red : AppColors.baseColor,
+              ),
+              onPressed: () {
+                cubit.changeBottom(2);
+              },
+            )
+          ],
         ),
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.star,
-          ),
-          label: 'Vipendwa',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.history,
-          ),
-          label: 'Historia',
-        ),
-      ],
+      ),
     );
   }
 }

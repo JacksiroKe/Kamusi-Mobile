@@ -7,11 +7,11 @@ import 'package:rxdart/rxdart.dart';
 import '../cubit/cubit.dart';
 import '../utils/bloc_observer.dart';
 import '../utils/network/remote/dio_helper.dart';
+import '../utils/strings/strings.dart';
 import '../utils/styles/app_colors.dart';
-import 'data/cache_helper.dart';
+import 'services/cache_helper.dart';
 import 'ui/home/home_screen.dart';
 import 'ui/init_load_screen.dart';
-import 'utils/strings/app_preferences.dart';
 
 final FlutterLocalNotificationsPlugin appNotifications =
     FlutterLocalNotificationsPlugin();
@@ -98,7 +98,7 @@ Future<void> main() async {
   });
 
   bool? appDbLoaded =
-      await CacheHelper.getPrefBool(SharedPrefKeys.appDatabaseLoaded);
+      await CacheHelper.getPrefBool(SharedPrefKeys.isDatabaseLoaded);
 
   Widget widget;
 
@@ -126,10 +126,13 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (BuildContext context) => KamusiCubit()
-            ..initialLoading(dataLoaded)
-            ..loadHomeListView(),
-        ),
+            create: (BuildContext context) => KamusiCubit()
+              ..initialLoading(dataLoaded)
+              ..loadSearchListView()
+              ..loadHistories()
+              ..loadFavorites()
+              ..loadPersonalListView()
+              ..requestCategoriesData()),
       ],
       child: MaterialApp(
         theme: ThemeData(

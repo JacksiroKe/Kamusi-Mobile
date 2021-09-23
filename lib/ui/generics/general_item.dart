@@ -1,25 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html/style.dart';
-import 'package:moovebeta/utils/styles/app_colors.dart';
-import 'package:provider/provider.dart';
 
-import '../../../data/models/item.dart';
+import '../../../data/models/models.dart';
+import '../../utils/styles/app_colors.dart';
 import 'generic_view.dart';
 
-class AnyItem extends StatelessWidget {
+class GeneralItem extends StatelessWidget {
   final String? heroTag;
   final Item? item;
   final String? type;
-  final BuildContext? context;
 
-  AnyItem(this.heroTag, this.item, this.type, this.context);
+  GeneralItem(this.heroTag, this.item, this.type);
   String? itemBook;
 
   @override
   Widget build(BuildContext context) {
     String strContent = "<b>" + item!.title + "</b>";
-    //String strMeaning = item.meaning;
 
     try {
       if (item!.meaning.length > 1) {
@@ -59,7 +56,7 @@ class AnyItem extends StatelessWidget {
             },
           ),
           onTap: () {
-            navigateToViewer(item!);
+            navigateToViewer(context, item!);
           },
         ),
       );
@@ -68,10 +65,15 @@ class AnyItem extends StatelessWidget {
     }
   }
 
-  void navigateToViewer(Item item) async {
-    await Navigator.push(context!, MaterialPageRoute(builder: (context) {
-      return GenericView(item, type!);
-    }));
+  void navigateToViewer(BuildContext context, Item item) async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return GenericView(item, type!);
+        },
+      ),
+    );
   }
 
   Widget tagView(String tagText) {
@@ -89,9 +91,7 @@ class AnyItem extends StatelessWidget {
           child: Text(
             tagText,
             style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 15),
+                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),
           ),
         );
       } else

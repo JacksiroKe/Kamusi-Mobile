@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../data/callbacks/callbacks.dart';
 import '../data/app_database.dart';
 import '../data/asset_database.dart';
-import '../data/cache_helper.dart';
-import '../data/callbacks/ItemCallback.dart';
-import '../data/callbacks/WordCallback.dart';
-import '../utils/strings/app_preferences.dart';
+import '../services/cache_helper.dart';
+import '../utils/strings/strings.dart';
 import '../utils/styles/app_colors.dart';
 import 'home/home_screen.dart';
 
@@ -101,7 +100,7 @@ class InitLoadState extends State<InitLoadScreen> {
 
   Future<void> goToHomeScreen() async {
     showNotification();
-    CacheHelper.setPrefBool(SharedPrefKeys.appDatabaseLoaded, true);
+    CacheHelper.setPrefBool(SharedPrefKeys.isDatabaseLoaded, true);
     Navigator.pushReplacement(
       context,
       new MaterialPageRoute(
