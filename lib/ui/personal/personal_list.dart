@@ -5,7 +5,7 @@ import '../../../cubit/cubit.dart';
 import '../../../utils/conditional_builder.dart';
 import '../../../utils/strings/strings.dart';
 import '../../../widgets/widgets.dart';
-import '../../words/list/word.dart';
+import '../words/list/word.dart';
 
 // ignore: must_be_immutable
 class PersonalList extends StatelessWidget {

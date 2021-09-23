@@ -214,7 +214,7 @@ class AppDatabase {
       sqlQuery =
           sqlQuery + " OR " + DbStrings.meaning + " LIKE '$searchString%'";
 
-    var result = db.query(DbStrings.wordsTable, where: sqlQuery);
+    var result = db.query(DbStrings.wordsTable, where: sqlQuery, limit: 100);
     return result;
   }
 
@@ -265,7 +265,7 @@ class AppDatabase {
         DbStrings.meaning +
         ' LIKE "$searchString%" $extraQuery';
 
-    var result = db.query(DbStrings.wordsTable, where: sqlQuery);
+    var result = db.query(DbStrings.wordsTable, where: sqlQuery, limit: 100);
     return result;
   }
 

@@ -5,11 +5,13 @@ import 'package:sqflite/sqflite.dart';
 import '../cubit/states.dart';
 import '../data/app_database.dart';
 import '../data/asset_database.dart';
+import '../data/base/event_object.dart';
 import '../data/callbacks/callbacks.dart';
 import '../data/models/models.dart';
-import '../ui/home/search/search.dart';
-import '../ui/home/trivia/trivia_tab.dart';
-import '../ui/home/personal/personal.dart';
+import '../services/futures.dart';
+import '../ui/personal/personal.dart';
+import '../ui/search/search.dart';
+import '../ui/trivia/trivia_tab.dart';
 import '../utils/strings/strings.dart';
 
 class KamusiCubit extends Cubit<AppStates> {
@@ -31,8 +33,11 @@ class KamusiCubit extends Cubit<AppStates> {
 
   List<Word> searchList = [], words = [], personals = [];
   List<Word> histories = [], favorites = [];
+  List<TriviaCat> categories = [];
   List<Item> items = [];
   late String letterSearch;
+
+  int? triviaLevel = 1, triviaLimit = 30;
 
   List searchToggles = List.generate(searchFilters.length, (index) => false);
   String activeSearchFilter = searchFilters[0],
@@ -49,6 +54,22 @@ class KamusiCubit extends Cubit<AppStates> {
 
   void onPersonalFilterFocus(bool focus, String filter) {
     personalToggles[personalFilters.indexOf(filter)] = focus;
+  }
+
+  List triviaToggles = List.generate(triviaFilters.length, (index) => false);
+  String activeTriviaFilter = triviaFilters[0],
+      activeTriviaTab = triviaFilters[0];
+
+  void onTriviaFilterFocus(bool focus, String filter) {
+    triviaToggles[triviaFilters.indexOf(filter)] = focus;
+  }
+
+  void onTriviaSetLimit(int limit) {
+    triviaLimit = limit;
+  }
+
+  void onTriviaSetLevel(int level) {
+    triviaLevel = level;
   }
 
   void changeBottom(int index) {
@@ -69,7 +90,7 @@ class KamusiCubit extends Cubit<AppStates> {
     });
   }
 
-  void loadSearchListView() {
+  void loadSearchListView() async {
     emit(AppLoadingSearchDataState());
     words.clear();
     items.clear();
@@ -124,7 +145,7 @@ class KamusiCubit extends Cubit<AppStates> {
     }
   }
 
-  void loadPersonalListView() {
+  void loadPersonalListView() async {
     emit(AppLoadingPersonalDataState());
     personals.clear();
     dbFuture = appDB.initializeDatabase();
@@ -157,7 +178,7 @@ class KamusiCubit extends Cubit<AppStates> {
     }
   }
 
-  void loadHistories() {
+  void loadHistories() async {
     emit(AppLoadingPersonalDataState());
     histories.clear();
     dbFuture = appDB.initializeDatabase();
@@ -171,7 +192,7 @@ class KamusiCubit extends Cubit<AppStates> {
     });
   }
 
-  void loadFavorites() {
+  void loadFavorites() async {
     emit(AppLoadingPersonalDataState());
     favorites.clear();
     dbFuture = appDB.initializeDatabase();
@@ -286,5 +307,43 @@ class KamusiCubit extends Cubit<AppStates> {
   Future<void> finishSavingData() async {
     emit(AppSuccessSearchDataState());
     loadSearchListView();
+  }
+
+  // Method to request data either from the db or server
+  void requestCategoriesData() async {
+    EventObject eventObject = await getCategories();
+
+    switch (eventObject.id) {
+      case EventConstants.requestSuccessful:
+        {
+          categories = TriviaCat.fromData(
+              eventObject.object as List<Map<String, dynamic>>);
+        }
+        break;
+
+      case EventConstants.requestUnsuccessful:
+        {
+          //showDialog(
+          //     context: context, builder: (context) => noInternetDialog());
+        }
+        break;
+
+      case EventConstants.noInternetConnection:
+        {
+          //showDialog(
+          //     context: context, builder: (context) => noInternetDialog());
+        }
+        break;
+    }
+  }
+
+  void loadTriviaView() async {
+    emit(AppLoadingTriviaDataState());
+    categories.clear();
+    dbFuture = appDB.initializeDatabase();
+
+    if (activeTriviaTab == AppStrings.categories) {
+      requestCategoriesData();
+    }
   }
 }

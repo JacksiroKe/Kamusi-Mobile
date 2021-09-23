@@ -17,6 +17,12 @@ class AppSuccessPersonalDataState extends AppStates {}
 
 class AppErrorPersonalDataState extends AppStates {}
 
+class AppLoadingTriviaDataState extends AppStates {}
+
+class AppSuccessTriviaDataState extends AppStates {}
+
+class AppErrorTriviaDataState extends AppStates {}
+
 class AppLoadingUserDataState extends AppStates {}
 
 class AppErrorUserDataState extends AppStates {}

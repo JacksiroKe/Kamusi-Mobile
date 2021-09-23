@@ -6,8 +6,8 @@ import '../../../cubit/cubit.dart';
 import '../../../data/models/models.dart';
 import '../../../utils/strings/strings.dart';
 import '../../../utils/styles/app_colors.dart';
-import '../../generics/general_item.dart';
-import '../../words/list/word_item.dart';
+import '../generics/general_item.dart';
+import '../words/list/word_item.dart';
 
 // ignore: must_be_immutable
 class SearchList extends StatelessWidget {

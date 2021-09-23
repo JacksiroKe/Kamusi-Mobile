@@ -18,6 +18,10 @@ class AppStrings {
   static const String favorites = 'vipendwa';
   static const String searches = 'utafutaji';
 
+  static const String categories = 'makundi';
+  static const String leaderboard = 'ubao wa viongozi';
+  static const String settings = 'mipangilio';
+
   static const String revCatKey = 'danXhdPXSzsDcJgElNAexHaGnvsPMSqY';
 
   static const String campaign =
@@ -28,6 +32,8 @@ class AppStrings {
 
   static const String nothing =
       'Ala! Yaani hivi kumbe hamna chochote huku!\nHebu fanya jambo ...';
+  static const String stillnotready =
+      'Samahani! Umbile hili lingali linashughulikiwa.\n\nSorry! This feature is still in development.';
 
   static const String copyThis = "Nakili kwa Clipboard";
   static const String shareThis = "Shiriki";
@@ -95,25 +101,26 @@ class AppStrings {
   static const String searchTab = "Tafuta";
   static const String triviaTab = "TriviaScreen";
 
-  static const String triviaTitle = "Trivia ya Kamusi";
+  static const String triviaTitle = "Maswali ya Kamusi";
 
-  static const String triviaPage = "Makundi ya Trivia";
-  static const String triviaListPage = "Trivia za Awali";
+  static const String triviaPage = "Makundi ya Maswali";
+  static const String triviaListPage = "Maswali ya Awali";
   static const String triviaPageDescription = "Chagua kundi kuanza";
-  static const String triviaList = "Trivia Zangu za Awali";
+  static const String triviaList = "Maswali Yangu za Awali";
   static const String triviaListDescription =
-      "Pitia au Rudia Trivia Zako za Awali";
-  static const String triviaLeaderboard = "Orodha ya Kuongoza";
+      "Pitia au Rudia Maswali Yako za Awali";
+  static const String triviaLeaderboard = "Orodha ya Viongozi";
   static const String triviaLeaderboardDescription = "Ubao wa Wanaoongoza";
-  static const String triviaSettings = "Mipangilio ya Trivia";
-  static const String triviaSettingsDescription = "Badili Mipangilio ya Trivia";
+  static const String triviaSettings = "Mipangilio ya Maswali";
+  static const String triviaSettingsDescription =
+      "Badili Mipangilio ya Maswali";
   static const String triviaSubscription = "Usajili (Subscription)";
   static const String triviaSubscriptionDescription =
       "Tazama Usajili (Manage Subscription)";
   static const String triviaSubscribe = "Jisajili (Subscribe) kwa huduma hii";
 
   static const String triviaPageInstruction =
-      "Chagua kundi la Trivia ili kuanza";
+      "Chagua kundi la Maswali ili kuanza";
   static const String triviaQuizInstruction = "Chagua Idadi ya Maswali";
   static const String triviaLevelInstruction = "Chagua Kiwango cha Ugumu";
   static const String triviaStart = "Anza!";
@@ -124,7 +131,7 @@ class AppStrings {
 
   static const String justaMinute = "Hebu kidogo ...";
   static const String areYouleaving =
-      "Hivi una hakika unataka kuondoka kutoka kwenye Trivia?\n\n Iwapo utarejea hapa itakubidi uanze Trivia upya!";
+      "Hivi una hakika unataka kuondoka kutoka kwenye Maswali?\n\n Iwapo utarejea hapa itakubidi uanze Maswali upya!";
   static const String yes = "Ndio";
   static const String no = "Hapana";
   static const String next = "Lijalo";
@@ -132,14 +139,14 @@ class AppStrings {
   static const String selectAnswer = "Sharti uchague jibu ili kuendelea.";
 
   static const String answers = "Majibu";
-  static const String triviaDetails = "Malelezo ya Trivia";
+  static const String triviaDetails = "Malelezo ya Maswali";
   static const String triviaCategory = "Kikundi/Mada";
   static const String triviaLevel = "Kiwango";
-  static const String resultsScreen = "Matokeo ya Trivia";
+  static const String resultsScreen = "Matokeo ya Maswali";
   static const String totalQuestions = "Jumla ya Maswali";
   static const String score = "Alama";
   static const String correctAnswers = "Majibu Sahihi";
-  static const String gotoHomescreen = "Rejea kwa Trivia";
+  static const String gotoHomescreen = "Rejea kwa Maswali";
   static const String checkAnswers = "Angalia Majibu";
   static const String done = "Malizia";
   static const String correctAnswer = "Jibu Sawa: ";

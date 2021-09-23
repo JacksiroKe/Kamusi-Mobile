@@ -45,7 +45,7 @@ class WordScreen extends StatelessWidget {
       child: Scaffold(
         key: globalKey,
         appBar: AppBar(
-          title: appbarContainer(),
+          title: appbarTitle(),
           actions: <Widget>[
             IconButton(
               icon: Icon(
@@ -64,7 +64,7 @@ class WordScreen extends StatelessWidget {
     );
   }
 
-  Widget appbarContainer() {
+  Widget appbarTitle() {
     return Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -75,10 +75,7 @@ class WordScreen extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
           Text(
-            'Maana ' +
-                wordMeanings.length.toString() +
-                ', Visawe ' +
-                wordSynonyms.length.toString(),
+            AppStrings.appName,
             style: TextStyle(fontSize: 14),
           ),
         ],

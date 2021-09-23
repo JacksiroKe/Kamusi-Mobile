@@ -117,9 +117,8 @@ class SearchBar extends SearchDelegate<List> {
     if (query.isNotEmpty) {
       List<Word> tmpList = [];
       for (int i = 0; i < itemList.length; i++) {
-        if (itemList[i].title.toLowerCase().startsWith(query.toLowerCase())
-            //|| itemList[i].meaning.toLowerCase().contains(query.toLowerCase())
-            ) tmpList.add(itemList[i]);
+        if (itemList[i].title.toLowerCase().startsWith(query.toLowerCase()))
+          tmpList.add(itemList[i]);
       }
       filtered = tmpList;
     }

@@ -8,12 +8,16 @@ import 'search.dart';
 
 // ignore: must_be_immutable
 class SearchBody extends StatelessWidget {
-  List<Word> wordlist = [];
+  List<Word> wordlist = [], wordlist1 = [];
 
   @override
   Widget build(BuildContext context) {
     wordlist = KamusiCubit.get(context).words;
-
+    if (wordlist.length != 0) {
+      for (int i = 0; i < 200; i++) {
+        wordlist1.add(wordlist[i]);
+      }
+    }
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -43,7 +47,7 @@ class SearchBody extends StatelessWidget {
             flex: 1,
             child: Container(
               margin: EdgeInsets.only(left: 5, right: 5),
-              child: SearchList(wordlist),
+              child: SearchList(wordlist1),
             ),
           ),
           footerContainer(context),

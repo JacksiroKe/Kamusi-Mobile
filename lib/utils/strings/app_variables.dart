@@ -54,6 +54,12 @@ final personalFilters = [
   AppStrings.searches
 ];
 
+final triviaFilters = [
+  AppStrings.categories,
+  AppStrings.leaderboard,
+  AppStrings.settings
+];
+
 final List<String> letters = [
   'A',
   'B',

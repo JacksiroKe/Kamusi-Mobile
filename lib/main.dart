@@ -126,13 +126,13 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (BuildContext context) => KamusiCubit()
-            ..initialLoading(dataLoaded)
-            ..loadSearchListView()
-            ..loadHistories()
-            ..loadFavorites()
-            ..loadPersonalListView(),
-        ),
+            create: (BuildContext context) => KamusiCubit()
+              ..initialLoading(dataLoaded)
+              ..loadSearchListView()
+              ..loadHistories()
+              ..loadFavorites()
+              ..loadPersonalListView()
+              ..requestCategoriesData()),
       ],
       child: MaterialApp(
         theme: ThemeData(
